@@ -1,5 +1,5 @@
 size 10 7
-
+set font texcmss
 set texlabels 1
 
 begin graph
