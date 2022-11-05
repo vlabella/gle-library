@@ -36,7 +36,7 @@
 !                                                                      !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Drawing Feynman diagrams, version 1.1
+! Drawing Feynman diagrams, version 1.1.3
 
 ! variable names beginning with F are reserved for internal use
 
@@ -56,7 +56,6 @@
 ! flastl$         - type of last drawn line
 ! fcirc           - the arc is a circle
 
-pi = 3.14159265358979323846264338328
 ! sin table
 fs1 = 0.156434465040230869010105319467
 fs2 = 0.309016994374947424102293417183
@@ -353,6 +352,7 @@ DefDashL = 0.3
 DefDashF = 0.5
 DashL = DefDashL  ! period
 DashF = DefDashF  ! fraction of the period that is filled
+DashN = 0         ! correction to the number of dashes
 DashB = 1
 DashE = 1
 ! DashB>0: the line begins with a dash of the length DashB*DashF*DashL
@@ -368,14 +368,14 @@ sub Dash x y
             begin rotate fa
                 if DashB>0 then
                     if DashE>0 then
-                        fn = fix(fl/DashL-(DashB+DashE-1)*DashF-0.5)
+                        fn = fix(fl/DashL-(DashB+DashE-1)*DashF-0.5)+DashN
                         fd = fl/(fn+(DashB+DashE-1)*DashF+1)
                         fm = fl-((DashE-1)*DashF+1)*fd
                         aline DashB*DashF*fd 0
                         amove fl-DashE*DashF*fd 0
                         aline fl 0
                     else
-                        fn = fix(fl/DashL-DashB*DashF+DashE*(1-DashF)+0.5)
+                        fn = fix(fl/DashL-DashB*DashF+DashE*(1-DashF)+0.5)+DashN
                         fd = fl/(fn+DashB*DashF-DashE*(1-DashF))
                         fm = fl+DashE*(1-DashF)*fd
                         aline DashB*DashF*fd 0
@@ -383,18 +383,19 @@ sub Dash x y
                     f1 = ((DashB-1)*DashF+1)*fd
                 else
                     if DashE>0 then
-                        fn = fix(fl/DashL+DashB*(1-DashF)-DashE*DashF+0.5)
+                        fn = fix(fl/DashL+DashB*(1-DashF)-DashE*DashF+0.5)+DashN
                         fd = fl/(fn-DashB*(1-DashF)+DashE*DashF)
                         fm = fl-((DashE-1)*DashF+1)*fd
                         amove fl-DashE*DashF*fd 0
                         aline fl 0
                     else
-                        fn = fix(fl/DashL+(DashB+DashE-1)*DashF+1.5)
+                        fn = fix(fl/DashL+(DashB+DashE-1)*DashF+1.5)+DashN
                         fd = fl/(fn-(DashB+DashE-1)*DashF-1)
                         fm = fl+DashE*(1-DashF)*fd
                     end if
                     f1 = -DashB*(1-DashF)*fd
                 end if
+                DashN = 0
                 if fn>0 then
                     f2 = DashF*fd
                     for fi = f1 to fm step fd
@@ -418,7 +419,7 @@ sub Dash0
         fdl = DashL/fr*180/pi
         if DashB>0 then
             if DashE>0 then
-                fn = fix(fl/fdl-(DashB+DashE-1)*DashF-0.5)
+                fn = fix(fl/fdl-(DashB+DashE-1)*DashF-0.5)+DashN
                 fd = fl/(fn+(DashB+DashE-1)*DashF+1)
                 f2 = DashF*fd
                 if fc>0 then
@@ -433,7 +434,7 @@ sub Dash0
                     arc fr fa-fl fa-fl+DashE*f2
                 end if
             else
-                fn = fix(fl/fdl-DashB*DashF+DashE*(1-DashF)+0.5)
+                fn = fix(fl/fdl-DashB*DashF+DashE*(1-DashF)+0.5)+DashN
                 fd = fl/(fn+DashB*DashF-DashE*(1-DashF))
                 f2 = DashF*fd
                 if fc>0 then
@@ -448,7 +449,7 @@ sub Dash0
             end if
         else
             if DashE>0 then
-                fn = fix(fl/fdl+DashB*(1-DashF)-DashE*DashF+0.5)
+                fn = fix(fl/fdl+DashB*(1-DashF)-DashE*DashF+0.5)+DashN
                 fd = fl/(fn-DashB*(1-DashF)+DashE*DashF)
                 f2 = DashF*fd
                 if fc>0 then
@@ -461,7 +462,7 @@ sub Dash0
                     arc fr fa-fl fa-fl+DashE*f2
                 end if
             else
-                fn = fix(fl/fdl+(DashB+DashE-1)*DashF+1.5)
+                fn = fix(fl/fdl+(DashB+DashE-1)*DashF+1.5)+DashN
                 fd = fl/(fn-(DashB+DashE-1)*DashF-1)
                 f2 = DashF*fd
                 if fc>0 then
@@ -473,6 +474,7 @@ sub Dash0
                 end if
             end if
         end if
+        DashN = 0
         if fn>0 then
             if fc>0 then
                 begin rotate fa
@@ -874,531 +876,267 @@ sub Photon0
     fm = f2+(2*fix(0.5*(fn+1)+0.1)-3)*fd
     amove fx fy
     begin origin
-        if fc>0 then
-            begin rotate fa
-                amove fr 0
-                fx1 = fr*(1-f1*fs1)*cos(1*pi*f2/1800)
-                fy1 = fr*(1-f1*fs1)*sin(1*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs2)*cos(2*pi*f2/1800)
-                fy1 = fr*(1-f1*fs2)*sin(2*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs3)*cos(3*pi*f2/1800)
-                fy1 = fr*(1-f1*fs3)*sin(3*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs4)*cos(4*pi*f2/1800)
-                fy1 = fr*(1-f1*fs4)*sin(4*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs5)*cos(5*pi*f2/1800)
-                fy1 = fr*(1-f1*fs5)*sin(5*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs6)*cos(6*pi*f2/1800)
-                fy1 = fr*(1-f1*fs6)*sin(6*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs7)*cos(7*pi*f2/1800)
-                fy1 = fr*(1-f1*fs7)*sin(7*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs8)*cos(8*pi*f2/1800)
-                fy1 = fr*(1-f1*fs8)*sin(8*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs9)*cos(9*pi*f2/1800)
-                fy1 = fr*(1-f1*fs9)*sin(9*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1)*cos(pi*f2/180)
-                fy1 = fr*(1-f1)*sin(pi*f2/180)
-                aline fx1 fy1
-            end rotate
-            if fn>2.5 then
-                for fi = f2 to fm step 2*fd
-                    begin rotate fa+fi
-                        amove fr*(1-f1) 0
-                        fx1 = fr*(1-f1*fs9)*cos(1*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs9)*sin(1*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs8)*cos(2*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs8)*sin(2*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs7)*cos(3*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs7)*sin(3*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs6)*cos(4*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs6)*sin(4*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs5)*cos(5*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs5)*sin(5*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs4)*cos(6*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs4)*sin(6*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs3)*cos(7*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs3)*sin(7*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs2)*cos(8*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs2)*sin(8*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs1)*cos(9*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs1)*sin(9*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*cos(pi*fd/360)
-                        fy1 = fr*sin(pi*fd/360)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs1)*cos(11*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs1)*sin(11*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs2)*cos(12*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs2)*sin(12*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs3)*cos(13*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs3)*sin(13*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs4)*cos(14*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs4)*sin(14*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs5)*cos(15*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs5)*sin(15*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs6)*cos(16*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs6)*sin(16*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs7)*cos(17*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs7)*sin(17*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs8)*cos(18*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs8)*sin(18*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs9)*cos(19*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs9)*sin(19*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1)*cos(pi*fd/180)
-                        fy1 = fr*(1+f1)*sin(pi*fd/180)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs9)*cos(21*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs9)*sin(21*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs8)*cos(22*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs8)*sin(22*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs7)*cos(23*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs7)*sin(23*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs6)*cos(24*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs6)*sin(24*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs5)*cos(25*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs5)*sin(25*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs4)*cos(26*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs4)*sin(26*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs3)*cos(27*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs3)*sin(27*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs2)*cos(28*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs2)*sin(28*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1+f1*fs1)*cos(29*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs1)*sin(29*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*cos(pi*fd/120)
-                        fy1 = fr*sin(pi*fd/120)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs1)*cos(31*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs1)*sin(31*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs2)*cos(32*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs2)*sin(32*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs3)*cos(33*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs3)*sin(33*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs4)*cos(34*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs4)*sin(34*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs5)*cos(35*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs5)*sin(35*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs6)*cos(36*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs6)*sin(36*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs7)*cos(37*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs7)*sin(37*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs8)*cos(38*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs8)*sin(38*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1*fs9)*cos(39*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs9)*sin(39*pi*fd/3600)
-                        aline fx1 fy1
-                        fx1 = fr*(1-f1)*cos(pi*fd/90)
-                        fy1 = fr*(1-f1)*sin(pi*fd/90)
-                        aline fx1 fy1
-                    end rotate
-                next fi
-            end if
-            f2 = fl-fm-fd
-            if abs(fn-2*fix(0.5*fn))<0.1 then
-                begin rotate fa+fm+fd
+        begin rotate fa
+            amove fr 0
+            fx1 = fr*(1-f1*fs1)*cos(1*pi*f2/1800)
+            fy1 = fr*(1-f1*fs1)*sin(1*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs2)*cos(2*pi*f2/1800)
+            fy1 = fr*(1-f1*fs2)*sin(2*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs3)*cos(3*pi*f2/1800)
+            fy1 = fr*(1-f1*fs3)*sin(3*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs4)*cos(4*pi*f2/1800)
+            fy1 = fr*(1-f1*fs4)*sin(4*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs5)*cos(5*pi*f2/1800)
+            fy1 = fr*(1-f1*fs5)*sin(5*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs6)*cos(6*pi*f2/1800)
+            fy1 = fr*(1-f1*fs6)*sin(6*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs7)*cos(7*pi*f2/1800)
+            fy1 = fr*(1-f1*fs7)*sin(7*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs8)*cos(8*pi*f2/1800)
+            fy1 = fr*(1-f1*fs8)*sin(8*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1*fs9)*cos(9*pi*f2/1800)
+            fy1 = fr*(1-f1*fs9)*sin(9*pi*f2/1800)
+            aline fx1 fc*fy1
+            fx1 = fr*(1-f1)*cos(pi*f2/180)
+            fy1 = fr*(1-f1)*sin(pi*f2/180)
+            aline fx1 fc*fy1
+        end rotate
+        if fn>2.5 then
+            for fi = f2 to fm step 2*fd
+                begin rotate fa+fc*fi
                     amove fr*(1-f1) 0
                     fx1 = fr*(1-f1*fs9)*cos(1*pi*fd/3600)
                     fy1 = fr*(1-f1*fs9)*sin(1*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs8)*cos(2*pi*fd/3600)
                     fy1 = fr*(1-f1*fs8)*sin(2*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs7)*cos(3*pi*fd/3600)
                     fy1 = fr*(1-f1*fs7)*sin(3*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs6)*cos(4*pi*fd/3600)
                     fy1 = fr*(1-f1*fs6)*sin(4*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs5)*cos(5*pi*fd/3600)
                     fy1 = fr*(1-f1*fs5)*sin(5*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs4)*cos(6*pi*fd/3600)
                     fy1 = fr*(1-f1*fs4)*sin(6*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs3)*cos(7*pi*fd/3600)
                     fy1 = fr*(1-f1*fs3)*sin(7*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs2)*cos(8*pi*fd/3600)
                     fy1 = fr*(1-f1*fs2)*sin(8*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1-f1*fs1)*cos(9*pi*fd/3600)
                     fy1 = fr*(1-f1*fs1)*sin(9*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*cos(pi*fd/360)
                     fy1 = fr*sin(pi*fd/360)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs1)*cos(11*pi*fd/3600)
                     fy1 = fr*(1+f1*fs1)*sin(11*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs2)*cos(12*pi*fd/3600)
                     fy1 = fr*(1+f1*fs2)*sin(12*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs3)*cos(13*pi*fd/3600)
                     fy1 = fr*(1+f1*fs3)*sin(13*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs4)*cos(14*pi*fd/3600)
                     fy1 = fr*(1+f1*fs4)*sin(14*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs5)*cos(15*pi*fd/3600)
                     fy1 = fr*(1+f1*fs5)*sin(15*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs6)*cos(16*pi*fd/3600)
                     fy1 = fr*(1+f1*fs6)*sin(16*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs7)*cos(17*pi*fd/3600)
                     fy1 = fr*(1+f1*fs7)*sin(17*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs8)*cos(18*pi*fd/3600)
                     fy1 = fr*(1+f1*fs8)*sin(18*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1*fs9)*cos(19*pi*fd/3600)
                     fy1 = fr*(1+f1*fs9)*sin(19*pi*fd/3600)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
                     fx1 = fr*(1+f1)*cos(pi*fd/180)
                     fy1 = fr*(1+f1)*sin(pi*fd/180)
-                    aline fx1 fy1
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs9)*cos(21*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs9)*sin(21*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs8)*cos(22*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs8)*sin(22*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs7)*cos(23*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs7)*sin(23*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs6)*cos(24*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs6)*sin(24*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs5)*cos(25*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs5)*sin(25*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs4)*cos(26*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs4)*sin(26*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs3)*cos(27*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs3)*sin(27*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs2)*cos(28*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs2)*sin(28*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1+f1*fs1)*cos(29*pi*fd/3600)
+                    fy1 = fr*(1+f1*fs1)*sin(29*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*cos(pi*fd/120)
+                    fy1 = fr*sin(pi*fd/120)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs1)*cos(31*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs1)*sin(31*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs2)*cos(32*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs2)*sin(32*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs3)*cos(33*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs3)*sin(33*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs4)*cos(34*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs4)*sin(34*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs5)*cos(35*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs5)*sin(35*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs6)*cos(36*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs6)*sin(36*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs7)*cos(37*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs7)*sin(37*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs8)*cos(38*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs8)*sin(38*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1*fs9)*cos(39*pi*fd/3600)
+                    fy1 = fr*(1-f1*fs9)*sin(39*pi*fd/3600)
+                    aline fx1 fc*fy1
+                    fx1 = fr*(1-f1)*cos(pi*fd/90)
+                    fy1 = fr*(1-f1)*sin(pi*fd/90)
+                    aline fx1 fc*fy1
                 end rotate
-                f2 = f2-fd
-                f1 = -f1
-            end if
-            begin rotate fa+fl
-                fx1 = fr*(1-f1)*cos(pi*f2/180)
-                fy1 = fr*(1-f1)*sin(pi*f2/180)
-                amove fx1 -fy1
-                fx1 = fr*(1-f1*fs9)*cos(9*pi*f2/1800)
-                fy1 = fr*(1-f1*fs9)*sin(9*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs8)*cos(8*pi*f2/1800)
-                fy1 = fr*(1-f1*fs8)*sin(8*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs7)*cos(7*pi*f2/1800)
-                fy1 = fr*(1-f1*fs7)*sin(7*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs6)*cos(6*pi*f2/1800)
-                fy1 = fr*(1-f1*fs6)*sin(6*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs5)*cos(5*pi*f2/1800)
-                fy1 = fr*(1-f1*fs5)*sin(5*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs4)*cos(4*pi*f2/1800)
-                fy1 = fr*(1-f1*fs4)*sin(4*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs3)*cos(3*pi*f2/1800)
-                fy1 = fr*(1-f1*fs3)*sin(3*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs2)*cos(2*pi*f2/1800)
-                fy1 = fr*(1-f1*fs2)*sin(2*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs1)*cos(1*pi*f2/1800)
-                fy1 = fr*(1-f1*fs1)*sin(1*pi*f2/1800)
-                aline fx1 -fy1
-                aline fr 0
-            end rotate
-        else
-            begin rotate fa
-                amove fr 0
-                fx1 = fr*(1-f1*fs1)*cos(1*pi*f2/1800)
-                fy1 = fr*(1-f1*fs1)*sin(1*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs2)*cos(2*pi*f2/1800)
-                fy1 = fr*(1-f1*fs2)*sin(2*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs3)*cos(3*pi*f2/1800)
-                fy1 = fr*(1-f1*fs3)*sin(3*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs4)*cos(4*pi*f2/1800)
-                fy1 = fr*(1-f1*fs4)*sin(4*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs5)*cos(5*pi*f2/1800)
-                fy1 = fr*(1-f1*fs5)*sin(5*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs6)*cos(6*pi*f2/1800)
-                fy1 = fr*(1-f1*fs6)*sin(6*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs7)*cos(7*pi*f2/1800)
-                fy1 = fr*(1-f1*fs7)*sin(7*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs8)*cos(8*pi*f2/1800)
-                fy1 = fr*(1-f1*fs8)*sin(8*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1*fs9)*cos(9*pi*f2/1800)
-                fy1 = fr*(1-f1*fs9)*sin(9*pi*f2/1800)
-                aline fx1 -fy1
-                fx1 = fr*(1-f1)*cos(pi*f2/180)
-                fy1 = fr*(1-f1)*sin(pi*f2/180)
-                aline fx1 -fy1
-            end rotate
-            if fn>2.5 then
-                for fi = f2 to fm step 2*fd
-                    begin rotate fa-fi
-                        amove fr*(1-f1) 0
-                        fx1 = fr*(1-f1*fs9)*cos(1*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs9)*sin(1*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs8)*cos(2*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs8)*sin(2*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs7)*cos(3*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs7)*sin(3*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs6)*cos(4*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs6)*sin(4*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs5)*cos(5*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs5)*sin(5*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs4)*cos(6*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs4)*sin(6*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs3)*cos(7*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs3)*sin(7*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs2)*cos(8*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs2)*sin(8*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs1)*cos(9*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs1)*sin(9*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*cos(pi*fd/360)
-                        fy1 = fr*sin(pi*fd/360)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs1)*cos(11*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs1)*sin(11*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs2)*cos(12*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs2)*sin(12*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs3)*cos(13*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs3)*sin(13*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs4)*cos(14*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs4)*sin(14*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs5)*cos(15*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs5)*sin(15*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs6)*cos(16*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs6)*sin(16*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs7)*cos(17*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs7)*sin(17*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs8)*cos(18*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs8)*sin(18*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs9)*cos(19*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs9)*sin(19*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1)*cos(pi*fd/180)
-                        fy1 = fr*(1+f1)*sin(pi*fd/180)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs9)*cos(21*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs9)*sin(21*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs8)*cos(22*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs8)*sin(22*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs7)*cos(23*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs7)*sin(23*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs6)*cos(24*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs6)*sin(24*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs5)*cos(25*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs5)*sin(25*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs4)*cos(26*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs4)*sin(26*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs3)*cos(27*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs3)*sin(27*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs2)*cos(28*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs2)*sin(28*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1+f1*fs1)*cos(29*pi*fd/3600)
-                        fy1 = fr*(1+f1*fs1)*sin(29*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*cos(pi*fd/120)
-                        fy1 = fr*sin(pi*fd/120)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs1)*cos(31*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs1)*sin(31*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs2)*cos(32*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs2)*sin(32*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs3)*cos(33*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs3)*sin(33*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs4)*cos(34*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs4)*sin(34*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs5)*cos(35*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs5)*sin(35*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs6)*cos(36*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs6)*sin(36*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs7)*cos(37*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs7)*sin(37*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs8)*cos(38*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs8)*sin(38*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1*fs9)*cos(39*pi*fd/3600)
-                        fy1 = fr*(1-f1*fs9)*sin(39*pi*fd/3600)
-                        aline fx1 -fy1
-                        fx1 = fr*(1-f1)*cos(pi*fd/90)
-                        fy1 = fr*(1-f1)*sin(pi*fd/90)
-                        aline fx1 -fy1
-                    end rotate
-                next fi
-            end if
-            f2 = fl-fm-fd
-            if abs(fn-2*fix(0.5*fn))<0.1 then
-                begin rotate fa-fm-fd
-                    amove fr*(1-f1) 0
-                    fx1 = fr*(1-f1*fs9)*cos(1*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs9)*sin(1*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs8)*cos(2*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs8)*sin(2*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs7)*cos(3*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs7)*sin(3*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs6)*cos(4*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs6)*sin(4*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs5)*cos(5*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs5)*sin(5*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs4)*cos(6*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs4)*sin(6*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs3)*cos(7*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs3)*sin(7*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs2)*cos(8*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs2)*sin(8*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1-f1*fs1)*cos(9*pi*fd/3600)
-                    fy1 = fr*(1-f1*fs1)*sin(9*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*cos(pi*fd/360)
-                    fy1 = fr*sin(pi*fd/360)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs1)*cos(11*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs1)*sin(11*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs2)*cos(12*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs2)*sin(12*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs3)*cos(13*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs3)*sin(13*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs4)*cos(14*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs4)*sin(14*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs5)*cos(15*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs5)*sin(15*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs6)*cos(16*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs6)*sin(16*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs7)*cos(17*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs7)*sin(17*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs8)*cos(18*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs8)*sin(18*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1*fs9)*cos(19*pi*fd/3600)
-                    fy1 = fr*(1+f1*fs9)*sin(19*pi*fd/3600)
-                    aline fx1 -fy1
-                    fx1 = fr*(1+f1)*cos(pi*fd/180)
-                    fy1 = fr*(1+f1)*sin(pi*fd/180)
-                    aline fx1 -fy1
-                end rotate
-                f2 = f2-fd
-                f1 = -f1
-            end if
-            begin rotate fa-fl
-                fx1 = fr*(1-f1)*cos(pi*f2/180)
-                fy1 = fr*(1-f1)*sin(pi*f2/180)
-                amove fx1 fy1
-                fx1 = fr*(1-f1*fs9)*cos(9*pi*f2/1800)
-                fy1 = fr*(1-f1*fs9)*sin(9*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs8)*cos(8*pi*f2/1800)
-                fy1 = fr*(1-f1*fs8)*sin(8*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs7)*cos(7*pi*f2/1800)
-                fy1 = fr*(1-f1*fs7)*sin(7*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs6)*cos(6*pi*f2/1800)
-                fy1 = fr*(1-f1*fs6)*sin(6*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs5)*cos(5*pi*f2/1800)
-                fy1 = fr*(1-f1*fs5)*sin(5*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs4)*cos(4*pi*f2/1800)
-                fy1 = fr*(1-f1*fs4)*sin(4*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs3)*cos(3*pi*f2/1800)
-                fy1 = fr*(1-f1*fs3)*sin(3*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs2)*cos(2*pi*f2/1800)
-                fy1 = fr*(1-f1*fs2)*sin(2*pi*f2/1800)
-                aline fx1 fy1
-                fx1 = fr*(1-f1*fs1)*cos(1*pi*f2/1800)
-                fy1 = fr*(1-f1*fs1)*sin(1*pi*f2/1800)
-                aline fx1 fy1
-                aline fr 0
-            end rotate
+            next fi
         end if
+        f2 = fl-fm-fd
+        if abs(fn-2*fix(0.5*fn))<0.1 then
+            begin rotate fa+fc*(fm+fd)
+                amove fr*(1-f1) 0
+                fx1 = fr*(1-f1*fs9)*cos(1*pi*fd/3600)
+                fy1 = fr*(1-f1*fs9)*sin(1*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs8)*cos(2*pi*fd/3600)
+                fy1 = fr*(1-f1*fs8)*sin(2*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs7)*cos(3*pi*fd/3600)
+                fy1 = fr*(1-f1*fs7)*sin(3*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs6)*cos(4*pi*fd/3600)
+                fy1 = fr*(1-f1*fs6)*sin(4*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs5)*cos(5*pi*fd/3600)
+                fy1 = fr*(1-f1*fs5)*sin(5*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs4)*cos(6*pi*fd/3600)
+                fy1 = fr*(1-f1*fs4)*sin(6*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs3)*cos(7*pi*fd/3600)
+                fy1 = fr*(1-f1*fs3)*sin(7*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs2)*cos(8*pi*fd/3600)
+                fy1 = fr*(1-f1*fs2)*sin(8*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1-f1*fs1)*cos(9*pi*fd/3600)
+                fy1 = fr*(1-f1*fs1)*sin(9*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*cos(pi*fd/360)
+                fy1 = fr*sin(pi*fd/360)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs1)*cos(11*pi*fd/3600)
+                fy1 = fr*(1+f1*fs1)*sin(11*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs2)*cos(12*pi*fd/3600)
+                fy1 = fr*(1+f1*fs2)*sin(12*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs3)*cos(13*pi*fd/3600)
+                fy1 = fr*(1+f1*fs3)*sin(13*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs4)*cos(14*pi*fd/3600)
+                fy1 = fr*(1+f1*fs4)*sin(14*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs5)*cos(15*pi*fd/3600)
+                fy1 = fr*(1+f1*fs5)*sin(15*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs6)*cos(16*pi*fd/3600)
+                fy1 = fr*(1+f1*fs6)*sin(16*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs7)*cos(17*pi*fd/3600)
+                fy1 = fr*(1+f1*fs7)*sin(17*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs8)*cos(18*pi*fd/3600)
+                fy1 = fr*(1+f1*fs8)*sin(18*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1*fs9)*cos(19*pi*fd/3600)
+                fy1 = fr*(1+f1*fs9)*sin(19*pi*fd/3600)
+                aline fx1 fc*fy1
+                fx1 = fr*(1+f1)*cos(pi*fd/180)
+                fy1 = fr*(1+f1)*sin(pi*fd/180)
+                aline fx1 fc*fy1
+            end rotate
+            f2 = f2-fd
+            f1 = -f1
+        end if
+        begin rotate fa+fc*fl
+            fx1 = fr*(1-f1)*cos(pi*f2/180)
+            fy1 = fr*(1-f1)*sin(pi*f2/180)
+            amove fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs9)*cos(9*pi*f2/1800)
+            fy1 = fr*(1-f1*fs9)*sin(9*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs8)*cos(8*pi*f2/1800)
+            fy1 = fr*(1-f1*fs8)*sin(8*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs7)*cos(7*pi*f2/1800)
+            fy1 = fr*(1-f1*fs7)*sin(7*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs6)*cos(6*pi*f2/1800)
+            fy1 = fr*(1-f1*fs6)*sin(6*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs5)*cos(5*pi*f2/1800)
+            fy1 = fr*(1-f1*fs5)*sin(5*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs4)*cos(4*pi*f2/1800)
+            fy1 = fr*(1-f1*fs4)*sin(4*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs3)*cos(3*pi*f2/1800)
+            fy1 = fr*(1-f1*fs3)*sin(3*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs2)*cos(2*pi*f2/1800)
+            fy1 = fr*(1-f1*fs2)*sin(2*pi*f2/1800)
+            aline fx1 -fc*fy1
+            fx1 = fr*(1-f1*fs1)*cos(1*pi*f2/1800)
+            fy1 = fr*(1-f1*fs1)*sin(1*pi*f2/1800)
+            aline fx1 -fc*fy1
+            aline fr 0
+        end rotate
     end origin
     amove ffx ffy
 end sub
@@ -1431,17 +1169,28 @@ end sub
 
 DefGluonW = 0.75
 GluonW = DefGluonW  ! Winding coefficient, should be >1/pi
+GluonS = 1
+!  1 - the ends are "symmetric"
+! -1 - the ends are "different"
 
 ! Gluon line from the current point to x,y
 sub Gluon x y
     flastl$ = "Gluon"
     @Feyn x y
     if fl>0 then
-        fn = fix(0.5*fl/PhotonL-GluonW)
-        if fn<1 then
-            fn = 1
+        if GluonS>0 then
+            fn = fix(0.5*fl/PhotonL-GluonW)
+            if fn<1 then
+                fn = 0
+            end if
+            fd = fl/(2*fn+1+2*GluonW)
+        else
+            fn = fix(0.5*fl/PhotonL+0.5)
+            if fn<1 then
+                fn = 1
+            end if
+            fd = fl/(2*fn)
         end if
-        fd = fl/(2*fn+1+2*GluonW)
         fm = fd*(2*fn-1)
         begin origin
             begin rotate fa
@@ -1490,29 +1239,31 @@ sub Gluon x y
                         aline 2*fd                      0
                     end translate
                 next fi
-                begin translate 2*fn*fd 0
-                    amove 0 0
-                    aline (0.05+GluonW*(1-fs9))*fd fs1*PhotonA
-                    aline (0.1+GluonW*(1-fs8))*fd  fs2*PhotonA
-                    aline (0.15+GluonW*(1-fs7))*fd fs3*PhotonA
-                    aline (0.2+GluonW*(1-fs6))*fd  fs4*PhotonA
-                    aline (0.25+GluonW*(1-fs5))*fd fs5*PhotonA
-                    aline (0.3+GluonW*(1-fs4))*fd  fs6*PhotonA
-                    aline (0.35+GluonW*(1-fs3))*fd fs7*PhotonA
-                    aline (0.4+GluonW*(1-fs2))*fd  fs8*PhotonA
-                    aline (0.45+GluonW*(1-fs1))*fd fs9*PhotonA
-                    aline (0.5+GluonW)*fd          PhotonA
-                    aline (0.55+GluonW*(1+fs1))*fd fs9*PhotonA
-                    aline (0.6+GluonW*(1+fs2))*fd  fs8*PhotonA
-                    aline (0.65+GluonW*(1+fs3))*fd fs7*PhotonA
-                    aline (0.7+GluonW*(1+fs4))*fd  fs6*PhotonA
-                    aline (0.75+GluonW*(1+fs5))*fd fs5*PhotonA
-                    aline (0.8+GluonW*(1+fs6))*fd  fs4*PhotonA
-                    aline (0.85+GluonW*(1+fs7))*fd fs3*PhotonA
-                    aline (0.9+GluonW*(1+fs8))*fd  fs2*PhotonA
-                    aline (0.95+GluonW*(1+fs9))*fd fs1*PhotonA
-                    aline (1+2*GluonW)*fd          0
-                end translate
+                if GluonS>0 then
+                    begin translate 2*fn*fd 0
+                        amove 0 0
+                        aline (0.05+GluonW*(1-fs9))*fd  fs1*PhotonA
+                        aline (0.1+GluonW*(1-fs8))*fd   fs2*PhotonA
+                        aline (0.15+GluonW*(1-fs7))*fd  fs3*PhotonA
+                        aline (0.2+GluonW*(1-fs6))*fd   fs4*PhotonA
+                        aline (0.25+GluonW*(1-fs5))*fd  fs5*PhotonA
+                        aline (0.3+GluonW*(1-fs4))*fd   fs6*PhotonA
+                        aline (0.35+GluonW*(1-fs3))*fd  fs7*PhotonA
+                        aline (0.4+GluonW*(1-fs2))*fd   fs8*PhotonA
+                        aline (0.45+GluonW*(1-fs1))*fd  fs9*PhotonA
+                        aline (0.5+GluonW)*fd           PhotonA
+                        aline (0.55+GluonW*(1+fs1))*fd  fs9*PhotonA
+                        aline (0.6+GluonW*(1+fs2))*fd   fs8*PhotonA
+                        aline (0.65+GluonW*(1+fs3))*fd  fs7*PhotonA
+                        aline (0.7+GluonW*(1+fs4))*fd   fs6*PhotonA
+                        aline (0.75+GluonW*(1+fs5))*fd  fs5*PhotonA
+                        aline (0.8+GluonW*(1+fs6))*fd   fs4*PhotonA
+                        aline (0.85+GluonW*(1+fs7))*fd  fs3*PhotonA
+                        aline (0.9+GluonW*(1+fs8))*fd   fs2*PhotonA
+                        aline (0.95+GluonW*(1+fs9))*fd  fs1*PhotonA
+                        aline (1+2*GluonW)*fd           0
+                    end translate
+                end if
             end rotate
         end origin
         amove ffx ffy
@@ -1520,391 +1271,211 @@ sub Gluon x y
 end sub
 
 sub Gluon0
-    fn = fix(fr*fl*pi/360/PhotonL-GluonW)
-    if fn<1 then
-        fn = 1
+    if GluonS>0 then
+        fn = fix(fr*fl*pi/360/PhotonL-GluonW)
+        if fn<1 then
+            fn = 0
+        end if
+        fd = fl/(2*fn+1+2*GluonW)
+    else
+        fn = fix(fr*fl*pi/360/PhotonL+0.5)
+        if fn<1 then
+            fn = 1
+        end if
+        fd = fl/(2*fn)
     end if
-    fd = fl/(2*fn+1+2*GluonW)
     fm = fd*(2*fn-1)
+    fg = -fc*PhotonA
     amove fx fy
     begin origin
-        if fc>0 then
-            for fi = 0 to fm step 2*fd
-                begin rotate fa+fi
-                    amove fr 0
-                    f1 = fr-PhotonA*fs1
-                    f2 = (0.05+GluonW*(1-fs9))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs2
-                    f2 = (0.1+GluonW*(1-fs8))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs3
-                    f2 = (0.15+GluonW*(1-fs7))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs4
-                    f2 = (0.2+GluonW*(1-fs6))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs5
-                    f2 = (0.25+GluonW*(1-fs5))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs6
-                    f2 = (0.3+GluonW*(1-fs4))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs7
-                    f2 = (0.35+GluonW*(1-fs3))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs8
-                    f2 = (0.4+GluonW*(1-fs2))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs9
-                    f2 = (0.45+GluonW*(1-fs1))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA
-                    f2 = (0.5+GluonW)*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs9
-                    f2 = (0.55+GluonW*(1+fs1))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs8
-                    f2 = (0.6+GluonW*(1+fs2))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs7
-                    f2 = (0.65+GluonW*(1+fs3))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs6
-                    f2 = (0.7+GluonW*(1+fs4))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs5
-                    f2 = (0.75+GluonW*(1+fs5))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs4
-                    f2 = (0.8+GluonW*(1+fs6))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs3
-                    f2 = (0.85+GluonW*(1+fs7))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs2
-                    f2 = (0.9+GluonW*(1+fs8))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr-PhotonA*fs1
-                    f2 = (0.95+GluonW*(1+fs9))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr
-                    f2 = (1+2*GluonW)*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs1
-                    f2 = (1.05+GluonW*(1+fs9))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs2
-                    f2 = (1.1+GluonW*(1+fs8))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs3
-                    f2 = (1.15+GluonW*(1+fs7))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs4
-                    f2 = (1.2+GluonW*(1+fs6))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs5
-                    f2 = (1.25+GluonW*(1+fs5))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs6
-                    f2 = (1.3+GluonW*(1+fs4))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs7
-                    f2 = (1.35+GluonW*(1+fs3))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs8
-                    f2 = (1.4+GluonW*(1+fs2))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs9
-                    f2 = (1.45+GluonW*(1+fs1))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA
-                    f2 = (1.5+GluonW)*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs9
-                    f2 = (1.55+GluonW*(1-fs1))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs8
-                    f2 = (1.6+GluonW*(1-fs2))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs7
-                    f2 = (1.65+GluonW*(1-fs3))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs6
-                    f2 = (1.7+GluonW*(1-fs4))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs5
-                    f2 = (1.75+GluonW*(1-fs5))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs4
-                    f2 = (1.8+GluonW*(1-fs6))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs3
-                    f2 = (1.85+GluonW*(1-fs7))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs2
-                    f2 = (1.9+GluonW*(1-fs8))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr+PhotonA*fs1
-                    f2 = (1.95+GluonW*(1-fs9))*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                    f1 = fr
-                    f2 = 2*fd/180*pi
-                    aline f1*cos(f2) f1*sin(f2)
-                end rotate
-            next fi
-            begin rotate fa+2*fn*fd
+        for fi = 0 to fm step 2*fd
+            begin rotate fa+fc*fi
                 amove fr 0
-                f1 = fr-PhotonA*fs1
+                f1 = fr+fg*fs1
                 f2 = (0.05+GluonW*(1-fs9))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs2
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs2
                 f2 = (0.1+GluonW*(1-fs8))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs3
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs3
                 f2 = (0.15+GluonW*(1-fs7))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs4
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs4
                 f2 = (0.2+GluonW*(1-fs6))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs5
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs5
                 f2 = (0.25+GluonW*(1-fs5))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs6
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs6
                 f2 = (0.3+GluonW*(1-fs4))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs7
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs7
                 f2 = (0.35+GluonW*(1-fs3))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs8
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs8
                 f2 = (0.4+GluonW*(1-fs2))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs9
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs9
                 f2 = (0.45+GluonW*(1-fs1))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg
                 f2 = (0.5+GluonW)*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs9
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs9
                 f2 = (0.55+GluonW*(1+fs1))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs8
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs8
                 f2 = (0.6+GluonW*(1+fs2))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs7
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs7
                 f2 = (0.65+GluonW*(1+fs3))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs6
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs6
                 f2 = (0.7+GluonW*(1+fs4))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs5
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs5
                 f2 = (0.75+GluonW*(1+fs5))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs4
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs4
                 f2 = (0.8+GluonW*(1+fs6))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs3
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs3
                 f2 = (0.85+GluonW*(1+fs7))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs2
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs2
                 f2 = (0.9+GluonW*(1+fs8))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
-                f1 = fr-PhotonA*fs1
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs1
                 f2 = (0.95+GluonW*(1+fs9))*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
+                aline f1*cos(f2) fc*f1*sin(f2)
                 f1 = fr
                 f2 = (1+2*GluonW)*fd/180*pi
-                aline f1*cos(f2) f1*sin(f2)
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs1
+                f2 = (1.05+GluonW*(1+fs9))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs2
+                f2 = (1.1+GluonW*(1+fs8))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs3
+                f2 = (1.15+GluonW*(1+fs7))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs4
+                f2 = (1.2+GluonW*(1+fs6))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs5
+                f2 = (1.25+GluonW*(1+fs5))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs6
+                f2 = (1.3+GluonW*(1+fs4))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs7
+                f2 = (1.35+GluonW*(1+fs3))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs8
+                f2 = (1.4+GluonW*(1+fs2))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs9
+                f2 = (1.45+GluonW*(1+fs1))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg
+                f2 = (1.5+GluonW)*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs9
+                f2 = (1.55+GluonW*(1-fs1))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs8
+                f2 = (1.6+GluonW*(1-fs2))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs7
+                f2 = (1.65+GluonW*(1-fs3))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs6
+                f2 = (1.7+GluonW*(1-fs4))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs5
+                f2 = (1.75+GluonW*(1-fs5))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs4
+                f2 = (1.8+GluonW*(1-fs6))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs3
+                f2 = (1.85+GluonW*(1-fs7))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs2
+                f2 = (1.9+GluonW*(1-fs8))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr-fg*fs1
+                f2 = (1.95+GluonW*(1-fs9))*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr
+                f2 = 2*fd/180*pi
+                aline f1*cos(f2) fc*f1*sin(f2)
             end rotate
-        else
-            for fi = 0 to fm step 2*fd
-                begin rotate fa-fi
-                    amove fr 0
-                    f1 = fr+PhotonA*fs1
-                    f2 = (0.05+GluonW*(1-fs9))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs2
-                    f2 = (0.1+GluonW*(1-fs8))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs3
-                    f2 = (0.15+GluonW*(1-fs7))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs4
-                    f2 = (0.2+GluonW*(1-fs6))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs5
-                    f2 = (0.25+GluonW*(1-fs5))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs6
-                    f2 = (0.3+GluonW*(1-fs4))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs7
-                    f2 = (0.35+GluonW*(1-fs3))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs8
-                    f2 = (0.4+GluonW*(1-fs2))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs9
-                    f2 = (0.45+GluonW*(1-fs1))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA
-                    f2 = (0.5+GluonW)*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs9
-                    f2 = (0.55+GluonW*(1+fs1))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs8
-                    f2 = (0.6+GluonW*(1+fs2))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs7
-                    f2 = (0.65+GluonW*(1+fs3))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs6
-                    f2 = (0.7+GluonW*(1+fs4))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs5
-                    f2 = (0.75+GluonW*(1+fs5))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs4
-                    f2 = (0.8+GluonW*(1+fs6))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs3
-                    f2 = (0.85+GluonW*(1+fs7))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs2
-                    f2 = (0.9+GluonW*(1+fs8))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr+PhotonA*fs1
-                    f2 = (0.95+GluonW*(1+fs9))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr
-                    f2 = (1+2*GluonW)*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs1
-                    f2 = (1.05+GluonW*(1+fs9))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs2
-                    f2 = (1.1+GluonW*(1+fs8))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs3
-                    f2 = (1.15+GluonW*(1+fs7))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs4
-                    f2 = (1.2+GluonW*(1+fs6))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs5
-                    f2 = (1.25+GluonW*(1+fs5))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs6
-                    f2 = (1.3+GluonW*(1+fs4))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs7
-                    f2 = (1.35+GluonW*(1+fs3))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs8
-                    f2 = (1.4+GluonW*(1+fs2))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs9
-                    f2 = (1.45+GluonW*(1+fs1))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA
-                    f2 = (1.5+GluonW)*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs9
-                    f2 = (1.55+GluonW*(1-fs1))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs8
-                    f2 = (1.6+GluonW*(1-fs2))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs7
-                    f2 = (1.65+GluonW*(1-fs3))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs6
-                    f2 = (1.7+GluonW*(1-fs4))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs5
-                    f2 = (1.75+GluonW*(1-fs5))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs4
-                    f2 = (1.8+GluonW*(1-fs6))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs3
-                    f2 = (1.85+GluonW*(1-fs7))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs2
-                    f2 = (1.9+GluonW*(1-fs8))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr-PhotonA*fs1
-                    f2 = (1.95+GluonW*(1-fs9))*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                    f1 = fr
-                    f2 = 2*fd/180*pi
-                    aline f1*cos(f2) -f1*sin(f2)
-                end rotate
-            next fi
-            begin rotate fa-2*fn*fd
+        next fi
+        if GluonS>0 then
+            begin rotate fa+2*fc*fn*fd
                 amove fr 0
-                f1 = fr+PhotonA*fs1
+                f1 = fr+fg*fs1
                 f2 = (0.05+GluonW*(1-fs9))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs2
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs2
                 f2 = (0.1+GluonW*(1-fs8))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs3
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs3
                 f2 = (0.15+GluonW*(1-fs7))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs4
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs4
                 f2 = (0.2+GluonW*(1-fs6))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs5
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs5
                 f2 = (0.25+GluonW*(1-fs5))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs6
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs6
                 f2 = (0.3+GluonW*(1-fs4))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs7
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs7
                 f2 = (0.35+GluonW*(1-fs3))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs8
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs8
                 f2 = (0.4+GluonW*(1-fs2))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs9
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs9
                 f2 = (0.45+GluonW*(1-fs1))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg
                 f2 = (0.5+GluonW)*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs9
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs9
                 f2 = (0.55+GluonW*(1+fs1))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs8
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs8
                 f2 = (0.6+GluonW*(1+fs2))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs7
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs7
                 f2 = (0.65+GluonW*(1+fs3))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs6
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs6
                 f2 = (0.7+GluonW*(1+fs4))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs5
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs5
                 f2 = (0.75+GluonW*(1+fs5))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs4
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs4
                 f2 = (0.8+GluonW*(1+fs6))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs3
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs3
                 f2 = (0.85+GluonW*(1+fs7))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs2
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs2
                 f2 = (0.9+GluonW*(1+fs8))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
-                f1 = fr+PhotonA*fs1
+                aline f1*cos(f2) fc*f1*sin(f2)
+                f1 = fr+fg*fs1
                 f2 = (0.95+GluonW*(1+fs9))*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
+                aline f1*cos(f2) fc*f1*sin(f2)
                 f1 = fr
                 f2 = (1+2*GluonW)*fd/180*pi
-                aline f1*cos(f2) -f1*sin(f2)
+                aline f1*cos(f2) fc*f1*sin(f2)
             end rotate
         end if
     end origin
@@ -1943,7 +1514,7 @@ ArrowL = DefArrowL ! length
 ArrowA = DefArrowA ! amplitude
 ArrowD = 0         ! displacement
 
-! Arrow on the last line, fraction F from the beginning
+! Arrow on the last line, fraction f from the beginning
 sub Arrow f
     if fl>0 then
         gsave
@@ -1977,32 +1548,8 @@ ShadowL = DefShadowL  ! length
 ShadowA = DefShadowA  ! amplitude
 ShadowC$ = "white"
 
-! Shadows lines below the last line, fraction F from the beginning
-sub Shadow f
-    if fl>0 then
-        gsave
-        amove fx fy
-        begin origin
-            if fr>0 then
-                f1 = fa+fc*(f*fl+90)
-                fx1 = 0
-                fy1 = -fc*fr
-            else
-                f1 = fa
-                fx1 = f*fl
-                fy1 = 0
-            end if
-            begin rotate f1
-                amove fx1 fy1
-                begin origin
-                    amove -ShadowL -ShadowA
-                    box 2*ShadowL 2*ShadowA fill ShadowC$ nobox
-                end origin
-            end rotate
-        end origin
-        grestore
-    end if
-    !redraw line
+! Redraw the last line
+sub Shadow0
     if flastl$="Fermion" then
         amove fx fy
         @Fermion ffx ffy
@@ -2089,6 +1636,34 @@ sub Shadow f
     end if
 end sub
 
+! Shadows lines below the last line, fraction f from the beginning
+sub Shadow f
+    if fl>0 then
+        gsave
+        amove fx fy
+        begin origin
+            if fr>0 then
+                f1 = fa+fc*(f*fl+90)
+                fx1 = 0
+                fy1 = -fc*fr
+            else
+                f1 = fa
+                fx1 = f*fl
+                fy1 = 0
+            end if
+            begin rotate f1
+                amove fx1 fy1
+                begin origin
+                    amove -ShadowL -ShadowA
+                    box 2*ShadowL 2*ShadowA fill ShadowC$ nobox
+                end origin
+            end rotate
+        end origin
+        grestore
+    end if
+    @Shadow0
+end sub
+
 DefMomL = 0.35
 DefMomD = 0.25
 MomL = DefMomL ! half-length
@@ -2155,4 +1730,105 @@ sub DMom f
         end origin
         grestore
     end if
+end sub
+
+! Arc-shaped arrow for indication of momentum near the last line
+sub Mom2 f
+    if fr<0 then
+        @Mom f
+    else
+        f2 = fr-fc*MomD ! radius
+        if f2<ArrowA+fe then
+            @Mom f
+        else
+            f0 = 360/pi*MomL/f2      ! angular length
+            f1 = fa+fc*(f*fl+0.5*f0) ! slope center -> end of the arrow
+            gsave
+            amove fx fy
+            begin origin
+                begin rotate f1
+                    if fc>0 then
+                        arc f2 -f0 0
+                        amove f2-ArrowA -ArrowL
+                        aline f2 0
+                        aline f2+ArrowA -ArrowL
+                    else
+                        arc f2 0 f0
+                        amove f2-ArrowA ArrowL
+                        aline f2 0
+                        aline f2+ArrowA ArrowL
+                    end if
+                end rotate
+            end origin
+            grestore
+        end if
+    end if
+end sub
+
+! Arc-shaped double arrow near the last line
+sub DMom2 f
+    if fr<0 then
+        @DMom f
+    else
+        f2 = fr-fc*MomD ! radius
+        if f2<ArrowA+fe then
+            @DMom f
+        else
+            f0 = 360/pi*MomL/f2      ! angular length
+            f1 = fa+fc*(f*fl+0.5*f0) ! slope center -> end of the arrow
+            f3 = sqr(ArrowA*(f2-DoubleA))-sqr(ArrowL)*DoubleA*(2*f2-DoubleA)
+            if f3<0 then
+                @DMom f
+            else
+                f4 = sqr(ArrowA*(f2+DoubleA))+sqr(ArrowL)*DoubleA*(2*f2+DoubleA)
+                f3 = 180/pi*asin(ArrowL*(f2*ArrowA-sqrt(f3))/(sqr(ArrowL)+sqr(ArrowA))/(f2-DoubleA))
+                f4 = 180/pi*asin(ArrowL*(sqrt(f4)-f2*ArrowA)/(sqr(ArrowL)+sqr(ArrowA))/(f2+DoubleA))
+                gsave
+                amove fx fy
+                begin origin
+                    begin rotate f1
+                        if fc>0 then
+                            arc f2-DoubleA -f0 -f3
+                            arc f2+DoubleA -f0 -f4
+                            amove f2-ArrowA -ArrowL
+                            aline f2 0
+                            aline f2+ArrowA -ArrowL
+                        else
+                            arc f2-DoubleA f3 f0
+                            arc f2+DoubleA f4 f0
+                            amove f2-ArrowA ArrowL
+                            aline f2 0
+                            aline f2+ArrowA ArrowL
+                        end if
+                    end rotate
+                end origin
+                grestore
+            end if
+        end if
+    end if
+end sub
+
+! Shadows lines below the last line, fraction f from the beginning
+sub Shadow2 f
+    if fr<ShadowA+fe then
+        @Shadow f
+    else
+        f1 = fa+fc*f*fl
+        f2 = ShadowL/fr
+        fs = sin(f2)
+        fc = cos(f2)
+        f2=180/pi*f2
+        gsave
+        amove fx fy
+        begin origin
+            begin rotate f1
+                begin path fill ShadowC$
+                    narc fr+ShadowA f2 -f2
+                    arc fr-ShadowA -f2 f2
+                end path
+            end rotate
+        end origin
+        grestore
+    end if
+    @Shadow0
 end sub
