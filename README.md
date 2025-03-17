@@ -11,17 +11,20 @@ Installation of include files is only needed if they get updated prior to the ne
 
 To install the new include files
 
- `cd src` & `make install-includes` or `nmake install-includes`
+ `cd src`
+ `make install-includes` or `nmake install-includes`
 
 ## Building all figures
 
 To build all the figures
 
-  `cd src` & `make` or `nmake`
+  `cd src`
+  `make` or `nmake`
 
 To clean the build
 
-  `cd src` & `make clean` or `nmake clean`
+  `cd src`
+  `make clean` or `nmake clean`
 
 ## Contributing Figures
 
