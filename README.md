@@ -36,7 +36,7 @@ To contribute figures to the library:
 
 3. Put all the files needed to create the figure in that folder.  Do not put any of the GLE output files such as PNG, EPS etc.  Just put the source files that GLE needs to create the figure.
 
-4. If the GLE figure uses an include that that maybe useful to others put it in the include folder, otherwise place it in the same folder as the figure.
+4. If the GLE figure uses an include file that that maybe useful to others place it in the `include` folder, otherwise place it in the same folder as the figure.
 
 5. Create a `config.yaml` file in the same folder as the figure with the following content. Replace the `<>` with the requested information. Optional information should be left blank if not used.
 
