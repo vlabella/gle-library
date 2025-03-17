@@ -1,10 +1,10 @@
 # gle-library
 
-GLE Library - Library of figures and include files for [GLE](http://glx.sourceforge.io).  The include files come bundled with the GLE distribution.  However, they may get updated prior to the next release.  This repo makes them available separately for users to modify and/or update outside of the GLE release schedule.  In addition it enealbes users to contribute thier own routines and sample figures.  See instructions below.
+GLE Library - Library of figures and include files for [GLE](http://glx.sourceforge.io).  The include files come bundled with the GLE distribution.  However, they may get updated prior to the next release.  This repo makes them available separately for users to modify and/or update outside of the GLE release schedule.  In addition, it enables users to contribute their own routines and sample figures.  See instructions below.
 
 ## Installation Instructions
 
-Installation of include files is only needed if they get updted prior to the next release of GLE. The installation command below copies all the .gle files from /include to the /gleinc folder at the root of your GLE installation:
+Installation of include files is only needed if they get updated prior to the next release of GLE. The installation command below copies all the .gle files from /include to the /gleinc folder at the root of your GLE installation:
 
 * windows: `C:\Program Files\GLE\gleinc`.
 * Linux: `/usr/share/gle/gleinc`.
