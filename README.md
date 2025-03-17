@@ -30,40 +30,44 @@ To clean the build
 
 To contribute figures to the library:
 
-1. clone the repository.
+1. Clone the repository.
 
-2. create a folder in the `src` folder with a unique name, preferably the same name as the figure.
+2. Create a folder in the `src` folder with a unique name, preferably the same name as the figure.
 
-3. put all the files needed to create the figure in that folder.  Do not put any of the GLE output files such as PNG, EPS etc.  Just the source files.
+3. Put all the files needed to create the figure in that folder.  Do not put any of the GLE output files such as PNG, EPS etc.  Just the source files.
 
-4. if the GLE figure uses an include that that maybe useful to others put it in the include folder, otherwise place it in the same folder as the figure.
+4. If the GLE figure uses an include that that maybe useful to others put it in the include folder, otherwise place it in the same folder as the figure.
 
-5. create a `cofig.yaml` file in the same folder as the figure with the following content.
+5. Create a `config.yaml` file in the same folder as the figure with the following content. Replace the `<>` with the requested information. Optional information should be left blank if not used.
 
 ```yaml
-author: <authors name if desired>
-author_email: <authors email if desired>
+author: <optional authors name>
+author_email: <optional authors email>
 cairo: <true or false>
 category: <id of category see scripts/categories.yaml>
-description: <description of figure>
+description: <optional description of figure>
 filename: <gle filename>
-name: <name of figure>
-notes: <any other notes>
+name: <name of the figure>
+notes: <optiona notes about the figure>
 ```
 
-6. add and commit everything and then submit a pull request.
+6. Add and commit everything and then submit a pull request.
 
 7. Once the pull request is accepted the new figure will appear on the site.  It may take a few days as this has to be done manually by the maintainer.
 
 ## Contributing Include Files
 
-Place new include files that others may fins useful in the `include` folder.  Submit a pull request.  They will appear on teh site and in the next release of GLE.
+Place new include files that others may find useful in the `include` folder.  Submit a pull request.  They will appear on the site and in the next release of GLE.
 
 ## Regenerating the Makefile
 
-To regerenate the Makefile run
+To regenerate the Makefile run
 
 ```
 cd scripts
 python gen_makefile.pl
 ```
+
+## Adding categories
+
+Consult the `scripts/categories.yaml` file fo rhte list of categories.  These mirror the ones on the GLE website.  Add new category and submit a pull request if desired.
