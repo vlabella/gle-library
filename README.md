@@ -48,7 +48,7 @@ category: <id of category see scripts/categories.yaml>
 description: <optional description of figure>
 filename: <gle filename>
 name: <name of the figure>
-notes: <optiona notes about the figure>
+notes: <optional notes about the figure>
 ```
 
 6. Add and commit everything and then submit a pull request.
