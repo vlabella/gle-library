@@ -1,0 +1,60 @@
+- id: scatter
+  name:        Scatter Plots
+  order:       1
+  description: Scatter plots or plots of data points with and without fits.
+- id: line
+  name:        Line Plots
+  order:       2
+  description: Plots contianing lines generated from mathematical functions.
+- id: bar
+  name:        Bar Plots
+  order:       3
+  description: Plots using bars to depict quantities and histograms.
+- id: polar
+  name:        Polar Plots
+  order:       4
+  description: Two dimensional polar plots of data and functions.
+- id: pie
+  name:        Pie Charts
+  order:       5
+  description: Pie chart plots.
+- id: 3d
+  name:        Three Dimensional Plots
+  order:       6
+  description: Three dimensional plots and graphs.
+- id: contour
+  name:        Contour Plots
+  order:       7
+  description: Plots of countour lines.
+- id: colormap
+  name:        Color Maps
+  order:       8
+  description: Charts using color to depict values or false color maps.
+- id: chart
+  name:        Charts or Reference Materials
+  order:       9
+  description: Reference charts and digrams.
+- id: circuit
+  name:        Electronic Circuits
+  order:       10
+  description: Electrical circuits and diagrams.
+- id: diagram
+  name:        Diagrams
+  order:       11
+  description: Diagrams, drawings, or other artwork.
+- id: feynman
+  name:        Feynman Diagrams
+  order:       12
+  description: A pictorial representation of the mathematical expressions describing the behavior and interaction of subatomic particles.
+- id: fractal
+  name:        Fractals
+  order:       13
+  description: A fractal is a complex geometric shape that can be split into parts, each of which is a reduced-scale copy of the whole. This property is known as self-similarity.
+- id: spm
+  name:        SPM Images
+  order:       14
+  description: Scanning probe microscopy (SPM) images.
+- id: other
+  name:        Other
+  order:       15
+  description: Other uncatagorized figures.

@@ -1,0 +1,24 @@
+!
+!  ascatterplot.gle - A scatter plot - plots data contained in data.csv and fits it with a straight line
+!
+size 10 10/1.6
+
+set font texcmss
+set hei 0.3
+amove 0 0
+begin graph
+    scale auto
+    data "data.csv" d1 = c1 , c2
+    d1 marker fcircle color red key "My Data"
+    let d2 = linfit d1 myslope myoffset myR2
+    d2 line color black key "Fit"
+    xtitle "Time (s)"
+    ytitle "Distance (m)"
+    key compact position tl
+end graph
+! display information on the graph
+amove xg(20) yg(3)
+write "R^2 = "+format$(myR2,"fix 4")
+rmove 0 -0.3
+write "slope = "+format$(myslope,"fix 2")
+

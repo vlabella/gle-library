@@ -1,0 +1,50 @@
+! 'Hello world' script.
+! Author: Francois Tonneau
+
+! In GLE scripts, lines that start with '!' are comments and are ignored by the
+! compiler.
+
+! Before trying to draw anything, we must define the width and height of the
+! drawing area. Here we define it to be 10-cm wide, 4.5-cm high (GLE understands
+! all units to be centimeters):
+
+size 10 4.5
+
+! We define line width to be 0.06 cm and the drawing color to be 'indianred',
+! one of the colors known by name to GLE (the full list of names can be found
+! in the User Manual):
+
+set lwidth 0.06
+set color indianred
+
+! Now we move to a point of absolute coordinates ('amove') x = 1 cm, y = 1 cm
+! and we draw a 8-cm wide, 2.2-cm high box. The box will have rounded corners
+! with a corner radius of 0.3 cm:
+
+amove 1 1
+box 8 2.2 round 0.3
+
+! For drawing text, we choose a sans-serif font ('ss': see the User Manual for
+! a list of fonts) and a height of 1 cm. For more precise control over color,
+! we specify it in the #RRGGBB format. Finally, we write 'Hello, World!' at
+! position x = 2.25 cm, y = 1.75 cm:
+
+set font ss
+set hei 1
+set color #004e58
+
+amove 2.25 1.75
+write "Hello, World!"
+
+! ==========
+
+! To create a PDF image from this script, save it in a folder of your choice,
+! open a command prompt, go to your folder, and type 'gle -d pdf hello.gle'. If
+! all goes well, GLE will compile the script into a hello.pdf file that can be
+! opened and viewed like any other PDF document.
+
+! The '-d' option is short for '-device' and tells GLE which type of output
+! (eps, pdf, ...) you expect from script compilation. Type 'gle -help device'
+! at the command prompt to see which output formats are available on your
+! system. Type 'gle -help' for information about other GLE options.
+

@@ -1,0 +1,119 @@
+! Example of Mandelbrot set.
+! Author: Francois Tonneau
+
+size 18 16
+
+! ------------------------------
+! Set plot resolution.
+! ------------------------------
+
+resolution = 1250           ! Use a value < 1000 if plotting takes too long!
+
+itermax = 30
+worth = 4
+
+! ------------------------------
+! Cover background with default hue.
+! ------------------------------
+
+! We overflow borders by 2 cm to cover possible white margins.
+amove -1 -1
+box pagewidth()+2 pageheight()+2 fill rgb255(38, 44, 64)
+
+! ------------------------------
+! Define plot parameters.
+! ------------------------------
+
+xmax = pagewidth()
+ymax = pageheight()
+
+dx = xmax/resolution
+dy = ymax/resolution
+
+ulow  = -2.20
+uhigh =  0.80
+
+vlow  = -1.45
+vhigh =  1.45
+
+uspan = uhigh - ulow
+vspan = vhigh - vlow
+
+declare sub spot u0 v0
+declare sub color iter
+declare sub paint hue$
+
+! ------------------------------
+! Cover the plot surface.
+! ------------------------------
+
+print "This may take a while..."
+
+for x = 0 to xmax step dx
+    for y = 0 to ymax step dy
+        amove x y
+        u0 = (x/xmax * uspan) + ulow
+        v0 = (y/ymax * vspan) + vlow
+        spot(u0, v0)
+    next y
+next x
+
+print "Preparing output..."
+
+! ------------------------------
+! Implement coloring utilities.
+! ------------------------------
+
+sub spot u0 v0
+    local u = 0.0
+    local v = 0.0
+    local iter = 0
+    local utemp
+    while ((u*u + v*v <= 4) and (iter < itermax))
+        utemp = u*u - v*v + u0
+        v = 2*u*v + v0
+        u = utemp
+        iter = iter + 1
+    next
+    if iter = itermax then
+        paint black
+    else
+        ! To speed up the code, do nothing when iter < worth, leaving the
+        ! default background show through.
+        if iter >= worth then paint color(iter)
+    end if
+end sub
+
+sub color iter
+    local t = (iter - worth)/(itermax - worth)
+    !
+    local r0 = 45
+    local g0 = 52
+    local b0 = 72
+    !
+    local r1 = 190
+    local g1 = 65
+    local b1 = 50
+    !
+    local r2 = 220
+    local g2 = 220
+    local b2 = 180
+    !
+    local r, g, b
+    if t <= 0.50 then
+        r = (1 - t) * r0 + t * r1
+        g = (1 - t) * g0 + t * g1
+        b = (1 - t) * b0 + t * b1
+    else
+        r = r2
+        g = g2
+        b = b2
+    end if
+    return rgb255(r, g, b)
+end sub
+
+sub paint hue$
+    set color hue$
+    box dx dy fill hue$
+end sub
+

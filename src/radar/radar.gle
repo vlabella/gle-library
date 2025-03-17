@@ -1,0 +1,48 @@
+! Example of radar plot.
+! Author: Francois Tonneau
+
+size 11.5 8
+
+include pole.gle
+
+set font ss hei 0.3
+
+begin graph
+    data "./radar.dat" d1=c2,c4 d2=c2,c5
+    axis off
+end graph
+
+wheelcenter 4 4
+wheeldims 0 3
+wheelvalues 0 100
+startangles at 90 going clockwise
+
+fillweb fill "#f6f6f6" pin 30
+
+set color gray10
+drawthreadaround pin 30
+
+drawpolarline d1 color "#e67e7e" fill "#e67e7e" close end
+drawpolarline d2 color "#86bdbf" fill "#86bdbf" close end
+
+set color gray10
+drawrays from 0 to 360 by 30
+drawthreads from 20 to 80 by 20 pin 30
+
+set color gray70 hei 0.27
+
+labelstyle just circular
+writelabelsfrom "./radar.dat"
+
+tagstyle xoffset -0.1 just cr format "fix 0 append °F"
+writetags at 30 from 20 to 80 by 20
+
+set hei 0.3
+amove 8.5 5
+write "Temperature in \lineskip{1.25}\\New York (2017):"
+begin key
+    absolute 8.5  3 nobox
+    marker fcircle color "#e67e7e" msize 0.16 text "Average high"
+    marker fcircle color "#86bdbf" msize 0.16 text "Average low"
+end key
+

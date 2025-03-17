@@ -1,0 +1,72 @@
+! Example with grouped bars and error lines.
+! Author: Francois Tonneau
+
+size 10 9.5
+
+set font ss
+
+amove 2 2
+begin graph
+    size 7 6.5
+    fullsize
+    xaxis min 0.5 max 3.5 ftick 1 dticks 1
+    yaxis min 40 max 100 ftick 40 dticks 10 nofirst nolast
+    yaxis grid lwidth 0.01 color #c4c4c4
+    x2axis off
+    y2axis off
+    xticks off
+    side   off
+    xlabels dist 0.4
+    ylabels color black
+    xtitle "Block of trials" dist 0.4
+    ytitle "Mean percent correct choices" dist 0.5
+
+    ! When loading error.dat, datasets d1 and d3 will contain bar heights
+    ! whereas datasets d2 and d4 will contain error magnitudes.
+
+    data "errors.dat"
+
+    ! We draw grouped bars of our data with the 'bar d1,d3' syntax. The 'dist'
+    ! parameter affects the horizontal separation between bars:
+
+    bar d1,d3 width 0.20 dist 0.22 color cadetblue,indianred &
+        fill cadetblue,indianred
+
+    ! GLE adds error lines to dataset d1, based on the values from dataset d2,
+    ! with the following syntax:
+
+    ! d1 err d2 lwidth ... errwidth ...
+
+    ! When drawing grouped bars, however, GLE shifts the bars slightly left and
+    ! right of the central tick. So, if we want our d2 and d4 error lines to be
+    ! placed correctly, we cannot draw them directly atop d1 and d3. Rather, we
+    ! must draw the lines on the top of datasets with shifted x values. Here
+    ! the 'let dn = x-expression, y-expression' syntax comes in handy:
+
+    let d5 = x-0.22/2, d1
+    let d6 = x+0.22/2, d3
+
+    ! We can now draw the d2 and d4 error lines atop d5 and d6. The error lines
+    ! will appear centered above the bars of d1 and d3:
+
+    d5 err d2 lwidth 0.025 errwidth 0.025
+    d6 err d4 lwidth 0.025 errwidth 0.025
+
+    ! (Of course, there is no need to create shifted datasets when adding error
+    ! lines to a marker plot, for example. The present complications arose only
+    ! because we used grouped bars.)
+end graph
+
+! We conclude with the plot legend:
+
+begin box fill white add 0.4 nobox
+    set hei 0.3
+    begin key
+        absolute 2.1 7.9 just tl nobox compact
+        marker fsquare color cadetblue msize 0.4 text "Males"
+        marker fsquare color indianred msize 0.4 text "Females"
+    end key
+end box
+
+! Done. We have learned about grouped bars and error lines.
+

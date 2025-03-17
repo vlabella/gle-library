@@ -1,0 +1,64 @@
+! Demo about plot theming.
+! Author: Francois Tonneau
+
+size 14 11
+
+set font ss
+
+! This plot is identical to the previous one, with the exception of theming.
+! *The script won't compile unless the themes.gle library is present, either
+! in the same directory or in GLE's custom-library directory, GLE_USRLIB.*
+
+include themes.gle
+
+amove 2 2
+begin graph
+    size 8 8
+    fullsize
+    xaxis min 4.15 max 8.25 dticks 1
+    yaxis min 1.75 max 4.50 dticks 0.5
+
+    ! The 'seaborn' theme is defined inside themes.gle.
+
+    seaborn
+
+    labels color black dist 0.3 hei 0.45
+
+    xtitle "Sepal length (mm)" dist 0.5
+    ytitle "Sepal width (mm)" dist 0.5
+
+    data "seaborn.dat" d1=c1,c2 d2=c3,c4 d3=c5,c6
+
+    d1 color seaborn_blue$   marker fcircle msize 0.23
+    d2 color seaborn_orange$ marker fcircle msize 0.23
+    d3 color seaborn_green$  marker fcircle msize 0.23
+
+    let d4 = linfit d1 from 4.3 to 5.8
+    let d6 = linfit d3 from 4.9 to 7.9
+    let d5 = linfit d2 from 4.9 to 7.0
+
+    begin layer 300
+        d4 color seaborn_blue$   line lwidth 0.04
+        d5 color seaborn_orange$ line lwidth 0.04
+        d6 color seaborn_green$  line lwidth 0.04
+    end layer
+end graph
+
+set hei 0.45
+amove 10.50 8.80
+write "Species:"
+
+set hei 0.48 lwidth 0.05
+
+begin key
+    absolute 10.30 6.55 nobox llen 0.5
+    line lwidth 0.04 color seaborn_blue$ marker fcircle msize 0.23 &
+        text "{\it setosa}"
+    line lwidth 0.04 color seaborn_orange$ marker fcircle msize 0.23 &
+        text "{\it versicolor}"
+    line lwidth 0.04 color seaborn_green$ marker fcircle msize 0.23 &
+        text "{\it virginica}"
+end key
+
+! Done. We have learned about plot theming in GLE.
+

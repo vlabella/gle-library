@@ -1,0 +1,222 @@
+! Example with grayscale gradients.
+! Author: Francois Tonneau
+
+! This example emulates a classic chart by William Playfair, "The Price of the
+! Quarter of Wheat & Wages of Labour by the Week."
+
+size 20 11
+
+set font texcmr
+
+amove 1.5 2
+begin graph
+    size 16 7
+    fullsize
+    xaxis min 0 max 51 dticks 1 angle 45
+    yaxis min 0 max 100 dticks 10
+    y2axis on
+
+    xticks  off
+    yticks  off
+
+    ylabels off
+    y2labels on
+
+    ! To emulate Playfair's chart, we need custom ticks and x labels:
+
+    xplaces  0  3  5 &
+             7  9 11 13 15 17 19 21 23 25 &
+            27 29 31 33 35 37 39 41 43 45 &
+            47 49 51
+
+    xnames  1565 80 90 &
+            1600 10 20 30 40 50 60 70 80 90 &
+            1700 10 20 30 40 50 60 70 80 90 &
+            1800 10 20 30
+
+    ! We use a 'draw SUBROUTINE' command to draw a custom grid in a low-rank
+    ! layer, behind the data and axes. (The 'custom_grid' subroutine is defined
+    ! below.) The 'draw SUBROUTINE' command has two advantages over calling the
+    ! subroutine directly: the output of the subroutine will be clipped to the
+    ! plot area, and the subroutine is allowed to call functions such as xg()
+    ! and yg(), which would be otherwise illegal in a graph block.
+
+    begin layer 400
+        draw custom_grid
+    end layer
+
+    data "gradient.dat" d1=c1,c2 d2=c3,c4 d3=c3,c5
+
+    ! We now plot the wage data with Savitsky-Golay smoothing, and we fill the
+    ! space below them with a semi-transparent hue:
+
+    d1 svg_smooth line color #954347 lwidth 0.06
+
+    fill x1,d1 color rgba255(169,188,186,150)
+
+    ! Finally, we plot the price data through another subroutine call:
+
+    draw shaded_bars
+
+end graph
+
+! Here is the subroutine called from the graph block with 'draw custom_grid'.
+! Because of the 'draw' directive, xg() and yg() won't raise errors:
+
+sub custom_grid
+    set color #c4c4c4 lwidth 0.01
+    for x = 0 to 51 step 1
+        amove xg(x) yg(0)
+        aline xg(x) yg(100)
+    next x
+    for y = 0 to 100 step 5
+        amove xg(0)  yg(y)
+        aline xg(51) yg(y)
+    next y
+    set color gray60 lwidth 0.02
+    for x = 7 to 47 step 10
+        amove xg(x) yg(0)
+        aline xg(x) yg(100)
+    next x
+    for y = 10 to 90 step 10
+        amove xg(0) yg(y)
+        aline xg(51) yg(y)
+    next y
+end sub
+
+! A colormap associates to each point of a rectangle a numerical value f that
+! depends on the (x, y) coordinates of this point. When used in the grayscale
+! mode, the numerical value is an intensity of gray from 0.0 (= black) to 1.0
+! (= white), and the colormap command takes the following arguments:
+!
+! "f(x,y)", a formal expression of x and y
+!
+! x0 and x1, the initial and final values of x along the x-axis
+!
+! y0 and y1, the initial and final values of y along the y-ayis
+!
+! the number of steps for x and the number of steps for y
+!
+! the width and height of the rectangle in cm.
+
+! Our subroutine for shaded bars involves looping over the data and drawing a
+! series of colormaps. Although this could be done by re-reading the data file
+! with 'fread', we prefer to employ the ndata(), dataxvalue(), and datayvalue()
+! functions that let us access individual points in a dataset. In each step of
+! the loop, we move to what will be the lower left corner of the shaded bar,
+! and we draw the bar as a colormap.
+
+sub shaded_bars
+    for num = 1 to ndata(d2)
+        local x      = dataxvalue(d2, num)
+        local bottom = datayvalue(d2, num)
+        local top    = datayvalue(d3, num)
+
+        amove xg(x-0.50) yg(bottom)
+
+        local x0 = 0
+        local x1 = 0
+        local y0 = 0
+        local y1 = 1
+        local x_steps = 1
+        local y_steps = 200
+        local width  = xg(x-0.50) - xg(x+0.50)
+        local height = yg(top) - yg(bottom)
+
+        ! Each colormap will be a gradient in the vertical direction only, so
+        ! we set both x0 and x1 to an arbitrary value (e.g., 0) and we require
+        ! only one step for x. Setting the f(x,y) expression equal to "1-y" and
+        ! letting y vary from 0 to 1 in 200 steps produces a smooth shaded bar
+        ! from white (1-0 = 1) to black (1-1 = 0):
+
+        colormap "1-y" x0 x1 y0 y1 x_steps y_steps width height
+    next num
+end sub
+
+! For the roof decorations, we use combinations of straight lines and Bezier
+! curves. The following syntax:
+!
+! line x y curve a0 a1 d0 d1
+!
+! draws a Bezier curve from the current position to position (x, y) with two
+! control points. The first control point is at angle a0 and distance d0 from
+! the current position. The second control point is at angle a1 and distance
+! d1 from (x, y). Angles are in degrees, counted counterclockwise from the x
+! axis, with 90 degrees at noon.
+
+set color black fill #fafae4 lwidth 0.02
+begin path stroke
+    amove xg(0)  9
+    rline 0 0.35
+    aline xg(7)  9 curve 0 130 1 0
+    closepath
+end path
+begin path stroke
+    amove xg(7)  9
+    aline xg(27) 9 curve 30 150 1.3 1.3
+    closepath
+end path
+begin path stroke
+    amove xg(27) 9
+    aline xg(47) 9 curve 30 150 1.3 1.3
+    closepath
+end path
+begin path stroke
+    amove xg(51) 9
+    rline 0 0.35
+    aline xg(47) 9 curve 180 0 0.5 0
+    closepath
+end path
+
+set font texcmti hei 0.25 just cc
+
+! We add labels to two roof decorations:
+
+amove xg(17) yg(103)
+write "17^{th} century"
+amove xg(37) yg(103)
+write "18^{th} century"
+
+! We end with more labels on the chart:
+
+down = -0.34
+
+set just tc
+begin box add 0.15 fill white
+    amove xg(22) yg(95.5)
+    set font texcmb hei 0.3
+    write "CHART"
+    set font texcmti hei 0.3
+    rmove 0 down
+    write "Showing at One View"
+    rmove 0 down
+    write "The Price of the Quarter of Wheat"
+    rmove 0 down
+    write "& Wages of Labour by the Week."
+    set hei 0.25
+    rmove 0 down
+    write "- from -"
+    rmove 0 down
+    write "The Year 1565 to 1821"
+    rmove 0 down
+    set font texcmr hei 0.25
+    write "- by -"
+    rmove 0 down
+    write "WILLIAM PLAYFAIR"
+end box
+
+begin box add 0.05 nobox fill white
+    set font texcmti hei 0.3 just cl
+    amove xg(4) yg(10)
+    write "Weekly Wages of a Good Mechanic"
+end box
+
+set just cc
+amove xg(55) yg(50)
+begin rotate -90
+    write "Price of the Quarter of Wheat in Shillings"
+end rotate
+
+! Done. We have learned about the 'draw subroutine' graph command, grayscale
+! colormaps, and Bezier curves.
+

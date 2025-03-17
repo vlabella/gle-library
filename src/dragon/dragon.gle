@@ -1,0 +1,72 @@
+! Example with the dragon curve.
+! Author: Francois Tonneau
+
+size 11 8
+
+set color cadetblue lwidth 0.03
+
+dist = 0.1
+angle = 0
+
+sub expansion letter$
+    if letter$ = "X" then
+        return "X+YF+"
+    else &
+    if letter$ = "Y" then
+        return "-FX-Y"
+    else
+        return letter$
+    end if
+end sub
+
+sub goforward
+    rline dist*cos(angle) dist*sin(angle)
+end sub
+
+sub turnleft
+    angle = angle + pi/2
+end sub
+
+sub turnright
+    angle = angle - pi/2
+end sub
+
+sub takeaction letter$
+    if letter$ = "F" then
+        goforward
+    else &
+    if letter$ = "+" then
+        turnleft
+    else &
+    if letter$ = "-" then
+        turnright
+    end if
+end sub
+
+sub growdragon times
+    local stage
+    for stage = 1 to times
+        local adult$ = ""
+        local pos, code$
+        for pos = 1 to len(dragon$)
+            code$ = seg$(dragon$, pos, pos)
+            adult$ = adult$ + expansion(code$)
+        next pos
+        dragon$ = adult$
+    next stage
+end sub
+
+sub drawdragon
+    local pos, code$
+    for pos = 1 to len(dragon$)
+        code$ = seg$(dragon$, pos, pos)
+        takeaction(code$)
+    next pos
+end sub
+
+dragon$ = "FX"
+growdragon times 12
+
+amove 8 3
+drawdragon
+

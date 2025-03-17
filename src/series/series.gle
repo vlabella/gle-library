@@ -1,0 +1,62 @@
+! Example of horizontal bar chart.
+! Author: Francois Tonneau
+
+size 22 18
+
+set font ss
+
+! We first define colors for the bar plot.
+
+barcolor_1$ = "#ff9e74"
+barcolor_2$ = "#fac6a7"
+barcolor_3$ = "#ffe69e"
+barcolor_4$ = "#c5ccc2"
+barcolor_5$ = "#82abe6"
+barcolor_6$ = "#149cae"
+
+amove 5 2.5
+
+begin graph
+    size 12 12
+    fullsize
+    xaxis min 0 max 1 dticks 0.25 format "fix 2"
+    yaxis min 0.5 max 14.5 dticks 1
+    yaxis negate     ! Invert axis so that data are drawn from top to bottom.
+
+    ticks off
+    side  off
+
+    xtitle "Mutation proportions" dist 0.6
+    labels hei 0.5 color black
+    xlabels dist 0.25
+    ylabels dist 0.40
+    x2places 0.05 0.17 0.30 0.55 0.87 0.98
+    x2names &
+        "G->T or C->A (Tv)" "G->C or C->G (Tv)" &
+        "G->A or C->T (Ti)" "A->T or T->A (Tv)" &
+        "A->G or T->C (Ti)" "A->C or T->G (Tv)"
+    x2labels dist 0.1
+    x2axis angle 45
+
+    data "series.dat"
+    ynames from d7
+    y2names from d8
+
+    ! We will use stacked bars, so we need to cumulate the data after the first
+    ! bar. This can be done with a loop starting at 2:
+
+    for num = 2 to 6
+        let d[num] = d[num-1]+d[num]
+    next num
+
+    ! We now plot the data with the 'bar dn from dm ...' syntax. The bars are
+    ! horizontal ('horiz'), with a color depending on the current bar number.
+    ! Each color is computed via GLE's 'eval' string-replacement facility:
+
+    bar d1 horiz width 0.6 color barcolor_1$ fill barcolor_1$
+    for num = 2 to 6
+        barcolor$ = eval("barcolor_" + num + "$")
+        bar d[num] from d[num-1] horiz width 0.6 color barcolor$ fill barcolor$
+    next num
+end graph
+

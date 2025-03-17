@@ -1,0 +1,27 @@
+! Data estimated from:
+! https://stackoverflow.com/questions/37670412/
+
+Trustworthy	0	2	63	47
+Supportive	15	2	50	35
+Leading	30	2	27	33
+Strong	45	2	56	47
+Dependable	60	2	59	44
+Consultative	75	2	40	33
+Knowledgeable	90	2	58	44
+Sensible	105	2	64	45
+Intelligent	120	2	47	40
+Consistent	135	2	56	33
+Stable	150	2	72	53
+Innovative	165	2	45	31
+Aggressive	180	2	38	29
+Conservative	195	2	59	44
+Visionary	210	2	33	39
+Arrogant	225	2	98	98
+Professional	240	2	61	43
+Responsive	255	2	50	35
+Confident	270	2	53	35
+Accessible	285	2	56	42
+Timely	300	2	49	42
+Focused	315	2	36	38
+Niche	330	2	40	33
+NONE	345	2	96	95

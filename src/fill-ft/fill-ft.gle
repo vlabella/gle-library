@@ -1,0 +1,106 @@
+! Example of curve filling with semi-transparency.
+! Author: Francois Tonneau
+
+! *Because this figure involves semi-transparent elements, it must be compiled
+! with the -cairo option:*
+
+! gle -cairo -d pdf fill.gle
+
+! Not including this option will result in compilation failure.
+
+size 12 9
+
+set font texcmr
+
+amove 1.5 1.5
+begin graph
+    size 9 6
+    fullsize
+    xaxis min 1700 max 1780 dticks 20 hei 0.3 grid color gray20
+    yaxis min 0 max 200 dticks 20 hei 0.3 grid color gray20
+    side color gray70
+    labels color black dist 0.2
+    ylabels off
+    y2labels on
+
+    data "fill-ft.dat" d1=c1,c2 d2=c3,c4
+
+    ! We plot our data sets with Savitsky-Golay smoothed curves ('svg_smooth')
+    ! and semi-transparent hues. The rgba255() function accepts four channel
+    ! values in the 0-255 range: red, green, blue, and alpha/transparency.
+
+    d1 svg_smooth line color rgba255(213,162,83,200) lwidth 0.05
+    d2 svg_smooth line color rgba255(187,89,105,200) lwidth 0.05
+
+    ! GLE can fill areas between an axis and a dataset or between different
+    ! datasets. Also, filling can be clipped between minimal and maximal values.
+    ! Here we add two semi-transparent fills to the plot, one to the left of
+    ! x = 1754 and the other to the right; 1754 is where the curves of the
+    ! d1 and d2 datasets cross.
+
+    light$  = rgba255(247, 218, 215, 180)
+    medium$ = rgba255(231, 217, 181, 180)
+
+    fill d1,d2 color light$  xmin 1700 xmax 1754
+    fill d1,d2 color medium$ xmin 1754 xmax 1780
+end graph
+
+! We add labels to the plot:
+
+set font texcmti hei 0.325
+
+amove 4.4 4
+write "Balance against"
+
+! Because the 'write' command cannot deal with multi-line labels, for our next
+! label we employ a 'begin text ... end text' block:
+
+amove 8.80 5.35
+begin text
+    Balance in
+    favour of
+    England.
+end text
+
+set font texcmb hei 0.3
+
+! All the other labels are inserted in 'begin box ... end box' blocks to give
+! the labels a rectangular white background. The 'add' option specifies the
+! amount of padding between the text and the border of the box; 'nobox'
+! means that the border will not be actually drawn:
+
+amove 3.6 4.7
+begin box add 0.05 nobox fill white
+    write "Imports"
+end box
+
+amove 4.8 3.0
+begin box add 0.05 nobox fill white
+    write "Exports"
+end box
+
+set font texcmb hei 0.3 just lc
+
+amove 1.9 7.2
+begin box add 0.05 nobox fill white
+    write "Exports and Imports to and from"
+end box
+rmove 0 -0.3
+begin box add 0.05 nobox fill white
+    write "DENMARK & NORWAY"
+end box
+rmove 0 -0.3
+begin box add 0.05 nobox fill white
+    write "from 1700 to 1780."
+end box
+
+set font texcmr hei 0.25 just lc
+
+amove 3.4 1.8
+begin box add 0.10 nobox fill white
+    write "Bottom line in years, right hand line divided into L10,000 each."
+end box
+
+! Done. We have learned about curve filling, rgba255() transparency, 'begin
+! text ... end text' blocks, and 'begin box ... end box' blocks.
+

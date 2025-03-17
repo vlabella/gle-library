@@ -1,0 +1,49 @@
+! Example of dot plot.
+! Author: Francois Tonneau
+
+size 10 5
+
+set font ss
+
+include dotp.gle
+
+amove 1.2 1.2
+begin graph
+    size 8 3
+    fullsize
+
+    ! The bindots.dat file contains two series of integers.
+
+    data "bindots.dat"
+
+    xaxis min -0.5 max 16.5 ftick 0 dticks 1
+    yaxis min 0 max 14 ftick 0 dticks 4
+    x2ticks  off
+    subticks off
+    xticks length -0.1
+    labels hei 0.25
+    xtitle "Number of players" dist 0.2
+    ytitle "Observed frequency" dist 0.2
+
+    ! We bin the d1 and d2 datasets into d3 and d4. The parameters for binning
+    ! are chosen so that the bin midpoints will be the integers from 0 to 15.
+
+    let d3 = hist d1 from -0.5 to 15.5 bins 16
+    let d4 = hist d2 from -0.5 to 15.5 bins 16
+
+    ! Because we want stacked dotplots, we must cumulate d3 and d4 before
+    ! plotting d4 above ("from") d3.
+
+    let d4 = d3+d4
+
+    draw dotplot d3 indianred
+    draw dotplot d4 cadetblue from d3
+end graph
+
+begin key
+    pos tr hei 0.25 coldist 0.5 nobox
+    marker fcircle color indianred msize 0.15 text Competition
+    separator
+    marker fcircle color cadetblue msize 0.15 text Cooperation
+end key
+
