@@ -1,377 +1,407 @@
+#
+# gle-library makefile runs on MS nmake.exe or GNU make
+#
+# automatically generated - do not modify all changes maybe lost
+#
+# NMAKE code here \
+!ifndef 0 # \
+MV=move # \
+RM=del # \
+RMDIR=rmdir /S /Q # \
+CP=copy # \
+MAKE=nmake /nologo # \
+SEP=\ # \
+CSEP=& # \
+INSTALL_INCLUDES=copy ..\include\*.gle "C:\Program Files\gle\gleinc" # \
+!else
+# Make code here
+MV=mv -f
+RM=rm -f
+RMDIR=rm -r
+CP=cp -f
+MAKE=make
+SEP=/
+CSEP=;
+INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
+!endif
+
+install-includes:
+	$(INSTALL_INCLUDES)
+
 all:
-	cd adjust & nmake /nologo
-	cd adphas & nmake /nologo
-	cd AFM & nmake /nologo
-	cd armand & nmake /nologo
-	cd arrowdesign & nmake /nologo
-	cd arrowstyle & nmake /nologo
-	cd ascatterplot & nmake /nologo
-	cd bar3d & nmake /nologo
-	cd barchart & nmake /nologo
-	cd barcode_example & nmake /nologo
-	cd bayesiannet & nmake /nologo
-	cd bindots & nmake /nologo
-	cd binning & nmake /nologo
-	cd bitmap & nmake /nologo
-	cd boxplot & nmake /nologo
-	cd boxplot-ft & nmake /nologo
-	cd brilzone & nmake /nologo
-	cd bspline & nmake /nologo
-	cd bubble & nmake /nologo
-	cd bumpchart & nmake /nologo
-	cd business_cards_10_per_A4 & nmake /nologo
-	cd butterfly & nmake /nologo
-	cd cavity & nmake /nologo
-	cd circuit1 & nmake /nologo
-	cd circuit2 & nmake /nologo
-	cd circuit3 & nmake /nologo
-	cd circuit4 & nmake /nologo
-	cd clip & nmake /nologo
-	cd clip-ft & nmake /nologo
-	cd color-markers-3d & nmake /nologo
-	cd colorbar & nmake /nologo
-	cd colormap & nmake /nologo
-	cd colormapcontour & nmake /nologo
-	cd colorspaces & nmake /nologo
-	cd color_list_svg & nmake /nologo
-	cd color_sample & nmake /nologo
-	cd compactkey & nmake /nologo
-	cd corrs & nmake /nologo
-	cd cos2t & nmake /nologo
-	cd crispdm & nmake /nologo
-	cd curve & nmake /nologo
-	cd curvedarrow & nmake /nologo
-	cd data & nmake /nologo
-	cd decay & nmake /nologo
-	cd diffeq & nmake /nologo
-	cd discontinuity & nmake /nologo
-	cd dragon & nmake /nologo
-	cd drawpie & nmake /nologo
-	cd dvifill & nmake /nologo
-	cd ellipsearrow & nmake /nologo
-	cd ellipses & nmake /nologo
-	cd elliptical_arcs & nmake /nologo
-	cd entropy & nmake /nologo
-	cd equation & nmake /nologo
-	cd errors & nmake /nologo
-	cd f-f2 & nmake /nologo
-	cd feynman_1 & nmake /nologo
-	cd feynman_10 & nmake /nologo
-	cd feynman_11 & nmake /nologo
-	cd feynman_12 & nmake /nologo
-	cd feynman_13 & nmake /nologo
-	cd feynman_14 & nmake /nologo
-	cd feynman_15 & nmake /nologo
-	cd feynman_16 & nmake /nologo
-	cd feynman_17 & nmake /nologo
-	cd feynman_18 & nmake /nologo
-	cd feynman_19 & nmake /nologo
-	cd feynman_2 & nmake /nologo
-	cd feynman_3 & nmake /nologo
-	cd feynman_4 & nmake /nologo
-	cd feynman_5 & nmake /nologo
-	cd feynman_6 & nmake /nologo
-	cd feynman_7 & nmake /nologo
-	cd feynman_8 & nmake /nologo
-	cd feynman_9 & nmake /nologo
-	cd feynman_shadow & nmake /nologo
-	cd feynman_test & nmake /nologo
-	cd fill & nmake /nologo
-	cd fill-ft & nmake /nologo
-	cd filters81 & nmake /nologo
-	cd fitls & nmake /nologo
-	cd fitz & nmake /nologo
-	cd flow & nmake /nologo
-	cd flux_linkage_space_vector_diagram & nmake /nologo
-	cd four & nmake /nologo
-	cd frequency & nmake /nologo
-	cd fruitbar & nmake /nologo
-	cd gc_color & nmake /nologo
-	cd gc_join & nmake /nologo
-	cd gc_write & nmake /nologo
-	cd gradient & nmake /nologo
-	cd h-bridge & nmake /nologo
-	cd heatmap & nmake /nologo
-	cd hello & nmake /nologo
-	cd histogram & nmake /nologo
-	cd horizon & nmake /nologo
-	cd house & nmake /nologo
-	cd hubble & nmake /nologo
-	cd hyperbola & nmake /nologo
-	cd informationgain & nmake /nologo
-	cd inpstm & nmake /nologo
-	cd intersect & nmake /nologo
-	cd jitter & nmake /nologo
-	cd join & nmake /nologo
-	cd keyexamples & nmake /nologo
-	cd koch & nmake /nologo
-	cd labeled-scatter & nmake /nologo
-	cd labels & nmake /nologo
-	cd legend & nmake /nologo
-	cd let-multi-dim & nmake /nologo
-	cd lindenmayer & nmake /nologo
-	cd line & nmake /nologo
-	cd linemode & nmake /nologo
-	cd lines & nmake /nologo
-	cd lnx & nmake /nologo
-	cd logo & nmake /nologo
-	cd loop & nmake /nologo
-	cd M16 & nmake /nologo
-	cd M4_Re_Im & nmake /nologo
-	cd mandelbrot & nmake /nologo
-	cd margins & nmake /nologo
-	cd markers & nmake /nologo
-	cd math & nmake /nologo
-	cd maungazoom & nmake /nologo
-	cd mirrors & nmake /nologo
-	cd mutation & nmake /nologo
-	cd normal & nmake /nologo
-	cd objects & nmake /nologo
-	cd opening & nmake /nologo
-	cd perceptron & nmake /nologo
-	cd phasedemo & nmake /nologo
-	cd playtennis_dt & nmake /nologo
-	cd polarcircle & nmake /nologo
-	cd polargrid & nmake /nologo
-	cd polar_histogram & nmake /nologo
-	cd polenja & nmake /nologo
-	cd protract & nmake /nologo
-	cd pythagoras & nmake /nologo
-	cd pythagorean & nmake /nologo
-	cd qgle_keyboard & nmake /nologo
-	cd quantilescale & nmake /nologo
-	cd radar & nmake /nologo
-	cd ramps & nmake /nologo
-	cd recursiontree & nmake /nologo
-	cd regrmodel & nmake /nologo
-	cd rt-y-is-x & nmake /nologo
-	cd rugplot & nmake /nologo
-	cd saddle & nmake /nologo
-	cd saddle-contour & nmake /nologo
-	cd sarppepo & nmake /nologo
-	cd SdHmethod & nmake /nologo
-	cd seaborn & nmake /nologo
-	cd semitrans & nmake /nologo
-	cd series & nmake /nologo
-	cd shadebar & nmake /nologo
-	cd shadow & nmake /nologo
-	cd shapes & nmake /nologo
-	cd shapes-ft & nmake /nologo
-	cd sierpinski & nmake /nologo
-	cd sin & nmake /nologo
-	cd sine-approx & nmake /nologo
-	cd spider & nmake /nologo
-	cd sqroot & nmake /nologo
-	cd square & nmake /nologo
-	cd stack1 & nmake /nologo
-	cd stack2 & nmake /nologo
-	cd stack4b & nmake /nologo
-	cd stack4c & nmake /nologo
-	cd stacks & nmake /nologo
-	cd steps & nmake /nologo
-	cd stuff & nmake /nologo
-	cd super-ellipse & nmake /nologo
-	cd testaccents & nmake /nologo
-	cd texgraph & nmake /nologo
-	cd tgplot & nmake /nologo
-	cd tree & nmake /nologo
-	cd utitle & nmake /nologo
-	cd volcano & nmake /nologo
-	cd volcano-ft & nmake /nologo
-	cd volcano3d & nmake /nologo
-	cd wall & nmake /nologo
-	cd wallx & nmake /nologo
-	cd web & nmake /nologo
-	cd winding & nmake /nologo
-	cd windrose & nmake /nologo
-	cd wulfnet & nmake /nologo
-	cd zoom-in & nmake /nologo
+	cd adjust $(CSEP) $(MAKE)
+	cd adphas $(CSEP) $(MAKE)
+	cd AFM $(CSEP) $(MAKE)
+	cd armand $(CSEP) $(MAKE)
+	cd arrowdesign $(CSEP) $(MAKE)
+	cd arrowstyle $(CSEP) $(MAKE)
+	cd ascatterplot $(CSEP) $(MAKE)
+	cd bar3d $(CSEP) $(MAKE)
+	cd barchart $(CSEP) $(MAKE)
+	cd barcode_example $(CSEP) $(MAKE)
+	cd bayesiannet $(CSEP) $(MAKE)
+	cd bindots $(CSEP) $(MAKE)
+	cd binning $(CSEP) $(MAKE)
+	cd bitmap $(CSEP) $(MAKE)
+	cd boxplot $(CSEP) $(MAKE)
+	cd boxplot-ft $(CSEP) $(MAKE)
+	cd brilzone $(CSEP) $(MAKE)
+	cd bspline $(CSEP) $(MAKE)
+	cd bubble $(CSEP) $(MAKE)
+	cd bumpchart $(CSEP) $(MAKE)
+	cd business_cards_10_per_A4 $(CSEP) $(MAKE)
+	cd butterfly $(CSEP) $(MAKE)
+	cd cavity $(CSEP) $(MAKE)
+	cd circuit1 $(CSEP) $(MAKE)
+	cd circuit2 $(CSEP) $(MAKE)
+	cd circuit3 $(CSEP) $(MAKE)
+	cd circuit4 $(CSEP) $(MAKE)
+	cd clip $(CSEP) $(MAKE)
+	cd clip-ft $(CSEP) $(MAKE)
+	cd color-markers-3d $(CSEP) $(MAKE)
+	cd colorbar $(CSEP) $(MAKE)
+	cd colormap $(CSEP) $(MAKE)
+	cd colormapcontour $(CSEP) $(MAKE)
+	cd colorspaces $(CSEP) $(MAKE)
+	cd color_list_svg $(CSEP) $(MAKE)
+	cd color_sample $(CSEP) $(MAKE)
+	cd compactkey $(CSEP) $(MAKE)
+	cd corrs $(CSEP) $(MAKE)
+	cd cos2t $(CSEP) $(MAKE)
+	cd crispdm $(CSEP) $(MAKE)
+	cd curve $(CSEP) $(MAKE)
+	cd curvedarrow $(CSEP) $(MAKE)
+	cd data $(CSEP) $(MAKE)
+	cd decay $(CSEP) $(MAKE)
+	cd diffeq $(CSEP) $(MAKE)
+	cd discontinuity $(CSEP) $(MAKE)
+	cd dragon $(CSEP) $(MAKE)
+	cd drawpie $(CSEP) $(MAKE)
+	cd dvifill $(CSEP) $(MAKE)
+	cd ellipsearrow $(CSEP) $(MAKE)
+	cd ellipses $(CSEP) $(MAKE)
+	cd elliptical_arcs $(CSEP) $(MAKE)
+	cd entropy $(CSEP) $(MAKE)
+	cd equation $(CSEP) $(MAKE)
+	cd errors $(CSEP) $(MAKE)
+	cd f-f2 $(CSEP) $(MAKE)
+	cd feynman_1 $(CSEP) $(MAKE)
+	cd feynman_10 $(CSEP) $(MAKE)
+	cd feynman_11 $(CSEP) $(MAKE)
+	cd feynman_12 $(CSEP) $(MAKE)
+	cd feynman_13 $(CSEP) $(MAKE)
+	cd feynman_14 $(CSEP) $(MAKE)
+	cd feynman_15 $(CSEP) $(MAKE)
+	cd feynman_16 $(CSEP) $(MAKE)
+	cd feynman_17 $(CSEP) $(MAKE)
+	cd feynman_18 $(CSEP) $(MAKE)
+	cd feynman_19 $(CSEP) $(MAKE)
+	cd feynman_2 $(CSEP) $(MAKE)
+	cd feynman_3 $(CSEP) $(MAKE)
+	cd feynman_4 $(CSEP) $(MAKE)
+	cd feynman_5 $(CSEP) $(MAKE)
+	cd feynman_6 $(CSEP) $(MAKE)
+	cd feynman_7 $(CSEP) $(MAKE)
+	cd feynman_8 $(CSEP) $(MAKE)
+	cd feynman_9 $(CSEP) $(MAKE)
+	cd feynman_shadow $(CSEP) $(MAKE)
+	cd feynman_test $(CSEP) $(MAKE)
+	cd fill $(CSEP) $(MAKE)
+	cd fill-ft $(CSEP) $(MAKE)
+	cd filters81 $(CSEP) $(MAKE)
+	cd fitls $(CSEP) $(MAKE)
+	cd fitz $(CSEP) $(MAKE)
+	cd flow $(CSEP) $(MAKE)
+	cd flux_linkage_space_vector_diagram $(CSEP) $(MAKE)
+	cd four $(CSEP) $(MAKE)
+	cd frequency $(CSEP) $(MAKE)
+	cd fruitbar $(CSEP) $(MAKE)
+	cd gc_color $(CSEP) $(MAKE)
+	cd gc_join $(CSEP) $(MAKE)
+	cd gc_write $(CSEP) $(MAKE)
+	cd gradient $(CSEP) $(MAKE)
+	cd h-bridge $(CSEP) $(MAKE)
+	cd heatmap $(CSEP) $(MAKE)
+	cd hello $(CSEP) $(MAKE)
+	cd histogram $(CSEP) $(MAKE)
+	cd horizon $(CSEP) $(MAKE)
+	cd house $(CSEP) $(MAKE)
+	cd hubble $(CSEP) $(MAKE)
+	cd hyperbola $(CSEP) $(MAKE)
+	cd informationgain $(CSEP) $(MAKE)
+	cd inpstm $(CSEP) $(MAKE)
+	cd intersect $(CSEP) $(MAKE)
+	cd jitter $(CSEP) $(MAKE)
+	cd join $(CSEP) $(MAKE)
+	cd keyexamples $(CSEP) $(MAKE)
+	cd koch $(CSEP) $(MAKE)
+	cd labeled-scatter $(CSEP) $(MAKE)
+	cd labels $(CSEP) $(MAKE)
+	cd legend $(CSEP) $(MAKE)
+	cd let-multi-dim $(CSEP) $(MAKE)
+	cd lindenmayer $(CSEP) $(MAKE)
+	cd line $(CSEP) $(MAKE)
+	cd linemode $(CSEP) $(MAKE)
+	cd lines $(CSEP) $(MAKE)
+	cd lnx $(CSEP) $(MAKE)
+	cd logo $(CSEP) $(MAKE)
+	cd loop $(CSEP) $(MAKE)
+	cd M16 $(CSEP) $(MAKE)
+	cd M4_Re_Im $(CSEP) $(MAKE)
+	cd mandelbrot $(CSEP) $(MAKE)
+	cd margins $(CSEP) $(MAKE)
+	cd markers $(CSEP) $(MAKE)
+	cd math $(CSEP) $(MAKE)
+	cd maungazoom $(CSEP) $(MAKE)
+	cd mirrors $(CSEP) $(MAKE)
+	cd mutation $(CSEP) $(MAKE)
+	cd normal $(CSEP) $(MAKE)
+	cd objects $(CSEP) $(MAKE)
+	cd opening $(CSEP) $(MAKE)
+	cd perceptron $(CSEP) $(MAKE)
+	cd phasedemo $(CSEP) $(MAKE)
+	cd playtennis_dt $(CSEP) $(MAKE)
+	cd polarcircle $(CSEP) $(MAKE)
+	cd polargrid $(CSEP) $(MAKE)
+	cd polar_histogram $(CSEP) $(MAKE)
+	cd polenja $(CSEP) $(MAKE)
+	cd protract $(CSEP) $(MAKE)
+	cd pythagoras $(CSEP) $(MAKE)
+	cd pythagorean $(CSEP) $(MAKE)
+	cd qgle_keyboard $(CSEP) $(MAKE)
+	cd quantilescale $(CSEP) $(MAKE)
+	cd radar $(CSEP) $(MAKE)
+	cd ramps $(CSEP) $(MAKE)
+	cd recursiontree $(CSEP) $(MAKE)
+	cd regrmodel $(CSEP) $(MAKE)
+	cd rt-y-is-x $(CSEP) $(MAKE)
+	cd rugplot $(CSEP) $(MAKE)
+	cd saddle $(CSEP) $(MAKE)
+	cd saddle-contour $(CSEP) $(MAKE)
+	cd sarppepo $(CSEP) $(MAKE)
+	cd SdHmethod $(CSEP) $(MAKE)
+	cd seaborn $(CSEP) $(MAKE)
+	cd semitrans $(CSEP) $(MAKE)
+	cd series $(CSEP) $(MAKE)
+	cd shadebar $(CSEP) $(MAKE)
+	cd shadow $(CSEP) $(MAKE)
+	cd shapes $(CSEP) $(MAKE)
+	cd shapes-ft $(CSEP) $(MAKE)
+	cd sierpinski $(CSEP) $(MAKE)
+	cd sin $(CSEP) $(MAKE)
+	cd sine-approx $(CSEP) $(MAKE)
+	cd spider $(CSEP) $(MAKE)
+	cd sqroot $(CSEP) $(MAKE)
+	cd square $(CSEP) $(MAKE)
+	cd stack1 $(CSEP) $(MAKE)
+	cd stack2 $(CSEP) $(MAKE)
+	cd stack4b $(CSEP) $(MAKE)
+	cd stack4c $(CSEP) $(MAKE)
+	cd stacks $(CSEP) $(MAKE)
+	cd steps $(CSEP) $(MAKE)
+	cd stuff $(CSEP) $(MAKE)
+	cd super-ellipse $(CSEP) $(MAKE)
+	cd testaccents $(CSEP) $(MAKE)
+	cd texgraph $(CSEP) $(MAKE)
+	cd tgplot $(CSEP) $(MAKE)
+	cd tree $(CSEP) $(MAKE)
+	cd utitle $(CSEP) $(MAKE)
+	cd volcano $(CSEP) $(MAKE)
+	cd volcano-ft $(CSEP) $(MAKE)
+	cd volcano3d $(CSEP) $(MAKE)
+	cd wall $(CSEP) $(MAKE)
+	cd wallx $(CSEP) $(MAKE)
+	cd web $(CSEP) $(MAKE)
+	cd winding $(CSEP) $(MAKE)
+	cd windrose $(CSEP) $(MAKE)
+	cd wulfnet $(CSEP) $(MAKE)
+	cd zoom-in $(CSEP) $(MAKE)
 
 clean:
-	cd adjust & nmake /nologo clean
-	cd adphas & nmake /nologo clean
-	cd AFM & nmake /nologo clean
-	cd armand & nmake /nologo clean
-	cd arrowdesign & nmake /nologo clean
-	cd arrowstyle & nmake /nologo clean
-	cd ascatterplot & nmake /nologo clean
-	cd bar3d & nmake /nologo clean
-	cd barchart & nmake /nologo clean
-	cd barcode_example & nmake /nologo clean
-	cd bayesiannet & nmake /nologo clean
-	cd bindots & nmake /nologo clean
-	cd binning & nmake /nologo clean
-	cd bitmap & nmake /nologo clean
-	cd boxplot & nmake /nologo clean
-	cd boxplot-ft & nmake /nologo clean
-	cd brilzone & nmake /nologo clean
-	cd bspline & nmake /nologo clean
-	cd bubble & nmake /nologo clean
-	cd bumpchart & nmake /nologo clean
-	cd business_cards_10_per_A4 & nmake /nologo clean
-	cd butterfly & nmake /nologo clean
-	cd cavity & nmake /nologo clean
-	cd circuit1 & nmake /nologo clean
-	cd circuit2 & nmake /nologo clean
-	cd circuit3 & nmake /nologo clean
-	cd circuit4 & nmake /nologo clean
-	cd clip & nmake /nologo clean
-	cd clip-ft & nmake /nologo clean
-	cd color-markers-3d & nmake /nologo clean
-	cd colorbar & nmake /nologo clean
-	cd colormap & nmake /nologo clean
-	cd colormapcontour & nmake /nologo clean
-	cd colorspaces & nmake /nologo clean
-	cd color_list_svg & nmake /nologo clean
-	cd color_sample & nmake /nologo clean
-	cd compactkey & nmake /nologo clean
-	cd corrs & nmake /nologo clean
-	cd cos2t & nmake /nologo clean
-	cd crispdm & nmake /nologo clean
-	cd curve & nmake /nologo clean
-	cd curvedarrow & nmake /nologo clean
-	cd data & nmake /nologo clean
-	cd decay & nmake /nologo clean
-	cd diffeq & nmake /nologo clean
-	cd discontinuity & nmake /nologo clean
-	cd dragon & nmake /nologo clean
-	cd drawpie & nmake /nologo clean
-	cd dvifill & nmake /nologo clean
-	cd ellipsearrow & nmake /nologo clean
-	cd ellipses & nmake /nologo clean
-	cd elliptical_arcs & nmake /nologo clean
-	cd entropy & nmake /nologo clean
-	cd equation & nmake /nologo clean
-	cd errors & nmake /nologo clean
-	cd f-f2 & nmake /nologo clean
-	cd feynman_1 & nmake /nologo clean
-	cd feynman_10 & nmake /nologo clean
-	cd feynman_11 & nmake /nologo clean
-	cd feynman_12 & nmake /nologo clean
-	cd feynman_13 & nmake /nologo clean
-	cd feynman_14 & nmake /nologo clean
-	cd feynman_15 & nmake /nologo clean
-	cd feynman_16 & nmake /nologo clean
-	cd feynman_17 & nmake /nologo clean
-	cd feynman_18 & nmake /nologo clean
-	cd feynman_19 & nmake /nologo clean
-	cd feynman_2 & nmake /nologo clean
-	cd feynman_3 & nmake /nologo clean
-	cd feynman_4 & nmake /nologo clean
-	cd feynman_5 & nmake /nologo clean
-	cd feynman_6 & nmake /nologo clean
-	cd feynman_7 & nmake /nologo clean
-	cd feynman_8 & nmake /nologo clean
-	cd feynman_9 & nmake /nologo clean
-	cd feynman_shadow & nmake /nologo clean
-	cd feynman_test & nmake /nologo clean
-	cd fill & nmake /nologo clean
-	cd fill-ft & nmake /nologo clean
-	cd filters81 & nmake /nologo clean
-	cd fitls & nmake /nologo clean
-	cd fitz & nmake /nologo clean
-	cd flow & nmake /nologo clean
-	cd flux_linkage_space_vector_diagram & nmake /nologo clean
-	cd four & nmake /nologo clean
-	cd frequency & nmake /nologo clean
-	cd fruitbar & nmake /nologo clean
-	cd gc_color & nmake /nologo clean
-	cd gc_join & nmake /nologo clean
-	cd gc_write & nmake /nologo clean
-	cd gradient & nmake /nologo clean
-	cd h-bridge & nmake /nologo clean
-	cd heatmap & nmake /nologo clean
-	cd hello & nmake /nologo clean
-	cd histogram & nmake /nologo clean
-	cd horizon & nmake /nologo clean
-	cd house & nmake /nologo clean
-	cd hubble & nmake /nologo clean
-	cd hyperbola & nmake /nologo clean
-	cd informationgain & nmake /nologo clean
-	cd inpstm & nmake /nologo clean
-	cd intersect & nmake /nologo clean
-	cd jitter & nmake /nologo clean
-	cd join & nmake /nologo clean
-	cd keyexamples & nmake /nologo clean
-	cd koch & nmake /nologo clean
-	cd labeled-scatter & nmake /nologo clean
-	cd labels & nmake /nologo clean
-	cd legend & nmake /nologo clean
-	cd let-multi-dim & nmake /nologo clean
-	cd lindenmayer & nmake /nologo clean
-	cd line & nmake /nologo clean
-	cd linemode & nmake /nologo clean
-	cd lines & nmake /nologo clean
-	cd lnx & nmake /nologo clean
-	cd logo & nmake /nologo clean
-	cd loop & nmake /nologo clean
-	cd M16 & nmake /nologo clean
-	cd M4_Re_Im & nmake /nologo clean
-	cd mandelbrot & nmake /nologo clean
-	cd margins & nmake /nologo clean
-	cd markers & nmake /nologo clean
-	cd math & nmake /nologo clean
-	cd maungazoom & nmake /nologo clean
-	cd mirrors & nmake /nologo clean
-	cd mutation & nmake /nologo clean
-	cd normal & nmake /nologo clean
-	cd objects & nmake /nologo clean
-	cd opening & nmake /nologo clean
-	cd perceptron & nmake /nologo clean
-	cd phasedemo & nmake /nologo clean
-	cd playtennis_dt & nmake /nologo clean
-	cd polarcircle & nmake /nologo clean
-	cd polargrid & nmake /nologo clean
-	cd polar_histogram & nmake /nologo clean
-	cd polenja & nmake /nologo clean
-	cd protract & nmake /nologo clean
-	cd pythagoras & nmake /nologo clean
-	cd pythagorean & nmake /nologo clean
-	cd qgle_keyboard & nmake /nologo clean
-	cd quantilescale & nmake /nologo clean
-	cd radar & nmake /nologo clean
-	cd ramps & nmake /nologo clean
-	cd recursiontree & nmake /nologo clean
-	cd regrmodel & nmake /nologo clean
-	cd rt-y-is-x & nmake /nologo clean
-	cd rugplot & nmake /nologo clean
-	cd saddle & nmake /nologo clean
-	cd saddle-contour & nmake /nologo clean
-	cd sarppepo & nmake /nologo clean
-	cd SdHmethod & nmake /nologo clean
-	cd seaborn & nmake /nologo clean
-	cd semitrans & nmake /nologo clean
-	cd series & nmake /nologo clean
-	cd shadebar & nmake /nologo clean
-	cd shadow & nmake /nologo clean
-	cd shapes & nmake /nologo clean
-	cd shapes-ft & nmake /nologo clean
-	cd sierpinski & nmake /nologo clean
-	cd sin & nmake /nologo clean
-	cd sine-approx & nmake /nologo clean
-	cd spider & nmake /nologo clean
-	cd sqroot & nmake /nologo clean
-	cd square & nmake /nologo clean
-	cd stack1 & nmake /nologo clean
-	cd stack2 & nmake /nologo clean
-	cd stack4b & nmake /nologo clean
-	cd stack4c & nmake /nologo clean
-	cd stacks & nmake /nologo clean
-	cd steps & nmake /nologo clean
-	cd stuff & nmake /nologo clean
-	cd super-ellipse & nmake /nologo clean
-	cd testaccents & nmake /nologo clean
-	cd texgraph & nmake /nologo clean
-	cd tgplot & nmake /nologo clean
-	cd tree & nmake /nologo clean
-	cd utitle & nmake /nologo clean
-	cd volcano & nmake /nologo clean
-	cd volcano-ft & nmake /nologo clean
-	cd volcano3d & nmake /nologo clean
-	cd wall & nmake /nologo clean
-	cd wallx & nmake /nologo clean
-	cd web & nmake /nologo clean
-	cd winding & nmake /nologo clean
-	cd windrose & nmake /nologo clean
-	cd wulfnet & nmake /nologo clean
-	cd zoom-in & nmake /nologo clean
+	cd adjust $(CSEP) $(MAKE) clean
+	cd adphas $(CSEP) $(MAKE) clean
+	cd AFM $(CSEP) $(MAKE) clean
+	cd armand $(CSEP) $(MAKE) clean
+	cd arrowdesign $(CSEP) $(MAKE) clean
+	cd arrowstyle $(CSEP) $(MAKE) clean
+	cd ascatterplot $(CSEP) $(MAKE) clean
+	cd bar3d $(CSEP) $(MAKE) clean
+	cd barchart $(CSEP) $(MAKE) clean
+	cd barcode_example $(CSEP) $(MAKE) clean
+	cd bayesiannet $(CSEP) $(MAKE) clean
+	cd bindots $(CSEP) $(MAKE) clean
+	cd binning $(CSEP) $(MAKE) clean
+	cd bitmap $(CSEP) $(MAKE) clean
+	cd boxplot $(CSEP) $(MAKE) clean
+	cd boxplot-ft $(CSEP) $(MAKE) clean
+	cd brilzone $(CSEP) $(MAKE) clean
+	cd bspline $(CSEP) $(MAKE) clean
+	cd bubble $(CSEP) $(MAKE) clean
+	cd bumpchart $(CSEP) $(MAKE) clean
+	cd business_cards_10_per_A4 $(CSEP) $(MAKE) clean
+	cd butterfly $(CSEP) $(MAKE) clean
+	cd cavity $(CSEP) $(MAKE) clean
+	cd circuit1 $(CSEP) $(MAKE) clean
+	cd circuit2 $(CSEP) $(MAKE) clean
+	cd circuit3 $(CSEP) $(MAKE) clean
+	cd circuit4 $(CSEP) $(MAKE) clean
+	cd clip $(CSEP) $(MAKE) clean
+	cd clip-ft $(CSEP) $(MAKE) clean
+	cd color-markers-3d $(CSEP) $(MAKE) clean
+	cd colorbar $(CSEP) $(MAKE) clean
+	cd colormap $(CSEP) $(MAKE) clean
+	cd colormapcontour $(CSEP) $(MAKE) clean
+	cd colorspaces $(CSEP) $(MAKE) clean
+	cd color_list_svg $(CSEP) $(MAKE) clean
+	cd color_sample $(CSEP) $(MAKE) clean
+	cd compactkey $(CSEP) $(MAKE) clean
+	cd corrs $(CSEP) $(MAKE) clean
+	cd cos2t $(CSEP) $(MAKE) clean
+	cd crispdm $(CSEP) $(MAKE) clean
+	cd curve $(CSEP) $(MAKE) clean
+	cd curvedarrow $(CSEP) $(MAKE) clean
+	cd data $(CSEP) $(MAKE) clean
+	cd decay $(CSEP) $(MAKE) clean
+	cd diffeq $(CSEP) $(MAKE) clean
+	cd discontinuity $(CSEP) $(MAKE) clean
+	cd dragon $(CSEP) $(MAKE) clean
+	cd drawpie $(CSEP) $(MAKE) clean
+	cd dvifill $(CSEP) $(MAKE) clean
+	cd ellipsearrow $(CSEP) $(MAKE) clean
+	cd ellipses $(CSEP) $(MAKE) clean
+	cd elliptical_arcs $(CSEP) $(MAKE) clean
+	cd entropy $(CSEP) $(MAKE) clean
+	cd equation $(CSEP) $(MAKE) clean
+	cd errors $(CSEP) $(MAKE) clean
+	cd f-f2 $(CSEP) $(MAKE) clean
+	cd feynman_1 $(CSEP) $(MAKE) clean
+	cd feynman_10 $(CSEP) $(MAKE) clean
+	cd feynman_11 $(CSEP) $(MAKE) clean
+	cd feynman_12 $(CSEP) $(MAKE) clean
+	cd feynman_13 $(CSEP) $(MAKE) clean
+	cd feynman_14 $(CSEP) $(MAKE) clean
+	cd feynman_15 $(CSEP) $(MAKE) clean
+	cd feynman_16 $(CSEP) $(MAKE) clean
+	cd feynman_17 $(CSEP) $(MAKE) clean
+	cd feynman_18 $(CSEP) $(MAKE) clean
+	cd feynman_19 $(CSEP) $(MAKE) clean
+	cd feynman_2 $(CSEP) $(MAKE) clean
+	cd feynman_3 $(CSEP) $(MAKE) clean
+	cd feynman_4 $(CSEP) $(MAKE) clean
+	cd feynman_5 $(CSEP) $(MAKE) clean
+	cd feynman_6 $(CSEP) $(MAKE) clean
+	cd feynman_7 $(CSEP) $(MAKE) clean
+	cd feynman_8 $(CSEP) $(MAKE) clean
+	cd feynman_9 $(CSEP) $(MAKE) clean
+	cd feynman_shadow $(CSEP) $(MAKE) clean
+	cd feynman_test $(CSEP) $(MAKE) clean
+	cd fill $(CSEP) $(MAKE) clean
+	cd fill-ft $(CSEP) $(MAKE) clean
+	cd filters81 $(CSEP) $(MAKE) clean
+	cd fitls $(CSEP) $(MAKE) clean
+	cd fitz $(CSEP) $(MAKE) clean
+	cd flow $(CSEP) $(MAKE) clean
+	cd flux_linkage_space_vector_diagram $(CSEP) $(MAKE) clean
+	cd four $(CSEP) $(MAKE) clean
+	cd frequency $(CSEP) $(MAKE) clean
+	cd fruitbar $(CSEP) $(MAKE) clean
+	cd gc_color $(CSEP) $(MAKE) clean
+	cd gc_join $(CSEP) $(MAKE) clean
+	cd gc_write $(CSEP) $(MAKE) clean
+	cd gradient $(CSEP) $(MAKE) clean
+	cd h-bridge $(CSEP) $(MAKE) clean
+	cd heatmap $(CSEP) $(MAKE) clean
+	cd hello $(CSEP) $(MAKE) clean
+	cd histogram $(CSEP) $(MAKE) clean
+	cd horizon $(CSEP) $(MAKE) clean
+	cd house $(CSEP) $(MAKE) clean
+	cd hubble $(CSEP) $(MAKE) clean
+	cd hyperbola $(CSEP) $(MAKE) clean
+	cd informationgain $(CSEP) $(MAKE) clean
+	cd inpstm $(CSEP) $(MAKE) clean
+	cd intersect $(CSEP) $(MAKE) clean
+	cd jitter $(CSEP) $(MAKE) clean
+	cd join $(CSEP) $(MAKE) clean
+	cd keyexamples $(CSEP) $(MAKE) clean
+	cd koch $(CSEP) $(MAKE) clean
+	cd labeled-scatter $(CSEP) $(MAKE) clean
+	cd labels $(CSEP) $(MAKE) clean
+	cd legend $(CSEP) $(MAKE) clean
+	cd let-multi-dim $(CSEP) $(MAKE) clean
+	cd lindenmayer $(CSEP) $(MAKE) clean
+	cd line $(CSEP) $(MAKE) clean
+	cd linemode $(CSEP) $(MAKE) clean
+	cd lines $(CSEP) $(MAKE) clean
+	cd lnx $(CSEP) $(MAKE) clean
+	cd logo $(CSEP) $(MAKE) clean
+	cd loop $(CSEP) $(MAKE) clean
+	cd M16 $(CSEP) $(MAKE) clean
+	cd M4_Re_Im $(CSEP) $(MAKE) clean
+	cd mandelbrot $(CSEP) $(MAKE) clean
+	cd margins $(CSEP) $(MAKE) clean
+	cd markers $(CSEP) $(MAKE) clean
+	cd math $(CSEP) $(MAKE) clean
+	cd maungazoom $(CSEP) $(MAKE) clean
+	cd mirrors $(CSEP) $(MAKE) clean
+	cd mutation $(CSEP) $(MAKE) clean
+	cd normal $(CSEP) $(MAKE) clean
+	cd objects $(CSEP) $(MAKE) clean
+	cd opening $(CSEP) $(MAKE) clean
+	cd perceptron $(CSEP) $(MAKE) clean
+	cd phasedemo $(CSEP) $(MAKE) clean
+	cd playtennis_dt $(CSEP) $(MAKE) clean
+	cd polarcircle $(CSEP) $(MAKE) clean
+	cd polargrid $(CSEP) $(MAKE) clean
+	cd polar_histogram $(CSEP) $(MAKE) clean
+	cd polenja $(CSEP) $(MAKE) clean
+	cd protract $(CSEP) $(MAKE) clean
+	cd pythagoras $(CSEP) $(MAKE) clean
+	cd pythagorean $(CSEP) $(MAKE) clean
+	cd qgle_keyboard $(CSEP) $(MAKE) clean
+	cd quantilescale $(CSEP) $(MAKE) clean
+	cd radar $(CSEP) $(MAKE) clean
+	cd ramps $(CSEP) $(MAKE) clean
+	cd recursiontree $(CSEP) $(MAKE) clean
+	cd regrmodel $(CSEP) $(MAKE) clean
+	cd rt-y-is-x $(CSEP) $(MAKE) clean
+	cd rugplot $(CSEP) $(MAKE) clean
+	cd saddle $(CSEP) $(MAKE) clean
+	cd saddle-contour $(CSEP) $(MAKE) clean
+	cd sarppepo $(CSEP) $(MAKE) clean
+	cd SdHmethod $(CSEP) $(MAKE) clean
+	cd seaborn $(CSEP) $(MAKE) clean
+	cd semitrans $(CSEP) $(MAKE) clean
+	cd series $(CSEP) $(MAKE) clean
+	cd shadebar $(CSEP) $(MAKE) clean
+	cd shadow $(CSEP) $(MAKE) clean
+	cd shapes $(CSEP) $(MAKE) clean
+	cd shapes-ft $(CSEP) $(MAKE) clean
+	cd sierpinski $(CSEP) $(MAKE) clean
+	cd sin $(CSEP) $(MAKE) clean
+	cd sine-approx $(CSEP) $(MAKE) clean
+	cd spider $(CSEP) $(MAKE) clean
+	cd sqroot $(CSEP) $(MAKE) clean
+	cd square $(CSEP) $(MAKE) clean
+	cd stack1 $(CSEP) $(MAKE) clean
+	cd stack2 $(CSEP) $(MAKE) clean
+	cd stack4b $(CSEP) $(MAKE) clean
+	cd stack4c $(CSEP) $(MAKE) clean
+	cd stacks $(CSEP) $(MAKE) clean
+	cd steps $(CSEP) $(MAKE) clean
+	cd stuff $(CSEP) $(MAKE) clean
+	cd super-ellipse $(CSEP) $(MAKE) clean
+	cd testaccents $(CSEP) $(MAKE) clean
+	cd texgraph $(CSEP) $(MAKE) clean
+	cd tgplot $(CSEP) $(MAKE) clean
+	cd tree $(CSEP) $(MAKE) clean
+	cd utitle $(CSEP) $(MAKE) clean
+	cd volcano $(CSEP) $(MAKE) clean
+	cd volcano-ft $(CSEP) $(MAKE) clean
+	cd volcano3d $(CSEP) $(MAKE) clean
+	cd wall $(CSEP) $(MAKE) clean
+	cd wallx $(CSEP) $(MAKE) clean
+	cd web $(CSEP) $(MAKE) clean
+	cd winding $(CSEP) $(MAKE) clean
+	cd windrose $(CSEP) $(MAKE) clean
+	cd wulfnet $(CSEP) $(MAKE) clean
+	cd zoom-in $(CSEP) $(MAKE) clean

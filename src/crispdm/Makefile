@@ -1,14 +1,44 @@
+#
+# gle-library makefile runs on MS nmake.exe or GNU make
+#
+# automatically generated - do not modify all changes maybe lost
+#
+# NMAKE code here \
+!ifndef 0 # \
+MV=move # \
+RM=del # \
+RMDIR=rmdir /S /Q # \
+CP=copy # \
+MAKE=nmake /nologo # \
+SEP=\ # \
+CSEP=& # \
+INSTALL_INCLUDES=copy ..\include\*.gle "C:\Program Files\gle\gleinc" # \
+!else
+# Make code here
+MV=mv -f
+RM=rm -f
+RMDIR=rm -r
+CP=cp -f
+MAKE=make
+SEP=/
+CSEP=;
+INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
+!endif
+
+install-includes:
+	$(INSTALL_INCLUDES)
+
 all: crispdm.eps crispdm.pdf crispdm.png
 
 crispdm.eps: crispdm.gle
-	gle /device EPS /cairo crispdm.gle
+	gle -device EPS -cairo crispdm.gle
 
 crispdm.pdf: crispdm.gle
-	gle /device PDF /cairo crispdm.gle
+	gle -device PDF -cairo crispdm.gle
 
 crispdm.png: crispdm.gle
-	gle /device PNG /cairo /DPI 150 crispdm.gle
+	gle -device PNG -cairo -DPI 150 crispdm.gle
 
 clean:
-	-del crispdm.eps crispdm.pdf crispdm.png
-	-rmdir /SQ .gle
+	-$(RM) crispdm.eps crispdm.pdf crispdm.png
+	-$(RMDIR) .gle

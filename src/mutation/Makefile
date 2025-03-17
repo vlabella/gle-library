@@ -1,14 +1,44 @@
+#
+# gle-library makefile runs on MS nmake.exe or GNU make
+#
+# automatically generated - do not modify all changes maybe lost
+#
+# NMAKE code here \
+!ifndef 0 # \
+MV=move # \
+RM=del # \
+RMDIR=rmdir /S /Q # \
+CP=copy # \
+MAKE=nmake /nologo # \
+SEP=\ # \
+CSEP=& # \
+INSTALL_INCLUDES=copy ..\include\*.gle "C:\Program Files\gle\gleinc" # \
+!else
+# Make code here
+MV=mv -f
+RM=rm -f
+RMDIR=rm -r
+CP=cp -f
+MAKE=make
+SEP=/
+CSEP=;
+INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
+!endif
+
+install-includes:
+	$(INSTALL_INCLUDES)
+
 all: mutation.eps mutation.pdf mutation.png
 
 mutation.eps: mutation.gle
-	gle /device EPS /cairo mutation.gle
+	gle -device EPS -cairo mutation.gle
 
 mutation.pdf: mutation.gle
-	gle /device PDF /cairo mutation.gle
+	gle -device PDF -cairo mutation.gle
 
 mutation.png: mutation.gle
-	gle /device PNG /cairo /DPI 150 mutation.gle
+	gle -device PNG -cairo -DPI 150 mutation.gle
 
 clean:
-	-del mutation.eps mutation.pdf mutation.png
-	-rmdir /SQ .gle
+	-$(RM) mutation.eps mutation.pdf mutation.png
+	-$(RMDIR) .gle

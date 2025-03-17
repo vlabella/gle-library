@@ -1,14 +1,44 @@
+#
+# gle-library makefile runs on MS nmake.exe or GNU make
+#
+# automatically generated - do not modify all changes maybe lost
+#
+# NMAKE code here \
+!ifndef 0 # \
+MV=move # \
+RM=del # \
+RMDIR=rmdir /S /Q # \
+CP=copy # \
+MAKE=nmake /nologo # \
+SEP=\ # \
+CSEP=& # \
+INSTALL_INCLUDES=copy ..\include\*.gle "C:\Program Files\gle\gleinc" # \
+!else
+# Make code here
+MV=mv -f
+RM=rm -f
+RMDIR=rm -r
+CP=cp -f
+MAKE=make
+SEP=/
+CSEP=;
+INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
+!endif
+
+install-includes:
+	$(INSTALL_INCLUDES)
+
 all: square.eps square.pdf square.png
 
 square.eps: square.gle
-	gle /device EPS /cairo square.gle
+	gle -device EPS -cairo square.gle
 
 square.pdf: square.gle
-	gle /device PDF /cairo square.gle
+	gle -device PDF -cairo square.gle
 
 square.png: square.gle
-	gle /device PNG /cairo /DPI 150 square.gle
+	gle -device PNG -cairo -DPI 150 square.gle
 
 clean:
-	-del square.eps square.pdf square.png
-	-rmdir /SQ .gle
+	-$(RM) square.eps square.pdf square.png
+	-$(RMDIR) .gle

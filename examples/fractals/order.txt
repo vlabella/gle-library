@@ -1,4 +1,0 @@
-koch.gle
-recursiontree.gle
-sierpinski.gle
-pythagorean.gle
