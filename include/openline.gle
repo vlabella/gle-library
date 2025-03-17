@@ -1,0 +1,51 @@
+! Library to plot lines with an opening around the marker.
+! Author: Francois Tonneau
+
+! List of subroutines:
+
+! openline: draw a line with an opening around each data point.
+
+! The openline subroutine cannot handle missing data. Thus, if you want to plot
+! a dataset of 20 points with a missing value at position 8, call openline with
+! first = 1 and last = 7, then call openline again with first = 9 and last = 20.
+
+! Because openline employs xg() and yg(), it must be called outside of a graph
+! block, or within a graph block via the 'draw' directive ('draw openline').
+
+sub openline dataset$ opening linecolor$ linewidth linestyle first last
+    !
+    ! dataset$   = a valid dataset (e.g., d1)
+    ! opening    = diameter of the opening in cm
+    ! linecolor$ = black by default
+    ! linewidth  = 0.03 by default
+    ! linestyle  = 1 (solid) by default
+    ! first      = index of the first data point to include (optional)
+    ! last       = index of the last data point to include (optional)
+    !
+    default linecolor  black
+    default linewidth  0.03
+    default linestyle  1
+    default first      1
+    default last      -1
+    if last = -1 then last = ndata(dataset$)
+    gsave
+    set color linecolor$ lwidth linewidth lstyle linestyle
+    local num
+    for num = first to last-1
+        local x0 = xg(dataxvalue(dataset$, num))
+        local y0 = yg(datayvalue(dataset$, num))
+        local x1 = xg(dataxvalue(dataset$, num + 1))
+        local y1 = yg(datayvalue(dataset$, num + 1))
+        local dx = x1 - x0
+        local dy = y1 - y0
+        local dist = sqrt(dx^2 + dy^2)
+        if dist > opening then
+            local halfgap = opening/2
+            local angle   = atan2(dy, dx)
+            amove x0+(cos(angle)*halfgap) y0+(sin(angle)*halfgap)
+            aline x1-(cos(angle)*halfgap) y1-(sin(angle)*halfgap)
+        end if
+    next num
+    grestore
+end sub
+

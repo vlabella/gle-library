@@ -1,0 +1,360 @@
+! Library with additional palettes for Graphics Layout Engine.
+! Palettes ported by Francois Tonneau (2005).
+
+! ------------------------------
+! SUBROUTINE NAMES
+! ------------------------------
+
+! inferno z
+! inferno_text z
+! magma z
+! magma_text z
+! plasma z
+! plasma_text z
+! viridis z
+! viridis_text z
+
+! cividis z
+! cividis_text z
+
+! davos z
+! davos_text z
+! devon z
+! devon_text z
+! oslo z
+! oslo_text z
+
+! ------------------------------
+! SUBROUTINE DETAILS
+! ------------------------------
+
+! Pairs of subroutines return the background color and the text color (i.e.,
+! either black or white, depending on background lightness) for a position z
+! ranging from 0.0 to 1.0 along the ramp.
+
+! ------------------------------
+! PALETTE INFORMATION
+! ------------------------------
+
+! For inferno, magma, plasma, and viridis, see:
+! https://github.com/BIDS/colormap
+
+! For cividis, see:
+! https://github.com/pnnl/cmaputil
+
+! For davos, devon, and oslo, see:
+! http://www.fabiocrameri.ch/colourmaps.php
+
+! ------------------------------
+! Palette node definitions.
+! ------------------------------
+
+! Each palette involves 18 nodes of rgb values.
+
+! inferno
+
+inferno_1_r  = 0.001462; inferno_1_g  = 0.000466; inferno_1_b  = 0.013866
+inferno_2_r  = 0.037668; inferno_2_g  = 0.025921; inferno_2_b  = 0.132232
+inferno_3_r  = 0.116656; inferno_3_g  = 0.047574; inferno_3_b  = 0.272321
+inferno_4_r  = 0.217949; inferno_4_g  = 0.036615; inferno_4_b  = 0.383522
+inferno_5_r  = 0.316282; inferno_5_g  = 0.053490; inferno_5_b  = 0.425116
+inferno_6_r  = 0.410113; inferno_6_g  = 0.087896; inferno_6_b  = 0.433098
+inferno_7_r  = 0.503493; inferno_7_g  = 0.121575; inferno_7_b  = 0.423356
+inferno_8_r  = 0.596940; inferno_8_g  = 0.154848; inferno_8_b  = 0.398125
+inferno_9_r  = 0.688653; inferno_9_g  = 0.192239; inferno_9_b  = 0.357603
+inferno_10_r = 0.775059; inferno_10_g = 0.239667; inferno_10_b = 0.303526
+inferno_11_r = 0.851384; inferno_11_g = 0.302260; inferno_11_b = 0.239636
+inferno_12_r = 0.912966; inferno_12_g = 0.381636; inferno_12_b = 0.169755
+inferno_13_r = 0.956852; inferno_13_g = 0.475356; inferno_13_b = 0.094695
+inferno_14_r = 0.981895; inferno_14_g = 0.579392; inferno_14_b = 0.026250
+inferno_15_r = 0.987464; inferno_15_g = 0.690366; inferno_15_b = 0.079990
+inferno_16_r = 0.973088; inferno_16_g = 0.805409; inferno_16_b = 0.216877
+inferno_17_r = 0.947594; inferno_17_g = 0.917399; inferno_17_b = 0.410665
+inferno_18_r = 0.988362; inferno_18_g = 0.998364; inferno_18_b = 0.644924
+
+! magma
+
+magma_1_r  = 0.001462; magma_1_g  = 0.000466; magma_1_b  = 0.013866
+magma_2_r  = 0.035520; magma_2_g  = 0.028397; magma_2_b  = 0.125209
+magma_3_r  = 0.102815; magma_3_g  = 0.063010; magma_3_b  = 0.257854
+magma_4_r  = 0.191460; magma_4_g  = 0.064818; magma_4_b  = 0.396152
+magma_5_r  = 0.291366; magma_5_g  = 0.064553; magma_5_b  = 0.475462
+magma_6_r  = 0.384299; magma_6_g  = 0.097855; magma_6_b  = 0.501002
+magma_7_r  = 0.475780; magma_7_g  = 0.134577; magma_7_b  = 0.507921
+magma_8_r  = 0.569172; magma_8_g  = 0.167454; magma_8_b  = 0.504105
+magma_9_r  = 0.664915; magma_9_g  = 0.198075; magma_9_b  = 0.488836
+magma_10_r = 0.761077; magma_10_g = 0.231214; magma_10_b = 0.460162
+magma_11_r = 0.852126; magma_11_g = 0.276106; magma_11_b = 0.418573
+magma_12_r = 0.925937; magma_12_g = 0.346844; magma_12_b = 0.374959
+magma_13_r = 0.969680; magma_13_g = 0.446936; magma_13_b = 0.360311
+magma_14_r = 0.989363; magma_14_g = 0.557873; magma_14_b = 0.391671
+magma_15_r = 0.996580; magma_15_g = 0.668256; magma_15_b = 0.456192
+magma_16_r = 0.996727; magma_16_g = 0.776795; magma_16_b = 0.541039
+magma_17_r = 0.992440; magma_17_g = 0.884330; magma_17_b = 0.640099
+magma_18_r = 0.987053; magma_18_g = 0.991438; magma_18_b = 0.749504
+
+! plasma
+
+plasma_1_r  = 0.050383; plasma_1_g  = 0.029803; plasma_1_b  = 0.527975
+plasma_2_r  = 0.186213; plasma_2_g  = 0.018803; plasma_2_b  = 0.587228
+plasma_3_r  = 0.287076; plasma_3_g  = 0.010855; plasma_3_b  = 0.627295
+plasma_4_r  = 0.381047; plasma_4_g  = 0.001814; plasma_4_b  = 0.653068
+plasma_5_r  = 0.471457; plasma_5_g  = 0.005678; plasma_5_b  = 0.659897
+plasma_6_r  = 0.557243; plasma_6_g  = 0.047331; plasma_6_b  = 0.643443
+plasma_7_r  = 0.636008; plasma_7_g  = 0.112092; plasma_7_b  = 0.605205
+plasma_8_r  = 0.706178; plasma_8_g  = 0.178437; plasma_8_b  = 0.553657
+plasma_9_r  = 0.768090; plasma_9_g  = 0.244817; plasma_9_b  = 0.498465
+plasma_10_r = 0.823132; plasma_10_g = 0.311261; plasma_10_b = 0.444806
+plasma_11_r = 0.872303; plasma_11_g = 0.378774; plasma_11_b = 0.393355
+plasma_12_r = 0.915471; plasma_12_g = 0.448807; plasma_12_b = 0.342890
+plasma_13_r = 0.951344; plasma_13_g = 0.522850; plasma_13_b = 0.292275
+plasma_14_r = 0.977856; plasma_14_g = 0.602051; plasma_14_b = 0.241387
+plasma_15_r = 0.992541; plasma_15_g = 0.687030; plasma_15_b = 0.192170
+plasma_16_r = 0.992505; plasma_16_g = 0.777967; plasma_16_b = 0.152855
+plasma_17_r = 0.974443; plasma_17_g = 0.874622; plasma_17_b = 0.144061
+plasma_18_r = 0.940015; plasma_18_g = 0.975158; plasma_18_b = 0.131326
+
+! viridis
+
+viridis_1_r  = 0.267004; viridis_1_g  = 0.004874; viridis_1_b  = 0.329415
+viridis_2_r  = 0.281924; viridis_2_g  = 0.089666; viridis_2_b  = 0.412415
+viridis_3_r  = 0.280255; viridis_3_g  = 0.165693; viridis_3_b  = 0.476498
+viridis_4_r  = 0.263663; viridis_4_g  = 0.237631; viridis_4_b  = 0.518762
+viridis_5_r  = 0.237441; viridis_5_g  = 0.305202; viridis_5_b  = 0.541921
+viridis_6_r  = 0.208623; viridis_6_g  = 0.367752; viridis_6_b  = 0.552675
+viridis_7_r  = 0.182256; viridis_7_g  = 0.426184; viridis_7_b  = 0.557120
+viridis_8_r  = 0.159194; viridis_8_g  = 0.482237; viridis_8_b  = 0.558073
+viridis_9_r  = 0.137770; viridis_9_g  = 0.537492; viridis_9_b  = 0.554906
+viridis_10_r = 0.121148; viridis_10_g = 0.592739; viridis_10_b = 0.544641
+viridis_11_r = 0.128087; viridis_11_g = 0.647749; viridis_11_b = 0.523491
+viridis_12_r = 0.180653; viridis_12_g = 0.701402; viridis_12_b = 0.488189
+viridis_13_r = 0.274149; viridis_13_g = 0.751988; viridis_13_b = 0.436601
+viridis_14_r = 0.395174; viridis_14_g = 0.797475; viridis_14_b = 0.367757
+viridis_15_r = 0.535621; viridis_15_g = 0.835785; viridis_15_b = 0.281908
+viridis_16_r = 0.688944; viridis_16_g = 0.865448; viridis_16_b = 0.182725
+viridis_17_r = 0.845561; viridis_17_g = 0.887322; viridis_17_b = 0.099702
+viridis_18_r = 0.993248; viridis_18_g = 0.906157; viridis_18_b = 0.143936
+
+! cividis
+
+cividis_1_r  = 0.000000; cividis_1_g  = 0.126200; cividis_1_b  = 0.301500
+cividis_2_r  = 0.000000; cividis_2_g  = 0.168500; cividis_2_b  = 0.403100
+cividis_3_r  = 0.000000; cividis_3_g  = 0.207300; cividis_3_b  = 0.432900
+cividis_4_r  = 0.156600; cividis_4_g  = 0.249800; cividis_4_b  = 0.423600
+cividis_5_r  = 0.237500; cividis_5_g  = 0.292000; cividis_5_b  = 0.420000
+cividis_6_r  = 0.301400; cividis_6_g  = 0.334000; cividis_6_b  = 0.422400
+cividis_7_r  = 0.358200; cividis_7_g  = 0.376300; cividis_7_b  = 0.430200
+cividis_8_r  = 0.411400; cividis_8_g  = 0.418900; cividis_8_b  = 0.443000
+cividis_9_r  = 0.462200; cividis_9_g  = 0.462200; cividis_9_b  = 0.462000
+cividis_10_r = 0.515800; cividis_10_g = 0.506500; cividis_10_b = 0.473600
+cividis_11_r = 0.573500; cividis_11_g = 0.552200; cividis_11_b = 0.472000
+cividis_12_r = 0.632800; cividis_12_g = 0.599300; cividis_12_b = 0.464100
+cividis_13_r = 0.693600; cividis_13_g = 0.647800; cividis_13_b = 0.449900
+cividis_14_r = 0.756000; cividis_14_g = 0.697900; cividis_14_b = 0.429000
+cividis_15_r = 0.820000; cividis_15_g = 0.749700; cividis_15_b = 0.400700
+cividis_16_r = 0.885800; cividis_16_g = 0.803500; cividis_16_b = 0.362700
+cividis_17_r = 0.953600; cividis_17_g = 0.859300; cividis_17_b = 0.311600
+cividis_18_r = 1.000000; cividis_18_g = 0.916900; cividis_18_b = 0.273100
+
+! davos
+
+davos_1_r  = 0.000000; davos_1_g  = 0.019685; davos_1_b  = 0.292012
+davos_2_r  = 0.029301; davos_2_g  = 0.106057; davos_2_b  = 0.374962
+davos_3_r  = 0.073639; davos_3_g  = 0.184301; davos_3_b  = 0.455148
+davos_4_r  = 0.118980; davos_4_g  = 0.261953; davos_4_b  = 0.525335
+davos_5_r  = 0.169931; davos_5_g  = 0.335449; davos_5_b  = 0.577990
+davos_6_r  = 0.225527; davos_6_g  = 0.400383; davos_6_b  = 0.608211
+davos_7_r  = 0.282728; davos_7_g  = 0.454499; davos_7_b  = 0.616278
+davos_8_r  = 0.339182; davos_8_g  = 0.498847; davos_8_b  = 0.607163
+davos_9_r  = 0.394350; davos_9_g  = 0.536854; davos_9_b  = 0.587588
+davos_10_r = 0.449372; davos_10_g = 0.572751; davos_10_b = 0.563984
+davos_11_r = 0.507063; davos_11_g = 0.611175; davos_11_b = 0.542362
+davos_12_r = 0.573256; davos_12_g = 0.658113; davos_12_b = 0.530786
+davos_13_r = 0.657637; davos_13_g = 0.721708; davos_13_b = 0.543636
+davos_14_r = 0.765029; davos_14_g = 0.805308; davos_14_b = 0.600533
+davos_15_r = 0.872158; davos_15_g = 0.889765; davos_15_b = 0.700656
+davos_16_r = 0.944583; davos_16_g = 0.948144; davos_16_b = 0.810609
+davos_17_r = 0.980894; davos_17_g = 0.979764; davos_17_b = 0.909052
+davos_18_r = 0.997520; davos_18_g = 0.997764; davos_18_b = 0.997988
+
+! devon
+
+devon_1_r  = 0.171032; devon_1_g  = 0.100402; devon_1_b  = 0.299782
+devon_2_r  = 0.166476; devon_2_g  = 0.155235; devon_2_b  = 0.354294
+devon_3_r  = 0.159908; devon_3_g  = 0.210329; devon_3_b  = 0.409984
+devon_4_r  = 0.153600; devon_4_g  = 0.267966; devon_4_b  = 0.468777
+devon_5_r  = 0.155323; devon_5_g  = 0.328919; devon_5_b  = 0.539260
+devon_6_r  = 0.181403; devon_6_g  = 0.382648; devon_6_b  = 0.622622
+devon_7_r  = 0.229930; devon_7_g  = 0.426373; devon_7_b  = 0.704939
+devon_8_r  = 0.317597; devon_8_g  = 0.476974; devon_8_b  = 0.783072
+devon_9_r  = 0.434346; devon_9_g  = 0.531477; devon_9_b  = 0.842105
+devon_10_r = 0.547548; devon_10_g = 0.582405; devon_10_b = 0.886461
+devon_11_r = 0.644686; devon_11_g = 0.634493; devon_11_b = 0.920929
+devon_12_r = 0.710775; devon_12_g = 0.686972; devon_12_b = 0.939834
+devon_13_r = 0.759251; devon_13_g = 0.737524; devon_13_b = 0.950450
+devon_14_r = 0.805948; devon_14_g = 0.788334; devon_14_b = 0.960097
+devon_15_r = 0.853356; devon_15_g = 0.839984; devon_15_b = 0.969868
+devon_16_r = 0.901566; devon_16_g = 0.892492; devon_16_b = 0.979807
+devon_17_r = 0.950534; devon_17_g = 0.945851; devon_17_b = 0.989888
+devon_18_r = 0.999916; devon_18_g = 0.999970; devon_18_b = 0.999952
+
+! oslo
+
+oslo_1_r  = 0.003670; oslo_1_g  = 0.005082; oslo_1_b  = 0.002454
+oslo_2_r  = 0.037057; oslo_2_g  = 0.066553; oslo_2_b  = 0.099530
+oslo_3_r  = 0.053612; oslo_3_g  = 0.110322; oslo_3_b  = 0.170991
+oslo_4_r  = 0.063381; oslo_4_g  = 0.156880; oslo_4_b  = 0.249856
+oslo_5_r  = 0.078959; oslo_5_g  = 0.208256; oslo_5_b  = 0.334122
+oslo_6_r  = 0.101383; oslo_6_g  = 0.262321; oslo_6_b  = 0.422323
+oslo_7_r  = 0.133637; oslo_7_g  = 0.317616; oslo_7_b  = 0.513482
+oslo_8_r  = 0.183305; oslo_8_g  = 0.375718; oslo_8_b  = 0.606966
+oslo_9_r  = 0.261091; oslo_9_g  = 0.442773; oslo_9_b  = 0.698295
+oslo_10_r = 0.356473; oslo_10_g = 0.513144; oslo_10_b = 0.763584
+oslo_11_r = 0.440255; oslo_11_g = 0.569607; oslo_11_b = 0.787687
+oslo_12_r = 0.512164; oslo_12_g = 0.615042; oslo_12_b = 0.790690
+oslo_13_r = 0.581693; oslo_13_g = 0.658180; oslo_13_b = 0.789442
+oslo_14_r = 0.653336; oslo_14_g = 0.704011; oslo_14_b = 0.791674
+oslo_15_r = 0.731277; oslo_15_g = 0.759079; oslo_15_b = 0.807606
+oslo_16_r = 0.817833; oslo_16_g = 0.829331; oslo_16_b = 0.849420
+oslo_17_r = 0.908728; oslo_17_g = 0.911983; oslo_17_b = 0.917579
+oslo_18_r = 0.999801; oslo_18_g = 1.000000; oslo_18_b = 0.999961
+
+! ------------------------------
+! Computation of each rgb component for z ranging from 0.0 to 1.0.
+! ------------------------------
+
+! The values for r, g, b are computed by linear interpolation in RGB space.
+
+sub palettes_r name$ z
+    if z = 1.0 then
+        local r = eval(name$ + "_18_r")
+    else
+        local pos = 1 + (z * (18 - 1))
+        local A  = fix(pos)
+        local B  = A + 1
+        local rA = eval(name$ + "_" + A + "_r")
+        local rB = eval(name$ + "_" + B + "_r")
+        local r = (B - pos) * rA + (pos - A) * rB
+    end if
+    return r
+end sub
+
+sub palettes_g name$ z
+    if z = 1.0 then
+        local g = eval(name$ + "_18_g")
+    else
+        local pos = 1 + (z * (18 - 1))
+        local A  = fix(pos)
+        local B  = A + 1
+        local gA = eval(name$ + "_" + A + "_g")
+        local gB = eval(name$ + "_" + B + "_g")
+        local g = (B - pos) * gA + (pos - A) * gB
+    end if
+    return g
+end sub
+
+sub palettes_b name$ z
+    if z = 1.0 then
+        local b = eval(name$ + "_18_b")
+    else
+        local pos = 1 + (z * (18 - 1))
+        local A  = fix(pos)
+        local B  = A + 1
+        local bA = eval(name$ + "_" + A + "_b")
+        local bB = eval(name$ + "_" + B + "_b")
+        local b = (B - pos) * bA + (pos - A) * bB
+    end if
+    return b
+end sub
+
+! ------------------------------
+! Computation of colored background and black/white text foreground.
+! ------------------------------
+
+sub palettes_hue name$ z
+    local r = palettes_r(name$, z)
+    local g = palettes_g(name$, z)
+    local b = palettes_b(name$, z)
+    return rgb(r, g, b)
+end sub
+
+sub palettes_text_hue name$ z
+    local r = palettes_r (name$, z)
+    local g = palettes_g (name$, z)
+    local b = palettes_b (name$, z)
+    local mean = (r + g + b) / 3
+    if mean < 0.5 then
+        return rgb(1, 1, 1)
+    else
+        return rgb(0, 0, 0)
+    end if
+end sub
+
+! ------------------------------
+! Convenient wrapper routines for each palette.
+! ------------------------------
+
+sub cividis z
+    return palettes_hue("cividis", z)
+end sub
+
+sub cividis_text z
+    return palettes_text_hue("cividis", z)
+end sub
+
+sub davos z
+    return palettes_hue("davos", z)
+end sub
+
+sub davos_text z
+    return palettes_text_hue("davos", z)
+end sub
+
+sub devon z
+    return palettes_hue("devon", z)
+end sub
+
+sub devon_text z
+    return palettes_text_hue("devon", z)
+end sub
+
+sub inferno z
+    return palettes_hue("inferno", z)
+end sub
+
+sub inferno_text z
+    return palettes_text_hue("inferno", z)
+end sub
+
+sub magma z
+    return palettes_hue("magma", z)
+end sub
+
+sub magma_text z
+    return palettes_text_hue("magma", z)
+end sub
+
+sub oslo z
+    return palettes_hue("oslo", z)
+end sub
+
+sub oslo_text z
+    return palettes_text_hue("oslo", z)
+end sub
+
+sub plasma z
+    return palettes_hue("plasma", z)
+end sub
+
+sub plasma_text z
+    return palettes_text_hue("plasma", z)
+end sub
+
+sub viridis z
+    return palettes_hue("viridis", z)
+end sub
+
+sub viridis_text z
+    return palettes_text_hue("viridis", z)
+end sub
+

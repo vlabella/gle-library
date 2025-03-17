@@ -1,0 +1,88 @@
+! Library about colored contour plots.
+
+! Copyright (c) 2020 Francois Tonneau
+! License: MIT
+
+! ------------------------------
+! BACKGROUND INFORMATION
+! ------------------------------
+
+! In GLE, the starting point for a contour plot consists of a dataset in the
+! z-file format (see the User Manual for more information about z files).
+
+! For example, from a z-file named myfile.z, a GLE script with a 'begin contour
+! ... end' block will produce three auxiliary files:
+
+! myfile-cvalues.dat, which lists the set of z values (without repetitions)
+
+! myfile-cdata.dat, which lists series of x, y data for each contour line
+
+! myfile-clabels.dat, which specifies the z label for each contour line
+! contained in myfile-cdata.dat
+
+! These files can then be used to draw contour plots.
+
+! ------------------------------
+! LIBRARY SUMMARY
+! ------------------------------
+
+! This library, contourplus.gle, provides a single subroutine:
+
+! contourlines myfile$ colorize$
+
+! that draws the contour lines of myfile-cdata.dat with colors. The subroutine
+! works by scanning myfile-cdata.dat and retrieving the z value/level of each
+! contour from myfile-clabels.dat.
+
+! ------------------------------
+! contourlines PARAMETERS:
+! ------------------------------
+
+! myfile$: the name, without extension, of the datafile to be plotted; for
+! example: myfile
+
+! colorize$: the name of a subroutine that returns a color as a function of
+! a numeric parameter
+
+! ------------------------------
+! SUBROUTINE
+! ------------------------------
+
+sub contourlines myfile$ colorize$
+    local contour = 0
+    local contour_start = 0
+    !
+    fopen myfile$+"-cdata.dat" datastream read
+    local row$, nop$
+    local split
+    local x, y
+    !
+    until feof(datastream)
+        fgetline datastream row$
+        !
+        if row$ = "* *" then            ! introduction to a new contour
+            contour = contour + 1
+            ! Retrieve z label/value = 4th field from the clabels file:
+            fopen myfile$+"-clabels.dat" labelstream read
+            for line = 1 to contour
+                fread labelstream nop$ nop$ nop$ z
+            next line
+            fclose labelstream
+            contour_start = 1
+        else
+            split = pos(row$, " ", 1)
+            x = val(seg$(row$, 1, split - 1))
+            y = val(seg$(row$, split + 1, len(row$)))
+            if contour_start = 1 then
+                set color eval( colorize$ + "(" + z + ")" )
+                amove xg(x) yg(y)
+                contour_start = 0
+            else
+                aline xg(x) yg(y)
+            end if
+        end if
+    next
+    !
+    fclose datastream
+end sub
+

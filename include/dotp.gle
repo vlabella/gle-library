@@ -1,0 +1,43 @@
+! Library to draw dotplots.
+! Author: Francois Tonneau
+
+! List of subroutines:
+
+! dotplot: draw a dotplot from binned data.
+
+! Note: When drawing stacked dotplots with the "from" option, the datasets must
+! first be cumulated (as in GLE's stacked-bar command, "bar dn from dm ...").
+
+sub dotplot dataset$ dotcolor$ dotsize xshift from$
+    !
+    ! dataset$  = a valid dataset (e.g., d1)
+    ! dotcolor$ = black by default
+    ! dotsize   = dot diameter in cm
+    ! xshift    = an optional parameter to shift the dots left or right of the
+    !             the central tick (could be useful to draw grouped dotplots)
+    ! from$     = an optional dataset to serve as baseline; if present, the
+    !             target dataset will be plotted above it.
+    !
+    default dotcolor black
+    default dotsize  0.15
+    default xshift   0
+    default from     ""
+    local baseline$ = from$
+    local n = ndata(dataset$)
+    local k, x, basis, low, high, dot
+    for k = 1 to n
+        x = dataxvalue(dataset$, k)
+        if baseline$ = "" then
+            basis = 0
+        else
+            basis = datayvalue(baseline$, k)
+        end if
+        low  = basis + 1
+        high = datayvalue(dataset$, k)
+        for dot = low to high
+            amove xg(x)+xshift yg(dot)
+            circle dotsize/2 fill dotcolor$ nostroke
+        next dot
+    next k
+end sub
+

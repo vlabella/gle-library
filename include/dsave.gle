@@ -1,0 +1,35 @@
+! Library to save a dataset to a file.
+! Author: Francois Tonneau, with improvements by Zbigniew Kriesel.
+
+! List of subroutines:
+
+! dsave: save dataset to text file.
+
+sub dsave dataset$ filename$ xdecs ydecs header$
+    !
+    ! dataset$  = a valid dataset (e.g., d1)
+    ! filename$ = the name of the file where the data will be saved
+    ! xdecs     = decimal places for x values (3 by default)
+    ! ydecs     = decimal places for y values (3 by default)
+    ! header$   = custom file header
+    !
+    default xdecs  3
+    default ydecs  3
+    default header ""
+    fopen filename$ stream write
+    if header$ <> "" then
+        fwriteln stream header$
+        fwriteln stream
+    end if
+    local total = ndata(dataset$)
+    local num, x, y, xstring$, ystring$
+    for num = 1 to total
+        x = dataxvalue(dataset$, num)
+        y = datayvalue(dataset$, num)
+        xstring$ = format$(x, "fix " + xdecs)
+        ystring$ = format$(y, "fix " + ydecs)
+        fwriteln stream xstring$ ystring$
+    next num
+    fclose stream
+end sub
+

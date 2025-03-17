@@ -1,0 +1,28 @@
+! Minimal theming library.
+! Author: Francois Tonneau
+
+! List of subroutines/themes:
+
+! seaborn
+
+! Because a theme involves graph-specific commands, we define it inside a dummy
+! graph block to avoid compilation errors. Axes are turned off to run the block
+! silently.
+
+begin graph
+    axis off
+    sub seaborn
+        seaborn_blue$   = "#4c72b0"
+        seaborn_orange$ = "#dd8452"
+        seaborn_green$  = "#55a868"
+        seaborn_red$    = "#c44e52"
+        seaborn_purple$ = "#8172b3"
+        seaborn_brown$  = "#937860"
+        seaborn_pink$   = "#da8bc3"
+        seaborn_gray$   = "#eaeaf2"
+        background seaborn_gray$
+        axis grid color white lwidth 0.03
+        labels color black
+    end sub
+end graph
+

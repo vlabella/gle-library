@@ -1,0 +1,71 @@
+! Subroutines to draw x- and y-axis rugs.
+! Author: Francois Tonneau
+
+! List of subroutines:
+
+! xrug: draw rugs along the x axes.
+
+! yrug: draw rugs along the y axes.
+
+! *Warning:* Do not use xrug or yrug on datasets with missing values. Because
+! GLE's dataxvalue() and datayvalue() interpret absent numbers as 0, xrug and
+! yrug will draw a 0-based tick for each nonexistent x or y.
+
+! It is best to call xrug or yrug after the corresponding graph block is over.
+! Calling xrug or yrug from a graph block with 'draw' would probably clip the
+! rugs, which is not what you want.
+
+sub xrug dataset$ ticklen position$ offset
+    !
+    ! dataset$:  a valid dataset (e.g., d1)
+    ! ticklen:   tick length in cm
+    ! position$: bottom, top, or both (default bottom)
+    ! offset:    cm from axis (+ or -, default 0)
+    !
+    default position "bottom"
+    default offset   0
+    local total = ndata(dataset$)
+    local num, x
+    if (position$ = "bottom") or (position$ = "both") then
+        for num = 1 to total
+            x = dataxvalue(dataset$, num)
+            amove xg(x) yg(ygmin)-offset
+            rline 0 -ticklen
+        next num
+    end if
+    if (position$ = "top") or (position$ = "both") then
+        for num = 1 to total
+            x = dataxvalue(dataset$, num)
+            amove xg(x) yg(ygmax)+offset
+            rline 0 ticklen
+        next num
+    end if
+end sub
+
+sub yrug dataset$ ticklen position$ offset
+    !
+    ! dataset$:  a valid dataset (e.g., d1)
+    ! ticklen:   tick length in cm
+    ! position$: left, right, or both (default left)
+    ! offset:    cm from axis (+ or -, default 0)
+    !
+    default position "left"
+    default offset   0
+    local total = ndata(dataset$)
+    local num, y
+    if (position$ = "left") or (position$ = "both") then
+        for num = 1 to total
+            y = datayvalue(dataset$, num)
+            amove xg(xgmin)-offset yg(y)
+            rline -ticklen 0
+        next num
+    end if
+    if (position$ = "right") or (position$ = "both") then
+        for num = 1 to total
+            y = datayvalue(dataset$, num)
+            amove xg(xgmax)+offset yg(y)
+            rline ticklen 0
+        next num
+    end if
+end sub
+

@@ -1,0 +1,54 @@
+! Subroutines for string processing.
+! Author: Francois Tonneau
+
+! List of subroutines:
+
+! grouped$: return a string with separated groups of letters/digits.
+
+! spaced$: return a string with spaces in it.
+
+sub grouped$ string$ grouping separator$
+    !
+    ! string$    = target string, e.g., "884401"
+    ! grouping   = number of characters forming a group (e.g., 3)
+    ! separator$ = char to be inserted between groups (e.g, ",")
+    !
+    if (len(string$) = 0) or (grouping <= 0) then return
+    local output$ = ""
+    local last = len(string$)
+    local pos, char$, tailsize
+    for pos = 1 to last
+        char$ = seg$(string$, pos, pos)
+        tailsize = last - pos
+        if (tailsize > 0) and (tailsize % grouping = 0) then
+            output$ = output$ + char$ + separator$
+        else
+            output$ = output$ + char$
+        end if
+    next pos
+    return output$
+end sub
+
+sub spaced$ string$ pseudoblank$
+    !
+    ! string$       = string with space surrogates (to be converted to spaces)
+    ! pseudoblank $ = char to be replaced by spaces (e.g, "_")
+    !
+    if len(string$) = 0 then return
+    local output$ = ""
+    local last = len(string$)
+    local pos, char$
+    for pos = 1 to last
+        char$ = seg$(string$, pos, pos)
+        if char$ = pseudoblank$ then
+            !
+            ! We use \char{32} (which prints as space) instead of a litteral
+            ! space (" ") to permit multiple spaces in a row.
+            output$ = output$ + "\char{32}"
+        else
+            output$ = output$ + char$
+        end if
+    next pos
+    return output$
+end sub
+

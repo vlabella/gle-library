@@ -1,0 +1,1057 @@
+! Library about polar plots and grids.
+
+! Copyright (c) 2020 Francois Tonneau
+! License: MIT
+
+! ------------------------------
+! INTRODUCTION
+! ------------------------------
+
+! This GLE library provides subroutines for plotting polar functions or polar
+! datasets read from a text file. Numeric values are plotted on a "wheel" which
+! may cover fewer than 360 degrees and may also be perforated at its center. The
+! colored background for plotting may coincide with the entire wheel or with
+! only an angular subset of it (the "fan"). The wheel can be decorated with
+! rays, rings, or threads pinned at regular angles (as in a spider web). The
+! wheel can also be annotated with angle values, arbitrary labels around the
+! outer wheel border, and tags along any ray of the wheel.
+
+! The labels around the wheel must be specified in a text file, either along the
+! data to be plotted or in a separated file. In all cases, the file must contain
+! on each line:
+
+! label     angle       count       datum1  datum2  datum3 ...
+
+! where 'label' is the label for the current angle and where 'count' tells how
+! many data values appear on the remainder of the line. For example:
+
+! East      90          3           0.53    0.10    0.37
+!           ^-- angle   ^-- count   ^..................^.. data
+
+! An empty label should be replaced by two dashes. For example:
+
+! --        90          3           0.53    0.10    0.37
+
+! Each line of a file used to specify labels instead of data must end with a
+! zero data count. For example:
+
+! North     0           0
+! East      90          0
+! ^-- label ^-- angle
+
+! ------------------------------
+! SUBROUTINE SUMMARY
+! ------------------------------
+
+! wheelcenter x y               # x, y coordinates in cm
+! wheeldims inner outer         # inner, outer dimensions in cm
+! wheelvalues inner outer       # [inner, outer] = numeric data range
+! startangles at going$         # 'going' = clockwise|counterclockwise
+! stopangles at
+
+! setfan from to                # from, to: angles that limit clothing
+! resetfan                      # => fan coincides with whole wheel
+
+! fillcloth fill$
+! drawclothcontour
+
+! drawrings from to by no$                  # write 'no last' to omit last value
+! drawsomerings p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$     # => up to 10 values
+
+! drawrays from to by no$                   # write 'no last' to omit last value
+! drawsomerays p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$      # => up to 10 values
+
+! ticklength length
+! drawticks from to by no$                  # write 'no last' to omit last value
+! drawsometicks p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$     # => up to 10 values
+
+! fillweb fill$ pin             # 'pin': angle at which a web thread is pinned
+! drawthreads from to by pin    # from, to, by: from inner to outer values
+! drawthreadaround pin          # puts a pinned thread on the outer border
+
+! angleformat format$
+! writeangles from to by no$
+! writesomeangles p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$
+
+! labelstyle dist just$         # 'just' = basic|circular|radial|textual
+! writelabelsfrom filename$
+
+! tagstyle xoffset yoffset just$ format$ rotate$
+! writetags at from to by no$               # write 'no last' to omit last value
+! writesometags at p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$  # => up to 10 values
+
+! drawpolareq expr$ from to step color$ lwidth lstyle fill$
+! drawpolarline dataset$ color$ lwidth lstyle fill$ from to close$
+! drawpolarpoints dataset$ marker$ color$ msize lwidth from to
+! drawpolarimpulses number dataset$ color$ lwidth lstyle arrow$ from to
+! drawpolarerrors dataset$ errset$ pos$ color$ lwidth lstyle errwidth from to
+! drawpolarhist filename$ width color$ lwidth direction$
+! drawpolarmosaic filename$ expr$ width height color$ lwidth
+
+! xpp value angle       # return x coordinate in cm
+! ypp value angle       # return y coordinate in cm
+
+! movepp value angle         # move to (value, angle) point
+! linepp value angle arrow$  # line to (value, angle) point
+
+! ------------------------------
+! Private variables
+! ------------------------------
+
+_pole_center_x = 0
+_pole_center_y = 0
+
+_pole_inner_dim = 0
+_pole_outer_dim = 1
+
+_pole_inner_value = 0
+_pole_outer_value = 1
+
+_pole_starting_slant = 0
+_pole_stopping_slant = 360
+
+_pole_orientation$ = "counterclockwise"
+
+_pole_last_angle = 360
+
+_pole_fan_first = 0
+_pole_fan_last = 360
+
+_pole_tick_length = 0.1
+
+_pole_angle_format$ = "fix 0 append °"
+
+_pole_label_just$ = "basic"
+_pole_label_dist = 0.3
+
+_pole_tag_xoffset = 0
+_pole_tag_yoffset = 0
+_pole_tag_just$ = "cc"
+_pole_tag_format$ = "fix 1"
+_pole_tag_rotate$ = ""
+
+_pole_empty_string$ = "--"
+
+! ------------------------------
+! Private subroutines
+! ------------------------------
+
+sub _pole_goto_center
+    amove _pole_center_x _pole_center_y
+end sub
+
+sub _pole_cms value
+    local dim_range = _pole_outer_dim - _pole_inner_dim
+    local value_range = _pole_outer_value - _pole_inner_value
+    local value_diff = value - _pole_inner_value
+    local cms = _pole_inner_dim + (value_diff/value_range) * dim_range
+    return cms
+end sub
+
+sub _pole_degrees nominal_degrees
+    local degrees
+    if _pole_orientation$ = "clockwise" then
+        degrees = _pole_starting_slant - nominal_degrees
+    else
+        degrees = _pole_starting_slant + nominal_degrees
+    end if
+    return degrees
+end sub
+
+sub _pole_xpp value angle
+    local cms = _pole_cms(value)
+    local rads = torad(_pole_degrees(angle))
+    local x = _pole_center_x + cms * cos(rads)
+    return x
+end sub
+
+sub _pole_ypp value angle
+    local cms = _pole_cms(value)
+    local rads = torad(_pole_degrees(angle))
+    local y = _pole_center_y + cms * sin(rads)
+    return y
+end sub
+
+sub _pole_move value angle
+    amove _pole_xpp(value, angle) _pole_ypp(value, angle)
+end sub
+
+sub _pole_line value angle arrow$
+    default arrow ""
+    if arrow$ = "" then
+        aline _pole_xpp(value, angle) _pole_ypp(value, angle)
+    else &
+    if arrow$ = "start" then
+        aline _pole_xpp(value, angle) _pole_ypp(value, angle) arrow start
+    else &
+    if arrow$ = "end" then
+        aline _pole_xpp(value, angle) _pole_ypp(value, angle) arrow end
+    else &
+    if arrow$ = "both" then
+        aline _pole_xpp(value, angle) _pole_ypp(value, angle) arrow both
+    end if
+end sub
+
+sub _pole_fix_last lastvalue delta no$
+    if no$ = "last" then
+        lastvalue = lastvalue - delta/2
+    else
+        lastvalue = lastvalue + delta/2
+    end if
+    return lastvalue
+end sub
+
+sub _pole_draw_ring value
+    local dist = _pole_cms(value)
+    if dist = 0 then
+        return
+    end if
+    _pole_goto_center
+    local first = _pole_degrees(_pole_fan_first)
+    local last = _pole_degrees(_pole_fan_last)
+    if _pole_orientation$ = "clockwise" then
+        narc dist first last
+    else
+        arc dist first last
+    end if
+end sub
+
+sub _pole_draw_ray angle
+    _pole_move _pole_inner_value angle
+    _pole_line _pole_outer_value angle
+end sub
+
+sub _pole_draw_tick angle
+    _pole_move _pole_outer_value angle
+    local rads = torad(_pole_degrees(angle))
+    local dist = _pole_tick_length
+    rline dist*cos(rads) dist*sin(rads)
+end sub
+
+sub _pole_draw_thread value angle pin
+    _pole_line value angle+pin
+end sub
+
+sub _pole_nudge_anchor string$ align$
+    local halfx = theight("x")/2
+    local top_shift = theight(string$) - halfx
+    local top_just$ = "t" + align$
+    rmove 0 top_shift
+    set just top_just$
+end sub
+
+sub _pole_degrees_0_360 unrestricted_degrees
+    local degrees = unrestricted_degrees
+    while degrees < 0
+        degrees = degrees + 360
+    next
+    while degrees > 360
+        degrees = degrees - 360
+    next
+    return degrees
+end sub
+
+sub _pole_upward_facing degrees
+    local turn
+    if (degrees > 90) and (degrees < 270) then
+        turn = degrees + 180
+    else
+        turn = degrees
+    end if
+    return turn
+end sub
+
+sub _pole_contour_write_basic degrees label$
+    gsave
+    local rads = torad(degrees)
+    local width = twidth(label$)
+    local height = theight(label$) - tdepth(label$)
+    local centering_dx = width/2 * cos(rads)
+    local centering_dy = heigth/2 * sin(rads)
+    rmove centering_dx centering_dy
+    set just cc
+    write label$
+    grestore
+end sub
+
+sub _pole_contour_write_circular degrees label$
+    gsave
+    local spine = _pole_degrees_0_360(degrees - 90)
+    local turn = _pole_upward_facing(spine)
+    set just cc
+    begin rotate turn
+        write label$
+    end rotate
+    grestore
+end sub
+
+sub _pole_contour_write_radial degrees label$
+    gsave
+    local spine = _pole_degrees_0_360(degrees)
+    local turn = _pole_upward_facing(spine)
+    if (spine > 90) and (spine < 270) then
+        set just cr
+    else
+        set just cl
+    end if
+    begin rotate turn
+        write label$
+    end rotate
+    grestore
+end sub
+
+sub _pole_contour_write_textual degrees label$
+    gsave
+    local spine = _pole_degrees_0_360(degrees)
+    local away = theight("x")
+    if (spine = 90) then
+        rmove 0 away
+        _pole_nudge_anchor label$ c
+    else &
+    if (spine = 270) then
+        rmove 0 -away
+        _pole_nudge_anchor label$ c
+    else &
+    if (spine > 90) and (spine < 270) then
+        _pole_nudge_anchor label$ r
+    else
+        _pole_nudge_anchor label$ l
+    end if
+    write label$
+    grestore
+end sub
+
+sub _pole_contour_write degrees label$
+    if label$ = _pole_empty_string$ then
+        return
+    end if
+    local rads = torad(degrees)
+    local total = _pole_outer_dim + _pole_label_dist
+    _pole_goto_center
+    rmove total*cos(rads) total*sin(rads)
+    local type$ = _pole_label_just$
+    if type$ = "basic" then
+        _pole_contour_write_basic degrees label$
+    else &
+    if type$ = "circular" then
+        _pole_contour_write_circular degrees label$
+    else &
+    if type$ = "radial" then
+        _pole_contour_write_radial degrees label$
+    else &
+    if type$ = "textual" then
+        _pole_contour_write_textual degrees label$
+    end if
+end sub
+
+sub _pole_write_angle angle
+    local degrees
+    if _pole_angle_format$ = "pi" then
+        degrees = _pole_degrees(todeg(angle))
+    else
+        degrees = _pole_degrees(angle)
+    end if
+    local label$ = format$(angle, _pole_angle_format$)
+    _pole_contour_write degrees label$
+end sub
+
+sub _pole_write_tag angle value
+    gsave
+    _pole_move value angle
+    rmove _pole_tag_xoffset _pole_tag_yoffset
+    tag$ = format$(value, _pole_tag_format$)
+    set just _pole_tag_just$
+    local turn = 0
+    if _pole_tag_rotate$ = "text" then
+        local degrees = _pole_degrees(angle)
+        turn = _pole_degrees_0_360(degrees - 90)
+        turn = _pole_upward_facing(turn)
+    end if
+    begin rotate turn
+        write tag$
+    end rotate
+    grestore
+end sub
+
+sub _pole_draw_marker marker$ msize
+    if (marker$ = "circle") &
+    or (marker$ = "fcircle") &
+    or (marker$ = "wcircle") then
+        circle msize/2
+    else &
+    if (marker$ = "triangle") &
+    or (marker$ = "ftriangle") &
+    or (marker$ = "wtriangle") then
+        rmove -msize/2 -msize/3
+        begin path stroke
+            rline msize/2 msize
+            rline msize/2 -msize
+            closepath
+        end path
+    else &
+    if (marker$ = "square") &
+    or (marker$ = "fsquare") &
+    or (marker$ = "wsquare") then
+        box msize msize
+    else &
+    if (marker$ = "diamond") &
+    or (marker$ = "fdiamond") &
+    or (marker$ = "wdiamond") then
+        begin rotate 45
+            box msize msize
+        end rotate
+    else &
+    if (marker$ = "cross") then
+        begin rotate 45
+            rmove 0 -msize/2
+            rline 0 msize
+            rmove -msize/2 -msize/2
+            rline msize 0
+        end rotate
+    else &
+    if (marker$ = "plus") then
+        rmove 0 -msize/2
+        rline 0 msize
+        rmove -msize/2 -msize/2
+        rline msize 0
+    end if
+end sub
+
+! ------------------------------
+! Public subroutines
+! ------------------------------
+
+sub wheelcenter x y
+    _pole_center_x = x
+    _pole_center_y = y
+end sub
+
+sub wheeldims inner outer
+    _pole_inner_dim = inner
+    _pole_outer_dim = outer
+end sub
+
+sub wheelvalues inner outer
+    _pole_inner_value = inner
+    _pole_outer_value = outer
+end sub
+
+sub startangles at going$
+    default at 0
+    default going counterclockwise
+    local angle = at
+    _pole_starting_slant = angle
+    if (going$ <> "clockwise") and (going$ <> "counterclockwise") then
+        print "startangles: should go clockwise or counterclockwise"
+        return
+    end if
+    if going$ = "clockwise" then
+        _pole_stopping_slant = _pole_starting_slant - 360
+    else
+        _pole_stopping_slant = _pole_starting_slant + 360
+    end if
+    !
+    _pole_orientation$ = going$
+    _pole_last_angle = 360
+    _pole_fan_first = 0
+    _pole_fan_last = 360
+end sub
+
+sub stopangles at
+    local angle = at
+    if _pole_orientation$ = "clockwise" then
+        _pole_stopping_slant = _pole_starting_slant - angle
+    else
+        _pole_stopping_slant = _pole_starting_slant + angle
+    end if
+    _pole_last_angle = angle
+    _pole_fan_last = _pole_last_angle
+end sub
+
+sub setfan from to
+    _pole_fan_first = from
+    _pole_fan_last = to
+end sub
+
+sub resetfan
+    _pole_fan_first = 0
+    _pole_fan_last = _pole_last_angle
+end sub
+
+sub fillcloth fill$
+    default fill gray5
+    local first = _pole_degrees(_pole_fan_first)
+    local last = _pole_degrees(_pole_fan_last)
+    _pole_goto_center
+    begin path fill fill$
+        if _pole_orientation$ = "clockwise" then
+            narc _pole_inner_dim first last
+            arc _pole_outer_dim last first
+        else
+            arc _pole_inner_dim first last
+            narc _pole_outer_dim last first
+        end if
+    end path
+end sub
+
+sub drawclothcontour
+    _pole_draw_ring _pole_inner_value
+    _pole_draw_ring _pole_outer_value
+    local first = _pole_fan_first
+    local last = _pole_fan_last
+    if last < first + 360 then
+        _pole_draw_ray first
+        _pole_draw_ray last
+    end if
+end sub
+
+sub drawrings from to by no$
+    default by 1
+    default no ""
+    local firstvalue = from
+    local lastvalue = to
+    local delta = by
+    lastvalue = _pole_fix_last(lastvalue, delta, no$)
+    local value
+    for value = firstvalue to lastvalue step delta
+        _pole_draw_ring value
+    next value
+end sub
+
+sub drawsomerings p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$
+    default p0 ""; default p1 ""; default p2 ""
+    default p3 ""; default p4 ""; default p5 ""
+    default p6 ""; default p7 ""; default p8 ""
+    default p9 ""
+    !
+    p0$ = "" + p0$; p1$ = "" + p1$; p2$ = "" + p2$;
+    p3$ = "" + p3$; p4$ = "" + p4$; p5$ = "" + p5$;
+    p6$ = "" + p6$; p7$ = "" + p7$; p8$ = "" + p8$;
+    p9$ = "" + p9$
+    !
+    if p0$ <> "" then _pole_draw_ring val(p0$)
+    if p1$ <> "" then _pole_draw_ring val(p1$)
+    if p2$ <> "" then _pole_draw_ring val(p2$)
+    if p3$ <> "" then _pole_draw_ring val(p3$)
+    if p4$ <> "" then _pole_draw_ring val(p4$)
+    if p5$ <> "" then _pole_draw_ring val(p5$)
+    if p6$ <> "" then _pole_draw_ring val(p6$)
+    if p7$ <> "" then _pole_draw_ring val(p7$)
+    if p8$ <> "" then _pole_draw_ring val(p8$)
+    if p9$ <> "" then _pole_draw_ring val(p9$)
+end sub
+
+sub drawrays from to by no$
+    default by 45
+    default no ""
+    local firstangle = from
+    local lastangle = to
+    local delta = by
+    lastangle = _pole_fix_last(lastangle, delta, no$)
+    local angle
+    for angle = firstangle to lastangle step delta
+        _pole_draw_ray angle
+    next angle
+end sub
+
+sub drawsomerays p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$
+    default p0 ""; default p1 ""; default p2 ""
+    default p3 ""; default p4 ""; default p5 ""
+    default p6 ""; default p7 ""; default p8 ""
+    default p9 ""
+    !
+    p0$ = "" + p0$; p1$ = "" + p1$; p2$ = "" + p2$;
+    p3$ = "" + p3$; p4$ = "" + p4$; p5$ = "" + p5$;
+    p6$ = "" + p6$; p7$ = "" + p7$; p8$ = "" + p8$;
+    p9$ = "" + p9$
+    !
+    if p0$ <> "" then _pole_draw_ray val(p0$)
+    if p1$ <> "" then _pole_draw_ray val(p1$)
+    if p2$ <> "" then _pole_draw_ray val(p2$)
+    if p3$ <> "" then _pole_draw_ray val(p3$)
+    if p4$ <> "" then _pole_draw_ray val(p4$)
+    if p5$ <> "" then _pole_draw_ray val(p5$)
+    if p6$ <> "" then _pole_draw_ray val(p6$)
+    if p7$ <> "" then _pole_draw_ray val(p7$)
+    if p8$ <> "" then _pole_draw_ray val(p8$)
+    if p9$ <> "" then _pole_draw_ray val(p9$)
+end sub
+
+sub ticklength length
+    _pole_tick_length = length
+end sub
+
+sub drawticks from to by no$
+    default by 45
+    default no ""
+    local firstangle = from
+    local lastangle = to
+    local delta = by
+    lastangle = _pole_fix_last(lastangle, delta, no$)
+    local angle
+    for angle = firstangle to lastangle step delta
+        _pole_draw_tick angle
+    next angle
+end sub
+
+sub drawsometicks p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$
+    default p0 ""; default p1 ""; default p2 ""
+    default p3 ""; default p4 ""; default p5 ""
+    default p6 ""; default p7 ""; default p8 ""
+    default p9 ""
+    !
+    p0$ = "" + p0$; p1$ = "" + p1$; p2$ = "" + p2$;
+    p3$ = "" + p3$; p4$ = "" + p4$; p5$ = "" + p5$;
+    p6$ = "" + p6$; p7$ = "" + p7$; p8$ = "" + p8$;
+    p9$ = "" + p9$
+    !
+    if p0$ <> "" then _pole_draw_tick val(p0$)
+    if p1$ <> "" then _pole_draw_tick val(p1$)
+    if p2$ <> "" then _pole_draw_tick val(p2$)
+    if p3$ <> "" then _pole_draw_tick val(p3$)
+    if p4$ <> "" then _pole_draw_tick val(p4$)
+    if p5$ <> "" then _pole_draw_tick val(p5$)
+    if p6$ <> "" then _pole_draw_tick val(p6$)
+    if p7$ <> "" then _pole_draw_tick val(p7$)
+    if p8$ <> "" then _pole_draw_tick val(p8$)
+    if p9$ <> "" then _pole_draw_tick val(p9$)
+end sub
+
+! Spiderweb drawing only supports full circles (from 0 to 360 degrees).
+
+sub fillweb fill$ pin
+    default fill gray5
+    begin path fill fill$
+        _pole_move _pole_outer_value 0
+        local angle
+        for angle = 0 to 360-pin step pin
+            _pole_draw_thread _pole_outer_value angle pin
+        next angle
+    end path
+end sub
+
+sub drawthreads from to by pin
+    default by 1
+    local firstvalue = from
+    local lastvalue = to
+    local delta = by
+    local value
+    for value = firstvalue to lastvalue step delta
+        _pole_move value 0
+        local angle
+        for angle = 0 to 360-pin step pin
+            _pole_draw_thread value angle pin
+        next angle
+    next value
+end sub
+
+sub drawthreadaround pin
+    _pole_move _pole_outer_value 0
+    local angle
+    for angle = 0 to 360-pin step pin
+        _pole_draw_thread _pole_outer_value angle pin
+    next angle
+end sub
+
+sub angleformat format$
+    _pole_angle_format$ = format$
+end sub
+
+sub writeangles from to by no$
+    default by 45
+    default no ""
+    local firstangle = from
+    local lastangle = to
+    local delta = by
+    local lastangle = _pole_fix_last(lastangle, delta, no$)
+    local angle
+    for angle = firstangle to lastangle step delta
+        _pole_write_angle angle
+    next angle
+end sub
+
+sub writesomeangles p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$
+    default p0 ""; default p1 ""; default p2 ""
+    default p3 ""; default p4 ""; default p5 ""
+    default p6 ""; default p7 ""; default p8 ""
+    default p9 ""
+    !
+    p0$ = "" + p0$; p1$ = "" + p1$; p2$ = "" + p2$;
+    p3$ = "" + p3$; p4$ = "" + p4$; p5$ = "" + p5$;
+    p6$ = "" + p6$; p7$ = "" + p7$; p8$ = "" + p8$;
+    p9$ = "" + p9$
+    !
+    if p0$ <> "" then _pole_write_angle val(p0$)
+    if p1$ <> "" then _pole_write_angle val(p1$)
+    if p2$ <> "" then _pole_write_angle val(p2$)
+    if p3$ <> "" then _pole_write_angle val(p3$)
+    if p4$ <> "" then _pole_write_angle val(p4$)
+    if p5$ <> "" then _pole_write_angle val(p5$)
+    if p6$ <> "" then _pole_write_angle val(p6$)
+    if p7$ <> "" then _pole_write_angle val(p7$)
+    if p8$ <> "" then _pole_write_angle val(p8$)
+    if p9$ <> "" then _pole_write_angle val(p9$)
+end sub
+
+sub labelstyle dist just$
+    default dist 0.3
+    default just basic
+    if (just$ <> "basic") &
+    and (just$ <> "circular") &
+    and (just$ <> "radial") &
+    and (just$ <> "textual") then
+        print "labelstyle: just is not basic|circular|radial|textual"
+        return
+    end if
+    _pole_label_dist = dist
+    _pole_label_just$ = just$
+end sub
+
+sub writelabelsfrom filename$
+    local label$, angle, nvalues
+    fopen filename$ stream read
+    until feof(stream)
+        fread stream label$
+        fread stream angle
+        local degrees = _pole_degrees(angle)
+        _pole_contour_write degrees label$
+        fread stream nvalues
+        for num = 1 to nvalues
+            fread stream _
+        next num
+    next
+    fclose stream
+end sub
+
+sub tagstyle xoffset yoffset just$ format$ rotate$
+    default xoffset 0
+    default yoffset 0
+    default just cc
+    default format "fix 1"
+    default rotate ""
+    if (rotate$ <> "") and (rotate$ <> "text") then
+        print "tagstyle: if specified, rotate should be text"
+        return
+    end if
+    _pole_tag_xoffset = xoffset
+    _pole_tag_yoffset = yoffset
+    _pole_tag_just$ = just$
+    _pole_tag_format$ = format$
+    _pole_tag_rotate$ = rotate$
+end sub
+
+sub writetags at from to by no$
+    default by 1
+    default no ""
+    local angle = at
+    local firstvalue = from
+    local lastvalue = to
+    local delta = by
+    lastvalue = _pole_fix_last(lastvalue, delta, no$)
+    local value
+    for value = firstvalue to lastvalue step delta
+        _pole_write_tag angle value
+    next value
+end sub
+
+sub writesometags at p0$ p1$ p2$ p3$ p4$ p5$ p6$ p7$ p8$ p9$
+    default p0 ""; default p1 ""; default p2 ""
+    default p3 ""; default p4 ""; default p5 ""
+    default p6 ""; default p7 ""; default p8 ""
+    default p9 ""
+    !
+    p0$ = "" + p0$; p1$ = "" + p1$; p2$ = "" + p2$;
+    p3$ = "" + p3$; p4$ = "" + p4$; p5$ = "" + p5$;
+    p6$ = "" + p6$; p7$ = "" + p7$; p8$ = "" + p8$;
+    p9$ = "" + p9$
+    !
+    local angle = at
+    if p0$ <> "" then _pole_write_tag angle val(p0$)
+    if p1$ <> "" then _pole_write_tag angle val(p1$)
+    if p2$ <> "" then _pole_write_tag angle val(p2$)
+    if p3$ <> "" then _pole_write_tag angle val(p3$)
+    if p4$ <> "" then _pole_write_tag angle val(p4$)
+    if p5$ <> "" then _pole_write_tag angle val(p5$)
+    if p6$ <> "" then _pole_write_tag angle val(p6$)
+    if p7$ <> "" then _pole_write_tag angle val(p7$)
+    if p8$ <> "" then _pole_write_tag angle val(p8$)
+    if p9$ <> "" then _pole_write_tag angle val(p9$)
+end sub
+
+sub drawpolareq expr$ from to step color$ lwidth lstyle fill$
+    default from 0
+    default to 2*pi
+    default step 0.01
+    default color black
+    default lwidth 0.02
+    default lstyle 1
+    default fill clear
+    !
+    if step = 0 then
+        print "polareq: step cannot be 0"
+        return
+    end if
+    gsave
+    local t_first = from
+    local t_second = t_first + step
+    local t_last = to
+    local dt = step
+    local t, r
+    t = t_first
+    r = eval(expr$)
+    _pole_move r todeg(t)
+    set color color$ lwidth lwidth lstyle lstyle cap round
+    begin path stroke fill fill$
+        for t = t_second to t_last step dt
+            r = eval(expr$)
+            _pole_line r todeg(t)
+        next t
+   end path
+   grestore
+end sub
+
+sub drawpolarline dataset$ color$ lwidth lstyle fill$ from to close$
+    default color black
+    default lwidth 0.02
+    default lstyle 1
+    default fill clear
+    default from 1
+    default to -1
+    default close ""
+    if (close$ <> "") and (close$ <> "end") then
+        print "drawpolarline: if specified, close should be end"
+        return
+    end if
+    gsave
+    local first = from
+    local second = first + 1
+    local last = to
+    if last = -1 then last = ndata(dataset$)
+    !
+    local k, angle, value
+    k = first
+    angle = dataxvalue(dataset$, k)
+    value = datayvalue(dataset$, k)
+    _pole_move value angle
+    if color$ <> "clear" then
+        set color color$ lwidth lwidth lstyle lstyle join round
+        begin path fill fill$ stroke
+            for k = second to last
+                angle = dataxvalue(dataset$, k)
+                value = datayvalue(dataset$, k)
+                _pole_line value angle
+            next k
+            if close$ = "end" then
+                closepath
+            end if
+        end path
+    else
+        set lwidth lwidth lstyle lstyle join round
+        begin path fill fill$
+            for k = second to last
+                angle = dataxvalue(dataset$, k)
+                value = datayvalue(dataset$, k)
+                _pole_line value angle
+            next k
+        end path
+    end if
+    grestore
+end sub
+
+sub drawpolarpoints dataset$ marker$ color$ msize lwidth from to
+    default marker fcircle
+    default color black
+    default msize 0.2
+    default lwidth 0.02
+    default from 1
+    default to -1
+    gsave
+    local first = from
+    local last = to
+    if last = -1 then last = ndata(dataset$)
+    set color color$ lwidth lwidth
+    local variant$ = left$(marker$, 1)
+    if variant$ = "c" then
+        set fill clear
+    else &
+    if variant$ = "f" then
+        set fill color$
+    else &
+    if variant$ = "w" then
+        set fill white
+    end if
+    local k, angle, value
+    for k = first to last
+        angle = dataxvalue(dataset$, k)
+        value = datayvalue(dataset$, k)
+        _pole_move value angle
+        _pole_draw_marker marker$ msize
+    next k
+    grestore
+end sub
+
+sub drawpolarimpulses number dataset$ color$ lwidth lstyle arrow$ from to
+    default color black
+    default lwidth 0.02
+    default lstyle 1
+    default arrow ""
+    default from 1
+    default to -1
+    gsave
+    local first = from
+    local last = to
+    if last = -1 then last = ndata(dataset$)
+    set color color$ lwidth lwidth lstyle lstyle
+    local k, angle, value
+    for k = first to last
+        angle = dataxvalue(dataset$, k)
+        value = datayvalue(dataset$, k)
+        if value <> number then
+            _pole_move number angle
+            _pole_line value angle arrow$
+        end if
+    next k
+    grestore
+end sub
+
+sub drawpolarerrors dataset$ errset$ pos$ color$ lwidth lstyle errwidth from to
+    default pos both
+    default color black
+    default lwidth 0.02
+    default lstyle 1
+    default errwidth 0
+    default from 1
+    default to -1
+    if (pos$ <> "in") and (pos$ <> "out") and (pos$ <> "both") then
+        print "drawpolarerrors: pos should be in, out, or both"
+        return
+    end if
+    gsave
+    local first = from
+    local last = to
+    if last = -1 then last = ndata(dataset$)
+    set color color$ lwidth lwidth lstyle lstyle
+    set cap round
+    local k, angle, errorangle, value, error
+    for k = first to last
+        angle = dataxvalue(dataset$, k)
+        errorangle = _pole_degrees(angle) + 90
+        value = datayvalue(dataset$, k)
+        error = datayvalue(errset$, k)
+        if (pos$ = "out") or (pos$ = "both") then
+            _pole_move value angle
+            _pole_line value+error angle
+            begin rotate errorangle
+                rmove -errwidth/2 0
+                rline errwidth 0
+            end rotate
+        end if
+        if (pos$ = "in") or (pos$ = "both") then
+            _pole_move value angle
+            _pole_line value-error angle
+            begin rotate errorangle
+                rmove -errwidth/2 0
+                rline errwidth 0
+            end rotate
+        end if
+    next k
+    grestore
+end sub
+
+sub drawpolarhist filename$ width color$ lwidth direction$
+    default lwidth 0.02
+    default color clear
+    if (direction$ <> "inward") and (direction$ <> "outward") then
+        print "drawpolarhist: direction should be inward or outward"
+        return
+    end if
+    gsave
+    local label$, angle, a0, a1, value, front, back, fill$, nvalues, num
+    _pole_goto_center
+    fopen filename$ stream read
+    until feof(stream)
+        fread stream label$
+        fread stream angle
+        a0 = _pole_degrees(angle) - width/2
+        a1 = _pole_degrees(angle) + width/2
+        if direction$ = "inward" then
+            back = _pole_outer_value
+        else
+            back = _pole_inner_value
+        end if
+        fread stream nvalues
+        for num = 1 to nvalues
+            fread stream value
+            front = back + value
+            fill$ = eval("color_" + num + "$")
+            if color$ = "clear" then
+                begin path fill fill$
+                    arc _pole_cms(back) a0 a1
+                    narc _pole_cms(front) a1 a0
+                end path
+            else
+                set color color$ lwidth lwidth
+                begin path fill fill$ stroke
+                    arc _pole_cms(back) a0 a1
+                    narc _pole_cms(front) a1 a0
+                    closepath
+                end path
+            end if
+            back = front
+        next num
+    next
+    fclose stream
+    grestore
+end sub
+
+sub drawpolarmosaic filename$ expr$ width height color$ lwidth
+    default lwidth 0.02
+    default color clear
+    gsave
+    local angle, a0, a1, value, rlow, rhigh, z, fill$
+    _pole_goto_center
+    fopen filename$ stream read
+    until feof(stream)
+        fread stream angle
+        a0 = _pole_degrees(angle) - width/2
+        a1 = _pole_degrees(angle) + width/2
+        fread stream value
+        rlow = _pole_cms(value - height/2)
+        rhigh = _pole_cms(value + height/2)
+        fread stream z
+        fill$ = eval(expr$)
+        if color$ = "clear" then
+            begin path fill fill$
+                arc rlow a0 a1
+                narc rhigh a1 a0
+            end path
+        else
+            set color color$ lwidth lwidth
+            begin path fill fill$ stroke
+                arc rlow a0 a1
+                narc rhigh a1 a0
+                closepath
+            end path
+        end if
+    next
+    fclose stream
+    grestore
+end sub
+
+sub xpp value angle
+    _pole_xpp value angle
+end sub
+
+sub ypp value angle
+    _pole_ypp value angle
+end sub
+
+sub movepp value angle
+    _pole_move value angle
+end sub
+
+sub linepp value angle arrow$
+    default arrow ""
+    _pole_line value angle arrow$
+end sub
+

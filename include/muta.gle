@@ -1,0 +1,84 @@
+! Library to draw mutation plots.
+! Author: Francois Tonneau
+
+! List of subroutines:
+
+! mutaplot: draw a mutation plot.
+
+! mutagrid: draw gridlines for a mutation plot.
+
+! ==========
+
+! Each line of the data file for a mutation plot should read as:
+
+! row, column, mutation count, mutation types (with underscores, no spaces).
+
+! For example:
+
+! 13 37 2 nonsense missense
+! 14 59 3 nonsense missense splice_site
+! 28 97 1 nonsense
+
+! Successive fields are blank-separated.
+
+! ==========
+
+! Aside from the name of the data file, 'mutaplot' requires a linecolor$
+! parameter which must be a valid color or 'cell'. In the former case, cell
+! borders will be drawn in the color indicated; in the latter case, borders
+! will be made invisible by drawing them with the current fill color.
+
+sub mutaplot filename$ linecolor$ linewidth
+    !
+    ! filename$  = name of the data file
+    ! linecolor$ = line color for cell borders (or 'cell')
+    ! linewidth  = line width for cell borders (optional)
+    !
+    default linecolor ""
+    default linewidth 0.01
+    gsave
+    local width  = xg(1.5) - xg(0.5)
+    local height = yg(1.5) - yg(0.5)
+    local row, column, count, k, type$
+    fopen filename$ stream read
+    until feof(stream)
+        fread stream row column count
+        local base_x = xg(column - 0.5)
+        local base_y = yg(row - 0.5)
+        for k = 1 to count
+            y = base_y + (k - 1) * height/count
+            amove base_x y
+            fread stream type$
+            local hue$ = eval(type$ + "$")
+            if linecolor$ = "cell" then
+                set color hue$ lwidth linewidth
+            else
+                set color linecolor$ lwidth linewidth
+            end if
+            box width height/count just bl fill hue$
+        next k
+    next
+    fclose stream
+    grestore
+end sub
+
+sub mutagrid linecolor$ linewidth
+    !
+    ! linecolor$, linewidth: parameters for gridlines
+    !
+    default linecolor white
+    default linewidth 0.01
+    gsave
+    set color linecolor$ lwidth linewidth lstyle 1
+    local x, y
+    for x = xgmin+1 to xgmax-1
+        amove xg(x) yg(ygmin)
+        aline xg(x) yg(ygmax)
+    next x
+    for y = ygmin+1 to ygmax-1
+        amove xg(xgmin) yg(y)
+        aline xg(xgmax) yg(y)
+    next y
+    grestore
+end sub
+
