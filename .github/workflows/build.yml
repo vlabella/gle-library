@@ -1,0 +1,87 @@
+#
+# -- build.yml - build and bundle GLE-library
+#
+name: Build andBundle GLE Library
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  #push:
+  #  branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout GLE Library
+        uses: actions/checkout@v4
+
+      - name: Checkout GLE
+        uses: actions/checkout@v4
+        with:
+          repository: "vlabella/gle"
+          path: gle
+
+      - name: Get Version Number from GLE's CMakeLists.txt file
+        id: version-number
+        run: echo "VERSION=$(awk 'tolower($0) ~ /project\([[:blank:]]*[[:alnum:]]+[[:blank:]]+version[[:blank:]]+[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+[[:blank:]]*\)/{print $4}' gle/src/CMakeLists.txt)" >> $GITHUB_ENV
+
+      - name: Add gle-library to GLE_USRLIB
+        working-directory: ${{github.workspace}}
+        run: export GLE_USRLIB=${{github.workspace}}/include:$GLE_USRLIB
+
+      - name: update apt
+        run: sudo apt update
+
+      - name: install packages
+        # do not install qt - not building the GUI
+        run: |
+         set -x
+         touch ${{github.workspace}}/gle/configure.args
+         sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng \
+         cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev \
+         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev \
+         python3
+
+      - name: Configure cmake
+        working-directory: ${{github.workspace}}/gle
+        run: cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF -DBUILD_MANIP=OFF
+
+      - name: Build GLE
+        working-directory: ${{github.workspace}}/gle
+        run: cmake --build build
+
+      - name: Install GLE
+        working-directory: ${{github.workspace}}/gle
+        run: DESTDIR=destroot cmake --install build
+
+      - name: Add GLE to PATH
+        working-directory: ${{github.workspace}}
+        run: export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH
+
+      - name: Build GLE Library
+        working-directory: ${{github.workspace}}
+        run: |
+          export GLE_USRLIB=${{github.workspace}}/gle-library/include:$GLE_USRLIB \
+          PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH && \
+          cd scripts ; python3 gen_makefile.pl ; python3 gen_include.py
+          cd scr ; make
+
+      -name: Package GLE Library
+          zip -r gle-library-${{ env.VERSION }}.zip src include scripts
+
+      - name: Upload Artifacts - GLE Manual PDF
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: GLE Library
+          path: ${{github.workspace}}/gle-library-${{ env.VERSION }}.zip
+          if-no-files-found: warn
+          retention-days: 0
+          compression-level: 0
