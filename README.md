@@ -72,6 +72,14 @@ cd scripts
 python gen_makefile.pl
 ```
 
-## Adding categories
+## Adding Categories
 
-Consult the `scripts/categories.yaml` file for hte list of categories.  These mirror the ones on the GLE website.  Add new category and submit a pull request if desired.
+Consult the `scripts/categories.yaml` file for the list of categories.  These mirror the ones on the GLE website.  Add new category with the following information
+and submit a pull request if desired.
+
+```yaml
+- id: <unique_one_word_id>
+  name:        <name to appear on the site
+  order:       <number indicating order on website>
+  description: <description of category for website>
+```
