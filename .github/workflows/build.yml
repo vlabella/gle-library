@@ -69,7 +69,7 @@ jobs:
       - name: Generate Makefile and Global Include
         working-directory: ${{github.workspace}}
         run: |
-          cd scripts ; python3 gen_makefile.pl ; python3 gen_include.py
+          cd scripts ; python3 gen_makefile.py ; python3 gen_include.py
 
       - name: Build GLE Library
         working-directory: ${{github.workspace}}
