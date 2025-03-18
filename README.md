@@ -1,6 +1,8 @@
 # gle-library
 
-GLE Library - Library of figures and include files for [GLE](http://glx.sourceforge.io).  The include files come bundled with the GLE distribution.  However, they may get updated prior to the next release.  This repo makes them available separately for users to modify and/or update outside of the GLE release schedule.  In addition, it enables users to contribute their own routines and sample figures.  See instructions below.
+GLE Library - Library of example figures and include files for [GLE](http://glx.sourceforge.io).  The example figures are displayed in a categorized list on the website [here](https://glx.sourceforge.io/examples/).
+
+The include files come bundled with the GLE distribution and displayed on the website [here](https://glx.sourceforge.io/library/).  This repository makes both the examples and include files available for users to modify and/or update outside of the GLE release schedule.  Instructions for contributing examples and include files are below. 
 
 ## Installation Instructions
 
@@ -16,7 +18,7 @@ To install the new include files
 
 ## Building all figures
 
-To build all the figures
+To build all the figures from the source code
 
   `cd src`
   `make` or `nmake`
@@ -51,17 +53,19 @@ name: <name of the figure>
 notes: <optional notes about the figure>
 ```
 
-6. Add and commit everything and then submit a pull request.
+6. Regenerate the Makefile. See instructions below
 
-7. Once the pull request is accepted the new figure will appear on the site.  It may take a few days as this has to be done manually by the maintainer.
+7. Add and commit everything and then submit a pull request.
+
+8. Once the pull request is accepted the new figure will appear on the site.  It may take a few days as this has to be done manually by the maintainer.
 
 ## Contributing Include Files
 
 Place new include files that others may find useful in the `include` folder.  Submit a pull request.  They will appear on the site and in the next release of GLE.
 
-## Regenerating the Makefile
+## Generating the Makefile
 
-To regenerate the Makefile run
+The Makefile will need to be regenerated if new figures are added. To generate the Makefile run
 
 ```
 cd scripts
@@ -70,4 +74,4 @@ python gen_makefile.pl
 
 ## Adding categories
 
-Consult the `scripts/categories.yaml` file fo rhte list of categories.  These mirror the ones on the GLE website.  Add new category and submit a pull request if desired.
+Consult the `scripts/categories.yaml` file for hte list of categories.  These mirror the ones on the GLE website.  Add new category and submit a pull request if desired.
