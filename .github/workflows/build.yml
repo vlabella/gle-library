@@ -1,7 +1,7 @@
 #
 # -- build.yml - build and bundle GLE-library
 #
-name: Build andBundle GLE Library
+name: Build and Bundle GLE Library
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   #push:
@@ -66,15 +66,21 @@ jobs:
         working-directory: ${{github.workspace}}
         run: export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH
 
+      - name: Generate Makefile and Global Include
+        working-directory: ${{github.workspace}}
+        run: |
+          cd scripts ; python3 gen_makefile.pl ; python3 gen_include.py
+
       - name: Build GLE Library
         working-directory: ${{github.workspace}}
         run: |
           export GLE_USRLIB=${{github.workspace}}/gle-library/include:$GLE_USRLIB \
           PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH && \
-          cd scripts ; python3 gen_makefile.pl ; python3 gen_include.py
           cd scr ; make
 
-      -name: Package GLE Library
+      - name: Package GLE Library
+        working-directory: ${{github.workspace}}
+        run: |
           zip -r gle-library-${{ env.VERSION }}.zip src include scripts
 
       - name: Upload Artifacts - GLE Manual PDF
