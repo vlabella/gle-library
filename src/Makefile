@@ -23,10 +23,7 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-!endif
-
-install-includes:
-	$(INSTALL_INCLUDES)
+# !endif
 
 all:
 	cd adjust $(CSEP) $(MAKE)
@@ -405,3 +402,6 @@ clean:
 	cd windrose $(CSEP) $(MAKE) clean
 	cd wulfnet $(CSEP) $(MAKE) clean
 	cd zoom-in $(CSEP) $(MAKE) clean
+
+install-includes:
+	$(INSTALL_INCLUDES)

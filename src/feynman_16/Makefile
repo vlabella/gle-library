@@ -23,10 +23,7 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-!endif
-
-install-includes:
-	$(INSTALL_INCLUDES)
+# !endif
 
 all: feynman_16.eps feynman_16.pdf feynman_16.png
 

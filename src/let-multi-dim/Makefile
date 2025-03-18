@@ -23,10 +23,7 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-!endif
-
-install-includes:
-	$(INSTALL_INCLUDES)
+# !endif
 
 all: let-multi-dim.eps let-multi-dim.pdf let-multi-dim.png
 

@@ -51,9 +51,6 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
 # \
 !endif
 
-install-includes:
-\t$(INSTALL_INCLUDES)
-
 """
 
 class OS(Enum):
@@ -166,4 +163,10 @@ for fig in figs:
 with open(os.path.join("..","src",makefile_filename), "w") as f:
     f.write(preamble)
     f.write("\n".join(makefile_content))
+    f.write("\n")
+    f.write("\n")
+    f.write("install-includes:\n")
+    f.write("\t$(INSTALL_INCLUDES)\n")
+
+
 
