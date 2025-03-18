@@ -76,7 +76,7 @@ jobs:
         run: |
           export GLE_USRLIB=${{github.workspace}}/gle-library/include:$GLE_USRLIB \
           PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH && \
-          cd scr ; make
+          cd src ; make
 
       - name: Package GLE Library
         working-directory: ${{github.workspace}}
