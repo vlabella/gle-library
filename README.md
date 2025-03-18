@@ -1,8 +1,8 @@
 # gle-library
 
-GLE Library - Library of example figures and include files for [GLE](http://glx.sourceforge.io).  The example figures are displayed in a categorized list on the website [here](https://glx.sourceforge.io/examples/).
+GLE Library - Library of example figures and include files for [GLE](http://glx.sourceforge.io).  The example figures are displayed in a categorized list on the website [here](https://glx.sourceforge.io/examples/). The include files come bundled with the GLE distribution and displayed on the website [here](https://glx.sourceforge.io/library/).  
 
-The include files come bundled with the GLE distribution and displayed on the website [here](https://glx.sourceforge.io/library/).  This repository makes both the examples and include files available for users to modify and/or update outside of the GLE release schedule.  Instructions for contributing examples and include files are below. 
+This repository makes both the examples and include files available for users to modify and/or update outside of the GLE release schedule.  Instructions for contributing examples and include files are below. 
 
 ## Installation Instructions
 
