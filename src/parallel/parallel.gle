@@ -1,0 +1,76 @@
+! Example of parallel coordinates plot.
+! Author: Francois Tonneau
+
+include palettes.gle
+
+size 16 12
+
+set font ss
+
+amove 3 3
+
+! Load data and draw a frame around the plot area.
+
+begin graph
+    size 10 6
+    fullsize
+    data "parallel.dat"
+    xaxis min 1 max ndatasets() ftick 1 dticks 1 angle 30
+    yaxis min 0 max 1 ftick 0 dticks 1
+    side   off
+    ticks  off
+    labels off
+    labels dist 0.6
+    xnames MPG Cylinders Displacement Horsepower Weight Acceleration Year Origin
+    ynames Min Max
+end graph
+
+! Set graphic parameters.
+
+nlines = ndata(d1) - 2  ! Last 2 rows in the file are min and max coordinates.
+
+ymin_row = ndata(d1) - 1
+ymax_row = ndata(d1)
+
+naxes  = ndatasets()
+
+! Draw coordinate axes inside the plot area.
+
+set color gray20 lwidth 0.01
+for axis = 1 to naxes
+    amove xg(axis) yg(0)
+    aline xg(axis) yg(1)
+next axis
+
+! Label each axis with minimum and maximum.
+
+set color black hei 0.3 just cc
+for axis = 1 to naxes
+    min = datayvalue(d[axis], ymin_row)
+    max = datayvalue(d[axis], ymax_row)
+    amove xg(axis) yg(0)-0.3
+    write min
+    amove xg(axis) yg(1)+0.3
+    write max
+next axis
+
+! Plot the data.
+
+ymin_initial = datayvalue(d1, ymin_row)
+ymax_initial = datayvalue(d1, ymax_row)
+
+set lwidth 0.02
+for line = 1 to nlines
+    y_initial     = datayvalue(d1, line)
+    ynorm_initial = (y_initial - ymin_initial) / (ymax_initial - ymin_initial)
+    set color inferno(ynorm_initial)
+    amove xg(1) yg(ynorm_initial)
+    for axis = 2 to naxes
+        ymin  = datayvalue(d[axis], ymin_row)
+        ymax  = datayvalue(d[axis], ymax_row)
+        y     = datayvalue(d[axis], line)
+        ynorm = (y - ymin)/(ymax - ymin)
+        aline xg(axis) yg(ynorm)
+    next axis
+next line
+
