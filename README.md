@@ -53,7 +53,7 @@ name: <name of the figure>
 notes: <optional notes about the figure>
 ```
 
-6. Regenerate the Makefile. See instructions below
+6. (optional) Regenerate the Makefile. Requires python. See instructions below
 
 7. Add and commit everything and then submit a pull request to the main branch.
 
