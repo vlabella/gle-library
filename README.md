@@ -32,7 +32,7 @@ To clean the build
 
 To contribute figures to the library:
 
-1. Clone the repository.
+1. Create a fork of the repository.
 
 2. Create a folder in the `src` folder with a unique name, preferably the same name as the figure.  Each figure must be in its own folder.  For multiple figures create unique folders for each one.
 
