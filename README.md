@@ -55,7 +55,7 @@ notes: <optional notes about the figure>
 
 6. Regenerate the Makefile. See instructions below
 
-7. Add and commit everything and then submit a pull request.
+7. Add and commit everything and then submit a pull request to the main branch.
 
 8. Once the pull request is accepted the new figure will appear on the site.  It may take a few days as this has to be done manually by the maintainer.
 
