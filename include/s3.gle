@@ -1,0 +1,911 @@
+! Library for 3d drawing and surface plots.
+
+! Copyright (c) 2025 Francois Tonneau
+! License: MIT
+
+! ------------------------------
+! LIBRARY SUMMARY
+! ------------------------------
+
+! This library, s3.gle, adds to GLE the ability to draw surface plots with
+! colored facets and colored mesh lines. The library comes with simplified
+! perspective and viewport settings, along with helper subroutines to draw
+! lines, plot panes, grid lines, and axis labels on 3D plots.
+
+! ------------------------------
+! SUBROUTINE SUMMARY
+! ------------------------------
+
+! xrange min max
+! yrange min max
+! zrange min max
+!
+! These subroutines specify the range of x, y, and z values to appear in a 3D
+! plot.
+
+! ==========
+! xaxisrange min max
+! yaxisrange min max
+! zaxisrange min max
+!
+! These subroutines allow you optionally to extend the x, y, or z range that
+! will appear on the page. Calling zaxisrange with a min value lower than the
+! lowest z number, for example, will allow you to show the bottom pane of a
+! surface plot noticeably "below" the visible surface. This can be used to
+! project a contour map on the bottom pane.
+
+! ==========
+! scaling xs ys zs
+!
+! This subroutine allows you optionally to change the appearance of the
+! parallelepiped that encloses a 3D plot. Calling 'scaling 1 2 1', for example,
+! will result in a 3D plot with an apparent y range twice as broad as the x
+! range.
+
+! ==========
+! angles horz vert
+!
+! This subroutine specifies the angles of rotation (in degrees) used for a 3D
+! plot. The larger the 'horz' argument, the more the plot will appear to be seen
+! from the left. The larger the 'vert' argument, the more the plot will appear
+! to be seen from above.
+
+! ==========
+! persp coeff
+!
+! This subroutine specifies the degree of pseudo-perspective used for plotting.
+! Setting coeff to 1 means no perspective (i.e., an orthographic projection). A
+! lower value for coeff (e.g., 0.80) means a stronger perspective.
+
+! ==========
+! viewport width height
+!
+! This subroutine sets the width and the height (in cm) of the viewport for a
+! 3D plot. The subroutine also calibrates the whole 3D -> 2D viewing pipeline,
+! so it *must* be called before any drawing attempt -- otherwise your script
+! may crash with a division-by-zero error.
+
+! ==========
+! s3move x y z
+!
+! This subroutine moves the current drawing point to 3d coordinates x, y, z.
+
+! ==========
+! s3line x y z
+!
+! This subroutine draws a straight line from the current drawing point to 3d
+! coordinates x, y, z.
+
+! ==========
+! s3rect xA yA zA xB yB zB xC yC zC xD yD zD
+!
+! This subroutine draws a rectangle with corners A, B, C, D; xA, yA, zA, ... are
+! the 3d coordinates of each corner.
+
+! ==========
+! pane id$
+!
+! This subroutine draws a single plot panel (or wall); id$ is a one-character
+! string specifying pane position:
+! 'X' : the pane on the left that bears an X axis at its bottom
+! 'Y' : the pane at the front that bears an Y axis at its bottom
+! 'I' : the pane on the right, opposite of 'X'
+! 'J' : the pane on the back, opposite of 'Y'
+! 'B' : the bottom pane
+! 'T' : the top pane
+
+! ==========
+! grid id$ first last step
+!
+! This subroutine draws a horizontal or vertical grid along a plot pane; id$ is
+! a two-character string that specifies grid type:
+! "xX" : the x grid on pane X
+! "zX" : the z grid on pane X
+! "xI" : the x grid on pane I
+! "zI" : the z grid on pane I
+! "yY" : the y grid on pane Y
+! "zY" : the z grid on pane Y
+! "yJ" : the y grid on pane J
+! "zJ" : the z grid on pane J
+! "xB" : the x grid on pane B
+! "yB" : the y grid on pane B
+! "xT" : the x grid on pane T
+! "yT" : the y grid on pane T,
+! first : the starting value of the grid
+! last  : the last value of the grid
+! step  : the interval between a grid value and the next
+
+! ==========
+! label id$ pos dist text$ adjx adjy
+!
+! This subroutine draws a label along a plot axis; id$ identifies the axis by
+! the intersection of two panes:
+! "XB" : plane X and B
+! "XT" : plane X and T
+! "IB" : plane I and B
+! "IT" : plane I and T
+! "YB" : plane Y and B
+! "YT" : plane Y and T
+! "JB" : plane J and B
+! "JT" : plane J and T
+! "XY" : plane X and Y
+! "YI" : plane Y and I
+! "IJ" : plane I and J
+! "JX" : plane J and X
+! pos   : numeric position of the label along the axis
+! dist  : distance in cm between the axis and the label
+! text$ : value (string or number) of the label
+! adjx  : optional adjustment of label position in the horizontal direction
+! adjy  : optional adjustment of label position in the vertical direction
+
+! ==========
+! s3funcsurf f$ fillpal$ linepal$ nx ny xorient yorient
+!
+! This subroutine produces a surface plot for a specified function.
+! f$       : name of the function to be plotted; f must accept two numeric
+!            arguments and return a single numeric value
+! fillpal$ : name of the palette function for facet coloring; fillpal must
+!            accept a single numeric argument and return a valid GLE color
+!            (e.g., "#ff0033"); for transparent facets, use "clear" as value
+!            for fillpal$
+! linepal$ : name of the palette function for facet-border coloring; linepal
+!            must accept a single numeric argument and return a valid GLE color;
+!            alternatively, using "same" as value for linepal$ will paint facet
+!            borders with the same color as the facet
+! xorient and yorient are two numeric parameters (either 1 or -1) that determine
+!            the order of plotting facets along the xaxis (for xorient) or yaxis
+!            (for yorient); the default values for xorient and orient are 1 and
+!            -1, respectively
+
+! Note: s3.gle has no z buffering or hidden-surface detection, and draws surface
+! facets one after the other via a simple painter's algorithm. Depending on the
+! values of 'horz' and 'vert' in the 'angles' subroutine, switching the sign of
+! xorient or yorient may be needed to achieve correct rendering.
+
+! ==========
+! s3datasurf filename$ fillpal$ linepal$ xorient yorient
+!
+! This subroutine produces a surface plot from the data file named filename$.
+! This file contains the matrix of z data to be plotted, with rows and columns
+! corresponding to successive x and y values, respectively. Note that the values
+! for x and y do not appear in the data file; rather, their ranges are specified
+! separately, by calling the 'xrange min max' and 'yrange min max' subroutines.
+! Also, for technical reasons, the matrix of data must be preceded on the left
+! by a dummy column of row numbers (e.g.: 0 0 0 ...). Thus, the data file for
+! a 3 by 3 surface plot should look like:
+!
+! 0 z z z
+! 0 z z z
+! 0 z z z
+
+! ==========
+! s3contourlines rawfile$ linepal$ pane$
+!
+! This subroutine draws the colorized contour lines of a GLE cdata file.
+! rawfile$ : the base name of the cdata file. If the cdata file is named
+!            "myfile-cdata.dat", for example, rawfile$ should be "myfile"
+! linepal$ : name of the palette function for contour coloring; linepal must
+!            accept a single numeric argument and return a valid GLE color
+! pane$    : where to draw the colorized contour lines; either "bottom" (the
+!            default) or "top" (to draw the contour lines on the top pane)
+
+! Note: the "myfile-cdata.dat" file used to draw colored contours must have been
+! generated from a "myfile.z" z file via a 'begin contour ... end' block. Please
+! see the User Manual for more information about GLE z files, cdata files, and
+! contour blocks.
+
+! ------------------------------
+! IMPLEMENTATION
+! ------------------------------
+
+! Plot setup
+
+s3_xmin = 0
+s3_xmax = 0
+s3_ymin = 0
+s3_ymax = 0
+s3_zmin = 0
+s3_zmax = 0
+
+s3_xaxis_min = 0
+s3_xaxis_max = 0
+s3_yaxis_min = 0
+s3_yaxis_max = 0
+s3_zaxis_min = 0
+s3_zaxis_max = 0
+
+s3_xscale = 1
+s3_yscale = 1
+s3_zscale = 1
+
+s3_theta = 0
+s3_phi = 0
+
+s3_persp = 1
+
+s3_width = 0
+s3_height = 0
+
+! Pipeline handling
+
+s3_per_intercept = 0
+s3_per_slope = 0
+
+s3_xper_left = 0
+s3_xper_range = 0
+
+s3_yper_low = 0
+s3_yper_range = 0
+
+s3_epsilon = 0.000001
+
+! ------------------------------
+! Geometric setup
+! ------------------------------
+
+sub xrange min max
+    s3_xmin = min
+    s3_xmax = max
+    s3_xaxis_min = min
+    s3_xaxis_max = max
+end sub
+
+sub yrange min max
+    s3_ymin = min
+    s3_ymax = max
+    s3_yaxis_min = min
+    s3_yaxis_max = max
+end sub
+
+sub zrange min max
+    s3_zmin = min
+    s3_zmax = max
+    s3_zaxis_min = min
+    s3_zaxis_max = max
+end sub
+
+sub xaxisrange min max
+    s3_xaxis_min = min
+    s3_xaxis_max = max
+end sub
+
+sub yaxisrange min max
+    s3_yaxis_min = min
+    s3_yaxis_max = max
+end sub
+
+sub zaxisrange min max
+    s3_zaxis_min = min
+    s3_zaxis_max = max
+end sub
+
+sub scaling xs ys zs
+    s3_xscale = xs
+    s3_yscale = ys
+    s3_zscale = zs
+end sub
+
+sub angles horz vert
+    s3_theta = torad(horz)
+    s3_phi = torad(vert)
+end sub
+
+sub persp coeff
+    s3_persp = coeff
+end sub
+
+! ------------------------------
+! Pipeline stages
+! ------------------------------
+
+! Stage 1: input normalization
+
+sub s3xnor x
+    local xcent = x - (s3_xaxis_max + s3_xaxis_min) / 2
+    return xcent * s3_xscale / (s3_xaxis_max - s3_xaxis_min)
+end sub
+
+sub s3ynor y
+    local ycent = y - (s3_yaxis_max + s3_yaxis_min) / 2
+    return ycent * s3_yscale / (s3_yaxis_max - s3_yaxis_min)
+end sub
+
+sub s3znor z
+    local zcent = z - (s3_zaxis_max + s3_zaxis_min) / 2
+    return zcent * s3_zscale / (s3_zaxis_max - s3_zaxis_min)
+end sub
+
+! Stage 2: viewpoint rotation
+
+sub s3xrot x y z
+    local xc = s3xnor(x)
+    local yc = s3ynor(y)
+    local zc = s3znor(z)
+    return &
+    sin(s3_theta) * xc + cos(s3_theta) * yc
+end sub
+
+sub s3yrot x y z
+    local xc = s3xnor(x)
+    local yc = s3ynor(y)
+    local zc = s3znor(z)
+    return &
+    -cos(s3_theta) * sin(s3_phi) * xc + sin(s3_theta) * sin(s3_phi) * yc + cos(s3_phi) * zc
+end sub
+
+sub s3zrot x y z
+    local xc = s3xnor(x)
+    local yc = s3ynor(y)
+    local zc = s3znor(z)
+    return &
+    cos(s3_theta) * cos(s3_phi) * xc - sin(s3_theta) * cos(s3_phi) * yc + sin(s3_phi) * zc
+end sub
+
+! Stage 3: pseudo perspective
+
+sub s3xper x y z
+    local shrinkage = s3_per_intercept + s3zrot(x, y, z) * s3_per_slope
+    return s3xrot(x, y, z) * shrinkage
+end sub
+
+sub s3yper x y z
+    local shrinkage = s3_per_intercept + s3zrot(x, y, z) * s3_per_slope
+    return s3yrot(x, y, z) * shrinkage
+end sub
+
+! Stage 4: output normalization
+
+sub s3xg x y z
+    local pos = (s3xper(x, y, z) - s3_xper_left) / s3_xper_range
+    return pos * s3_width
+end sub
+
+sub s3yg x y z
+    local pos = (s3yper(x, y, z) - s3_yper_low) / s3_yper_range
+    return pos * s3_height
+end sub
+
+! ------------------------------
+! Viewport setting
+! ------------------------------
+
+sub viewport width height
+    s3_width = width
+    s3_height = height
+    !
+    local min, max
+    !
+    local dx = s3_xaxis_max - s3_xaxis_min
+    local dy = s3_yaxis_max - s3_yaxis_min
+    local dz = s3_zaxis_max - s3_zaxis_min
+    !
+    min = s3zrot(s3_xaxis_min, s3_yaxis_min, s3_zaxis_min)
+    max = s3zrot(s3_xaxis_min, s3_yaxis_min, s3_zaxis_min)
+    for x = s3_xaxis_min to s3_xaxis_max step dx
+        for y = s3_yaxis_min to s3_yaxis_max step dy
+            for z = s3_zaxis_min to s3_zaxis_max step dz
+                if s3zrot(x, y, z) < min then min = s3zrot(x, y, z)
+                if s3zrot(x, y, z) > max then max = s3zrot(x, y, z)
+            next z
+        next y
+    next x
+    if min < max - s3_epsilon then
+        s3_per_slope = (1 - s3_persp) / (max - min)
+        s3_per_intercept = 1 - s3_per_slope * max
+    else
+        s3_per_slope = 1
+        s3_per_intercept = 0
+    end if
+    !
+    min = s3xper(s3_xaxis_min, s3_yaxis_min, s3_zaxis_min)
+    max = s3xper(s3_xaxis_min, s3_yaxis_min, s3_zaxis_min)
+    for x = s3_xaxis_min to s3_xaxis_max step dx
+        for y = s3_yaxis_min to s3_yaxis_max step dy
+            for z = s3_zaxis_min to s3_zaxis_max step dz
+                if s3xper(x, y, z) < min then min = s3xper(x, y, z)
+                if s3xper(x, y, z) > max then max = s3xper(x, y, z)
+            next z
+        next y
+    next x
+    s3_xper_left = min
+    s3_xper_range = max - min
+    !
+    min = s3yper(s3_xaxis_min, s3_yaxis_min, s3_zaxis_min)
+    max = s3yper(s3_xaxis_min, s3_yaxis_min, s3_zaxis_min)
+    for x = s3_xaxis_min to s3_xaxis_max step dx
+        for y = s3_yaxis_min to s3_yaxis_max step dy
+            for z = s3_zaxis_min to s3_zaxis_max step dz
+                if s3yper(x, y, z) < min then min = s3yper(x, y, z)
+                if s3yper(x, y, z) > max then max = s3yper(x, y, z)
+            next z
+        next y
+    next x
+    s3_yper_low = min
+    s3_yper_range = max - min
+end sub
+
+! ------------------------------
+! Drawing primitives
+! ------------------------------
+
+sub s3move x y z
+    amove s3xg(x, y, z) s3yg(x, y, z)
+end sub
+
+sub s3line x y z
+    aline s3xg(x, y, z) s3yg(x, y, z)
+end sub
+
+sub s3rect xA yA zA xB yB zB xC yC zC xD yD zD
+    s3move xA yA zA
+    begin path stroke
+        s3line xB yB zB
+        s3line xC yC zC
+        s3line xD yD zD
+        closepath
+    end path
+end sub
+
+! ------------------------------
+! Plot panes
+! ------------------------------
+
+sub pane id$
+    local xa, ya, za, xb, yb, zb, xc, yc, zc, xd, yd, zd
+    if id$ = "X" then
+        s3rect &
+        s3_xaxis_max s3_yaxis_min s3_zaxis_min &
+        s3_xaxis_max s3_yaxis_min s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_min s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_min s3_zaxis_min
+    else &
+    if id$ = "I" then
+        s3rect &
+        s3_xaxis_max s3_yaxis_max s3_zaxis_min &
+        s3_xaxis_max s3_yaxis_max s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_max s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_max s3_zaxis_min
+    else &
+    if id$ = "Y" then
+        s3rect &
+        s3_xaxis_max s3_yaxis_max s3_zaxis_min &
+        s3_xaxis_max s3_yaxis_max s3_zaxis_max &
+        s3_xaxis_max s3_yaxis_min s3_zaxis_max &
+        s3_xaxis_max s3_yaxis_min s3_zaxis_min
+    else &
+    if id$ = "J" then
+        s3rect &
+        s3_xaxis_min s3_yaxis_max s3_zaxis_min &
+        s3_xaxis_min s3_yaxis_max s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_min s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_min s3_zaxis_min
+    else &
+    if id$ = "B" then
+        s3rect &
+        s3_xaxis_max s3_yaxis_max s3_zaxis_min &
+        s3_xaxis_max s3_yaxis_min s3_zaxis_min &
+        s3_xaxis_min s3_yaxis_min s3_zaxis_min &
+        s3_xaxis_min s3_yaxis_max s3_zaxis_min
+    else &
+    if id$ = "T" then
+        s3rect &
+        s3_xaxis_max s3_yaxis_max s3_zaxis_max &
+        s3_xaxis_max s3_yaxis_min s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_min s3_zaxis_max &
+        s3_xaxis_min s3_yaxis_max s3_zaxis_max
+    end if
+end sub
+
+! ------------------------------
+! Grid lines
+! ------------------------------
+
+sub s3xintersect xA yA xB yB xC yC xD yD
+    local Det = (xB - xA) * (yC - yD) - (yB - yA) * (xC - xD)
+    local D1  = (xC - xA) * (yC - yD) - (yC - yA) * (xC - xD)
+    return xA + (D1 / Det) * (xB - xA)
+end sub
+
+sub s3yintersect xA yA xB yB xC yC xD yD
+    local Det = (xB - xA) * (yC - yD) - (yB - yA) * (xC - xD)
+    local D1  = (xC - xA) * (yC - yD) - (yC - yA) * (xC - xD)
+    return yA + (D1 / Det) * (yB - yA)
+end sub
+
+sub grid id$ first last step
+    ! Four pane corners in 3d and 2d coordinates.
+    local xA, yA, zA, uA, vA
+    local xB, yB, zB, uB, vB
+    local xC, yC, zC, uC, vC
+    local xD, yD, zD, uD, vD
+    ! Temporary points in 3d and 2d coordinates.
+    local xP, yP, zP, uP, vP
+    local xQ, yQ, zQ, uQ, vQ
+    ! Variables used to loop along a pane axis.
+    local dx, dy, dz, t
+    !
+    ! Set pane corners and direction of change.
+    if id$ = "xX" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_max;  yB = s3_yaxis_min;  zB = s3_zaxis_min
+        xC = s3_xaxis_min;  yC = s3_yaxis_min;  zC = s3_zaxis_max
+        xD = s3_xaxis_max;  yD = s3_yaxis_min;  zD = s3_zaxis_max
+        dx = 1;             dy = 0;             dz = 0
+    else &
+    if id$ = "zX" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_min;  yB = s3_yaxis_min;  zB = s3_zaxis_max
+        xC = s3_xaxis_max;  yC = s3_yaxis_min;  zC = s3_zaxis_min
+        xD = s3_xaxis_max;  yD = s3_yaxis_min;  zD = s3_zaxis_max
+        dx = 0;             dy = 0;             dz = 1
+    else &
+    if id$ = "xI" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_max;  zA = s3_zaxis_min
+        xB = s3_xaxis_max;  yB = s3_yaxis_max;  zB = s3_zaxis_min
+        xC = s3_xaxis_min;  yC = s3_yaxis_max;  zC = s3_zaxis_max
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 1;             dy = 0;             dz = 0
+    else &
+    if id$ = "zI" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_max;  zA = s3_zaxis_min
+        xB = s3_xaxis_min;  yB = s3_yaxis_max;  zB = s3_zaxis_max
+        xC = s3_xaxis_max;  yC = s3_yaxis_max;  zC = s3_zaxis_min
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 0;             dy = 0;             dz = 1
+    else &
+    if id$ = "yY" then
+        xA = s3_xaxis_max;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_max;  yB = s3_yaxis_max;  zB = s3_zaxis_min
+        xC = s3_xaxis_max;  yC = s3_yaxis_min;  zC = s3_zaxis_max
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 0;             dy = 1;             dz = 0
+    else &
+    if id$ = "zY" then
+        xA = s3_xaxis_max;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_max;  yB = s3_yaxis_min;  zB = s3_zaxis_max
+        xC = s3_xaxis_max;  yC = s3_yaxis_max;  zC = s3_zaxis_min
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 0;             dy = 0;             dz = 1
+    else &
+    if id$ = "yJ" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_min;  yB = s3_yaxis_max;  zB = s3_zaxis_min
+        xC = s3_xaxis_min;  yC = s3_yaxis_min;  zC = s3_zaxis_max
+        xD = s3_xaxis_min;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 0;             dy = 1;             dz = 0
+    else &
+    if id$ = "zJ" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_min;  yB = s3_yaxis_min;  zB = s3_zaxis_max
+        xC = s3_xaxis_min;  yC = s3_yaxis_max;  zC = s3_zaxis_min
+        xD = s3_xaxis_min;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 0;             dy = 0;             dz = 1
+    else &
+    if id$ = "xB" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_max;  yB = s3_yaxis_min;  zB = s3_zaxis_min
+        xC = s3_xaxis_min;  yC = s3_yaxis_max;  zC = s3_zaxis_min
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_min
+        dx = 1;             dy = 0;             dz = 0
+    else &
+    if id$ = "yB" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_min
+        xB = s3_xaxis_min;  yB = s3_yaxis_max;  zB = s3_zaxis_min
+        xC = s3_xaxis_max;  yC = s3_yaxis_min;  zC = s3_zaxis_min
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_min
+        dx = 0;             dy = 1;             dz = 0
+    else &
+    if id$ = "xT" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_max
+        xB = s3_xaxis_max;  yB = s3_yaxis_min;  zB = s3_zaxis_max
+        xC = s3_xaxis_min;  yC = s3_yaxis_max;  zC = s3_zaxis_max
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 1;             dy = 0;             dz = 0
+    else &
+    if id$ = "yT" then
+        xA = s3_xaxis_min;  yA = s3_yaxis_min;  zA = s3_zaxis_max
+        xB = s3_xaxis_min;  yB = s3_yaxis_max;  zB = s3_zaxis_max
+        xC = s3_xaxis_max;  yC = s3_yaxis_min;  zC = s3_zaxis_max
+        xD = s3_xaxis_max;  yD = s3_yaxis_max;  zD = s3_zaxis_max
+        dx = 0;             dy = 1;             dz = 0
+    end if
+    !
+    ! Express pane corners in screen 2d coordinates.
+    uA = s3xg(xA, yA, zA)
+    vA = s3yg(xA, yA, zA)
+    uB = s3xg(xB, yB, zB)
+    vB = s3yg(xB, yB, zB)
+    uC = s3xg(xC, yC, zC)
+    vC = s3yg(xC, yC, zC)
+    uD = s3xg(xD, yD, zD)
+    vD = s3yg(xD, yD, zD)
+    !
+    ! Draw the grid by looping.
+    t = first
+    while t <= last
+        ! Compute the coordinates of P and Q points that support a grid line.
+        xP = xA + (t - s3_xaxis_min) * dx
+        yP = yA + (t - s3_yaxis_min) * dy
+        zP = zA + (t - s3_zaxis_min) * dz
+        xQ = xC + (t - s3_xaxis_min) * dx
+        yQ = yC + (t - s3_yaxis_min) * dy
+        zQ = zC + (t - s3_zaxis_min) * dz
+        uP = s3xg(xP, yP, zP)
+        vP = s3yg(xP, yP, zP)
+        uQ = s3xg(xQ, yQ, zQ)
+        vQ = s3yg(xQ, yQ, zQ)
+        ! Connect intersections between the grid line and pane borders.
+        amove &
+        s3xintersect(uP, vP, uQ, vQ, uA, vA, uB, vB) &
+        s3yintersect(uP, vP, uQ, vQ, uA, vA, uB, vB)
+        aline &
+        s3xintersect(uP, vP, uQ, vQ, uC, vC, uD, vD) &
+        s3yintersect(uP, vP, uQ, vQ, uC, vC, uD, vD)
+        t = t + step
+    next
+end sub
+
+! ------------------------------
+! Axis labels
+! ------------------------------
+
+sub label id$ pos dist text$ adjx adjy
+    default adjx 0
+    default adjy 0
+    local uP, vP
+    local uQ, vQ
+    local du, dv
+    local ds
+    if id$ = "XB" then
+        uP = s3xg(pos, s3_yaxis_min, s3_zaxis_min)
+        vP = s3yg(pos, s3_yaxis_min, s3_zaxis_min)
+        uQ = s3xg(pos, s3_yaxis_max, s3_zaxis_min)
+        vQ = s3yg(pos, s3_yaxis_max, s3_zaxis_min)
+    else &
+    if id$ = "XT" then
+        uP = s3xg(pos, s3_yaxis_min, s3_zaxis_max)
+        vP = s3yg(pos, s3_yaxis_min, s3_zaxis_max)
+        uQ = s3xg(pos, s3_yaxis_max, s3_zaxis_max)
+        vQ = s3yg(pos, s3_yaxis_max, s3_zaxis_max)
+    else &
+    if id$ = "IB" then
+        uP = s3xg(pos, s3_yaxis_max, s3_zaxis_min)
+        vP = s3yg(pos, s3_yaxis_max, s3_zaxis_min)
+        uQ = s3xg(pos, s3_yaxis_min, s3_zaxis_min)
+        vQ = s3yg(pos, s3_yaxis_min, s3_zaxis_min)
+    else &
+    if id$ = "IT" then
+        uP = s3xg(pos, s3_yaxis_max, s3_zaxis_max)
+        vP = s3yg(pos, s3_yaxis_max, s3_zaxis_max)
+        uQ = s3xg(pos, s3_yaxis_min, s3_zaxis_max)
+        vQ = s3yg(pos, s3_yaxis_min, s3_zaxis_max)
+    else &
+    if id$ = "YB" then
+        uP = s3xg(s3_xaxis_max, pos, s3_zaxis_min)
+        vP = s3yg(s3_xaxis_max, pos, s3_zaxis_min)
+        uQ = s3xg(s3_xaxis_min, pos, s3_zaxis_min)
+        vQ = s3yg(s3_xaxis_min, pos, s3_zaxis_min)
+    else &
+    if id$ = "YT" then
+        uP = s3xg(s3_xaxis_max, pos, s3_zaxis_max)
+        vP = s3yg(s3_xaxis_max, pos, s3_zaxis_max)
+        uQ = s3xg(s3_xaxis_min, pos, s3_zaxis_max)
+        vQ = s3yg(s3_xaxis_min, pos, s3_zaxis_max)
+    else &
+    if id$ = "JB" then
+        uP = s3xg(s3_xaxis_min, pos, s3_zaxis_min)
+        vP = s3yg(s3_xaxis_min, pos, s3_zaxis_min)
+        uQ = s3xg(s3_xaxis_max, pos, s3_zaxis_min)
+        vQ = s3yg(s3_xaxis_max, pos, s3_zaxis_min)
+    else &
+    if id$ = "JT" then
+        uP = s3xg(s3_xaxis_min, pos, s3_zaxis_max)
+        vP = s3yg(s3_xaxis_min, pos, s3_zaxis_max)
+        uQ = s3xg(s3_xaxis_max, pos, s3_zaxis_max)
+        vQ = s3yg(s3_xaxis_max, pos, s3_zaxis_max)
+    else &
+    if id$ = "XY" then
+        uP = s3xg(s3_xaxis_max, s3_yaxis_min, pos)
+        vP = s3yg(s3_xaxis_max, s3_yaxis_min, pos)
+        uQ = s3xg(s3_xaxis_min, s3_yaxis_min, pos)
+        vQ = s3yg(s3_xaxis_min, s3_yaxis_min, pos)
+    else &
+    if id$ = "YI" then
+        uP = s3xg(s3_xaxis_max, s3_yaxis_max, pos)
+        vP = s3yg(s3_xaxis_max, s3_yaxis_max, pos)
+        uQ = s3xg(s3_xaxis_min, s3_yaxis_max, pos)
+        vQ = s3yg(s3_xaxis_min, s3_yaxis_max, pos)
+    else &
+    if id$ = "IJ" then
+        uP = s3xg(s3_xaxis_min, s3_yaxis_max, pos)
+        vP = s3yg(s3_xaxis_min, s3_yaxis_max, pos)
+        uQ = s3xg(s3_xaxis_max, s3_yaxis_max, pos)
+        vQ = s3yg(s3_xaxis_max, s3_yaxis_max, pos)
+    else &
+    if id$ = "JX" then
+        uP = s3xg(s3_xaxis_min, s3_yaxis_min, pos)
+        vP = s3yg(s3_xaxis_min, s3_yaxis_min, pos)
+        uQ = s3xg(s3_xaxis_min, s3_yaxis_max, pos)
+        vQ = s3yg(s3_xaxis_min, s3_yaxis_max, pos)
+    end if
+
+    amove uP vP
+    if uP = uQ then
+        rmove 0 dist
+    else
+        du = uP - uQ
+        dv = vP - vQ
+        ds = sqrt(du * du + dv * dv)
+        rmove dist*du/ds dist*dv/ds
+    end if
+    rmove adjx adjy
+    write(text$)
+end sub
+
+! ------------------------------
+! Surface facet
+! ------------------------------
+
+sub s3facet x y dx dy zA zB zC zD fillpal$ linepal$
+    local background$
+    if fillpal$ = "clear" then
+        background$ = "clear"
+    else
+        background$ = eval(fillpal$ + "((zA + zB + zC + zD) / 4)")
+    end if
+    begin path fill background$
+        s3move x    y    zA
+        s3line x    y+dy zB
+        s3line x+dx y+dy zC
+        s3line x+dx y    zD
+        closepath
+    end path
+    if linepal$ = "same" then
+        set color background$
+        s3move x    y    zA
+        s3line x    y+dy zB
+        s3line x+dx y+dy zC
+        s3line x+dx y    zD
+        s3line x    y    zA
+    else
+        s3move x    y    zA
+        set color eval(linepal$ + "((zA + zB) / 2)")
+        s3line x    y+dy zB
+        set color eval(linepal$ + "((zB + zC) / 2)")
+        s3line x+dx y+dy zC
+        set color eval(linepal$ + "((zC + zD) / 2)")
+        s3line x+dx y    zD
+        set color eval(linepal$ + "((zD + zA) / 2)")
+        s3line x    y    zA
+    end if
+end sub
+
+! ------------------------------
+! Surface plot of a function
+! ------------------------------
+
+sub s3funcsurf f$ fillpal$ linepal$ nx ny xorient yorient
+    default xorient 1
+    default yorient -1
+    local nrows = nx - 1
+    local ncols = ny - 1
+    local dx = (s3_xmax - s3_xmin) / nrows
+    local dy = (s3_ymax - s3_ymin) / ncols
+    local xstart, ystart
+    if xorient = 1 then xstart = s3_xmin
+    else xstart = s3_xmax - dx
+    if yorient = 1 then ystart = s3_ymin
+    else ystart = s3_ymax - dy
+    local row, col, x, y, zA, zB, zC, zD
+    set join round cap round
+    x = xstart
+    for row = 1 to nrows
+        y = ystart
+        for col = 1 to ncols
+            zA = eval(f$ + "(x, y)")
+            zB = eval(f$ + "(x, y+dy)")
+            zC = eval(f$ + "(x+dx, y+dy)")
+            zD = eval(f$ + "(x+dx, y)")
+            s3facet x y dx dy zA zB zC zD fillpal$ linepal$
+            y = y + yorient * dy
+        next col
+        x = x + xorient * dx
+    next row
+end sub
+
+! ------------------------------
+! Surface plot of a dataset
+! ------------------------------
+
+sub s3datasurf filename$ fillpal$ linepal$ xorient yorient
+    default xorient 1
+    default yorient -1
+    begin graph
+        axis off
+        data filename$
+    end graph
+    local nx = ndata(d[1])
+    local ny = ndatasets()
+    local nrows = nx - 1
+    local ncols = ny - 1
+    local dx = (s3_xmax - s3_xmin) / nrows
+    local dy = (s3_ymax - s3_ymin) / ncols
+    local xstart, ystart, rowstart, colstart
+    if xorient = 1 then
+        xstart = s3_xmin
+        rowstart = 1
+    else
+        xstart = s3_xmax - dx
+        rowstart = nrows
+    end if
+    if yorient = 1 then
+        ystart = s3_ymin
+        colstart = 1
+    else
+        ystart = s3_ymax - dy
+        colstart = ncols
+    end if
+    local rowstop = nrows + 1 - rowstart
+    local colstop = ncols + 1 - colstart
+    local row, col, x, y, zA, zB, zC, zD
+    set join round cap round
+    x = xstart
+    for row = rowstart to rowstop step xorient
+        y = ystart
+        for col = colstart to colstop step yorient
+            za = datayvalue(d[col], row)
+            zb  = datayvalue(d[col + 1], row)
+            zc = datayvalue(d[col + 1], row + 1)
+            zd = datayvalue(d[col], row + 1)
+            s3facet x y dx dy zA zB zC zD fillpal$ linepal$
+            y = y + yorient * dy
+        next col
+        x = x + xorient * dx
+    next row
+end sub
+
+! ------------------------------
+! Contour lines on a plane
+! ------------------------------
+
+sub s3contourlines rawfile$ linepal$ pane$
+    default pane "bottom"
+    local zlevel
+    if pane$ = "bottom" then zlevel = s3_zaxis_min
+    else zlevel = s3_zaxis_max
+    set join round cap round
+    local contour = 0
+    local contour_start = 0
+    local row$, nop$
+    local split
+    local x, y
+    !
+    fopen rawfile$+"-cdata.dat" datastream read
+    until feof(datastream)
+        fgetline datastream row$
+        if row$ = "* *" then            ! Introduce a new contour.
+            contour = contour + 1
+            fopen rawfile$+"-clabels.dat" labelstream read
+            for line = 1 to contour
+                ! Retrieve z label/value = 4th field from the clabels file.
+                fread labelstream nop$ nop$ nop$ z
+            next line
+            fclose labelstream
+            contour_start = 1
+        else                            ! Draw contour line segments.
+            split = pos(row$, " ", 1)
+            x = val(seg$(row$, 1, split - 1))
+            y = val(seg$(row$, split + 1, len(row$)))
+            if contour_start = 1 then
+                set color eval(linepal$ + "(" + z + ")")
+                s3move x y zlevel
+                contour_start = 0
+            else
+                s3line x y zlevel
+            end if
+        end if
+    next
+    !
+    fclose datastream
+end sub
+
