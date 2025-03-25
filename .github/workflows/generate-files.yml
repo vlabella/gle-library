@@ -1,0 +1,41 @@
+#
+# -- generate-files.yml - Generates the Makefiles and Include files
+#                         commits the changes to the main branch
+#
+name: Generate Makefiles and Include File
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout GLE Library
+        uses: actions/checkout@v4
+
+      - name: update apt
+        run: sudo apt update
+
+      - name: install packages
+        # do not install qt - not building the GUI
+        run: |
+         set -x
+         touch ${{github.workspace}}/gle/configure.args
+         sudo apt install python3
+
+      - name: Generate Makefile and Global Include
+        working-directory: ${{github.workspace}}
+        run: |
+          cd scripts ; python3 gen_makefile.py ; python3 gen_include.py
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Automatic Regenaration of Makefiles and Include File
