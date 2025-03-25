@@ -1,0 +1,107 @@
+! Example of surface plot with added contours.
+! Author: Francois Tonneau
+
+include s3.gle
+include palettes.gle
+
+size 18 12.5
+
+xrange 0 860
+yrange 0 620
+zrange 94 195
+
+zaxisrange 0 200
+
+scaling 1.43 1 1.3
+
+angles 48 26
+persp 0.85
+
+viewport 10 9
+
+! Build auxiliary files for contour plotting.
+
+begin contour
+    data "maunga3c.z"
+    values from 125 to 195 step 5
+end contour
+
+! Draw plot panes.
+
+amove 3.5 2
+
+begin origin
+
+set lwidth 0.02 color "#a9a9a9" fill "#e0e0e0"
+pane B
+grid xB 150 750 150
+grid yB 150 450 150
+pane I
+grid zI 50 200 50
+grid xI 150 750 150
+pane J
+grid yJ 150 450 150
+grid zJ 50 200 50
+
+! Add axis labels.
+
+set color black font ss hei 0.3
+set just cc
+for num = 150 to 750 step 150
+    label XB num 0.5 num
+next num
+set just cc
+for num = 0 to 450 step 150
+    label YB num 0.5 num
+next num
+set just cr
+for num = 0 to 200 step 50
+    label JX num 0.35 num
+next num
+
+! Add axis titles and arrows.
+
+set hei 0.4 just cc
+amove 4.1 -0.75
+write "Meters north "
+amove 11.5 0.65
+write "Meters west "
+amove -1.2 8.65
+write "Altitude (m)"
+
+set arrowstyle simple
+set arrowsize 0.3
+amove 1 0
+rline 1.5 -0.55 arrow end
+amove 9 0
+rline 1 0.45 arrow end
+
+! Define palette for contour lines and surface facets.
+
+sub hue z
+    return viridis((z - s3_zmin)/(s3_zmax - s3_zmin))
+end sub
+
+! Draw contour lines on the base plane.
+
+s3contourlines maunga3c hue
+
+! Draw volcano surface.
+
+set lwidth 0.02
+s3datasurf maunga3c.dat hue same
+!               facet --^   ^-- facet borders
+
+! Add color key.
+
+set color black
+begin key
+    absolute 11 5 just tl nobox dist 0.4 hei 0.3
+    line color hue(190) lwidth 0.04 text "190 m"
+    for value = 180 to 130 step -10
+        line color hue(value) lwidth 0.04 text num$(value)
+    next value
+end key
+
+end origin
+
