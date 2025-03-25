@@ -16,6 +16,10 @@ To install the new include files
  `cd src`
  `make install-includes` or `nmake install-includes`
 
+## Using Include Files in GLE Figures
+
+The include folder contains several user contributed include files of custom routines.  They can be included individually in GLE scripts.  In addition, a file `gle-include.gle` can be included that includes all the include files in the library.
+
 ## Building all figures
 
 To build all the figures from the source code
@@ -53,11 +57,9 @@ name: <name of the figure>
 notes: <optional notes about the figure>
 ```
 
-6. (optional) Regenerate the Makefile. Requires python. See instructions below
+6. Add and commit everything and then submit a pull request to the main branch.
 
-7. Add and commit everything and then submit a pull request to the main branch.
-
-8. Once the pull request is accepted the new figure will appear on the site.  It may take a few days as this has to be done manually by the maintainer.
+7. Once the pull request is accepted the new figure will appear on the site.  It may take a few days as this has to be done manually by the maintainer.
 
 ## Contributing Include Files
 
@@ -65,11 +67,20 @@ Place new include files that others may find useful in the `include` folder.  Su
 
 ## Generating the Makefile
 
-The Makefile will need to be regenerated if new figures are added. To generate the Makefile run
+The Makefiles are automatically generated upon any git push or pull.  So there is no need to regenerate it prior to submitting a pull request.  The python script that does this is `scripts/gen_makefiles.py`.  It can be run to regenerate the Makefiles on your local machine if desired. The command is:
 
 ```
 cd scripts
-python gen_makefile.pl
+python gen_makefile.py
+```
+
+## Generating the Global Include File `gle-library.gle`
+
+The global include file `gle-library.gle` is automatically generated upon any git push or pull.  So there is no need to regenerate it prior to submitting a pull request.  The python script that does this is `scripts/gen_include.py`.  It can be run to regenerate the global include file on your local machine if desired. The command is:
+
+```
+cd scripts
+python gen_include.py
 ```
 
 ## Adding Categories
