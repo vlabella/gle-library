@@ -25,11 +25,7 @@ jobs:
         run: sudo apt update
 
       - name: install packages
-        # do not install qt - not building the GUI
-        run: |
-         set -x
-         touch ${{github.workspace}}/gle/configure.args
-         sudo apt install python3
+        run: sudo apt install python3
 
       - name: Generate Makefile and Global Include
         working-directory: ${{github.workspace}}
