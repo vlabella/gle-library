@@ -56,3 +56,4 @@ with open( include_filename, "w") as f:
             f.write(f"include \"{file}\"\n")
 
 os.chdir(cwd)
+print(f"{include_filename} generated successfully")
