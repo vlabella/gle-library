@@ -74,6 +74,7 @@ all:
 	cd utitle $(CSEP) $(MAKE)
 	cd polargrid $(CSEP) $(MAKE)
 	cd loop $(CSEP) $(MAKE)
+	cd saddlecol $(CSEP) $(MAKE)
 	cd binning $(CSEP) $(MAKE)
 	cd polar_histogram $(CSEP) $(MAKE)
 	cd butterfly $(CSEP) $(MAKE)
@@ -269,6 +270,7 @@ clean:
 	cd utitle $(CSEP) $(MAKE) clean
 	cd polargrid $(CSEP) $(MAKE) clean
 	cd loop $(CSEP) $(MAKE) clean
+	cd saddlecol $(CSEP) $(MAKE) clean
 	cd binning $(CSEP) $(MAKE) clean
 	cd polar_histogram $(CSEP) $(MAKE) clean
 	cd butterfly $(CSEP) $(MAKE) clean
