@@ -23,7 +23,8 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-# !endif
+# \
+!endif
 
 all: gc_join.eps gc_join.pdf gc_join.png
 

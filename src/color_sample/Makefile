@@ -23,7 +23,8 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-# !endif
+# \
+!endif
 
 all: color_sample.eps color_sample.pdf color_sample.png
 

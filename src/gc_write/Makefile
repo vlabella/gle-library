@@ -23,7 +23,8 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-# !endif
+# \
+!endif
 
 all: gc_write.eps gc_write.pdf gc_write.png
 

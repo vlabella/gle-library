@@ -23,7 +23,8 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-# !endif
+# \
+!endif
 
 all: business_cards_10_per_A4.eps business_cards_10_per_A4.pdf business_cards_10_per_A4.png
 

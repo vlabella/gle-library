@@ -23,7 +23,8 @@ MAKE=make
 SEP=/
 CSEP=;
 INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle/gleinc
-# !endif
+# \
+!endif
 
 all: flux_linkage_space_vector_diagram.eps flux_linkage_space_vector_diagram.pdf flux_linkage_space_vector_diagram.png
 
