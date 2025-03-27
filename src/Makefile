@@ -65,6 +65,7 @@ all:
 	cd koch $(CSEP) $(MAKE)
 	cd cos2t $(CSEP) $(MAKE)
 	cd wall $(CSEP) $(MAKE)
+	cd brewer_usage $(CSEP) $(MAKE)
 	cd quantilescale $(CSEP) $(MAKE)
 	cd lorenz $(CSEP) $(MAKE)
 	cd feynman_19 $(CSEP) $(MAKE)
@@ -123,6 +124,7 @@ all:
 	cd circuit3 $(CSEP) $(MAKE)
 	cd pythagoras $(CSEP) $(MAKE)
 	cd polenja $(CSEP) $(MAKE)
+	cd brewer_sample $(CSEP) $(MAKE)
 	cd saddle-contour $(CSEP) $(MAKE)
 	cd ascatterplot $(CSEP) $(MAKE)
 	cd semitrans $(CSEP) $(MAKE)
@@ -261,6 +263,7 @@ clean:
 	cd koch $(CSEP) $(MAKE) clean
 	cd cos2t $(CSEP) $(MAKE) clean
 	cd wall $(CSEP) $(MAKE) clean
+	cd brewer_usage $(CSEP) $(MAKE) clean
 	cd quantilescale $(CSEP) $(MAKE) clean
 	cd lorenz $(CSEP) $(MAKE) clean
 	cd feynman_19 $(CSEP) $(MAKE) clean
@@ -319,6 +322,7 @@ clean:
 	cd circuit3 $(CSEP) $(MAKE) clean
 	cd pythagoras $(CSEP) $(MAKE) clean
 	cd polenja $(CSEP) $(MAKE) clean
+	cd brewer_sample $(CSEP) $(MAKE) clean
 	cd saddle-contour $(CSEP) $(MAKE) clean
 	cd ascatterplot $(CSEP) $(MAKE) clean
 	cd semitrans $(CSEP) $(MAKE) clean
