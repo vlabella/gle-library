@@ -1,0 +1,82 @@
+! Example of dot chart with Brewer colors.
+! Author: Francois Tonneau
+
+! Plot idea from https://github.com/Pjarzabek/DotPlotPython
+
+include brewer.gle
+
+size 18.5 14
+
+set font ss
+set hei 0.4
+
+! Prepare plot frame.
+
+amove 2.5 3
+begin graph
+    size 14 9
+    fullsize
+    background "#c3c3c3"
+    xaxis min 1950 max 2020 dticks 10
+    yaxis min 0 max 50 dticks 10
+    set just tc
+    xlabels dist 0.3
+    xtitle "Release year" dist 0.7
+    set just cr
+    ylabels dist 0.3
+    ytitle "Count" dist 0.8
+    ticks off
+    side off
+end graph
+
+! Draw colored dots.
+
+previous = -1
+count = 0
+fopen ratings.dat handle read
+until feof(handle)
+    fread handle year rating
+    if year = previous then
+        count = count + 1
+    else
+        count = 1
+    end if
+    amove xg(year) yg(count)
+    ! Divergent palette with 10 colors: Rd = red, Yl = yellow, Bu = blue.
+    hue$ = RdYlBuDiv10(rating)
+    set color hue$ lwidth 0.001
+    circle 0.05 fill hue$
+    previous = year
+next
+fclose handle
+
+! Add rating scale.
+
+amove 4 2.3
+begin origin
+
+amove 0 5
+for z = 1 to 10
+    hue$ = RdYlBuDiv10(z)
+    set color hue$ lwidth 0
+    box 0.8 0.3 just bl fill hue$
+    rmove 0 0.3
+next z
+
+amove 0 8.8
+set color black hei 0.4 just cl
+write "Movie ratings"
+
+set hei 0.3 just cr
+amove -0.3 5.15
+write 1
+amove -0.3 6.35
+write 5
+set just cl
+amove 1.1 6.65
+write 6
+amove 1.1 7.85
+write 10
+
+end origin
+

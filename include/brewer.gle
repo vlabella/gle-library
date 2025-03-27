@@ -1,0 +1,2545 @@
+! Library of Brewer palettes for Graphics Layout Engine.
+! Palettes ported by Francois Tonneau (2025).
+
+! ------------------------------
+! LIBRARY SUMMARY
+! ------------------------------
+
+! The palettes in this library are ported from ColorBrewer:
+
+! https://en.wikipedia.org/wiki/ColorBrewer
+
+! The palettes can be sequential, divergent, or qualitative. The name of each
+! palette ends with its color count (= how many colors the palette comprises).
+! Some palette names include color abbreviations such as Bu for blue, Pu for
+! purple, Yl for yellow, etc.
+
+! The list of available palettes follows. For brevity, palettes with the same
+! base name but with different color counts (e.g., AccentQual3, AccentQual4, ...
+! AccentQual8) are listed as a single name followed by a numeric range (e.g.,
+! "AccentQual 3-8").
+
+! AccentQual  3-8
+! BluesSeq    3-9
+! BrBGDiv     3-11
+! BuGnSeq     3-9
+! BuPuSeq     3-9
+! Dark2Qual   3-8
+! GnBuSeq     3-9
+! GreensSeq   3-9
+! GreysSeq    3-9
+! OrangesSeq  3-9
+! OrRdSeq     3-9
+! PairedQual  3-12
+! Pastel1Qual 3-9
+! Pastel2Qual 3-8
+! PiYGDiv     3-11
+! PRGnDiv     3-11
+! PuBuSeq     3-9
+! PuBuGnSeq   3-9
+! PuOrDiv     3-11
+! PuRdSeq     3-9
+! PurplesSeq  3-9
+! RdBuDiv     3-11
+! RdGyDiv     3-11
+! RdPuSeq     3-9
+! RedsSeq     3-9
+! RdYlBuDiv   3-11
+! RdYlGnDiv   3-11
+! Set1Qual    3-9
+! Set2Qual    3-8
+! Set3Qual    3-12
+! SpectralDiv 3-11
+! YlGnSeq     3-9
+! YlGnBuSeq   3-9
+! YlOrBrSeq   3-9
+! YlOrRdSeq   3-9
+
+! ------------------------------
+! PALETTE SUBROUTINES
+! ------------------------------
+
+sub AccentQual3 z
+    if z = 1  then return "#7fc97f"
+    if z = 2  then return "#beaed4"
+    if z = 3  then return "#fdc086"
+end sub
+
+sub AccentQual4 z
+    if z = 1  then return "#7fc97f"
+    if z = 2  then return "#beaed4"
+    if z = 3  then return "#fdc086"
+    if z = 4  then return "#ffff99"
+end sub
+
+sub AccentQual5 z
+    if z = 1  then return "#7fc97f"
+    if z = 2  then return "#beaed4"
+    if z = 3  then return "#fdc086"
+    if z = 4  then return "#ffff99"
+    if z = 5  then return "#386cb0"
+end sub
+
+sub AccentQual6 z
+    if z = 1  then return "#7fc97f"
+    if z = 2  then return "#beaed4"
+    if z = 3  then return "#fdc086"
+    if z = 4  then return "#ffff99"
+    if z = 5  then return "#386cb0"
+    if z = 6  then return "#f0027f"
+end sub
+
+sub AccentQual7 z
+    if z = 1  then return "#7fc97f"
+    if z = 2  then return "#beaed4"
+    if z = 3  then return "#fdc086"
+    if z = 4  then return "#ffff99"
+    if z = 5  then return "#386cb0"
+    if z = 6  then return "#f0027f"
+    if z = 7  then return "#bf5b17"
+end sub
+
+sub AccentQual8 z
+    if z = 1  then return "#7fc97f"
+    if z = 2  then return "#beaed4"
+    if z = 3  then return "#fdc086"
+    if z = 4  then return "#ffff99"
+    if z = 5  then return "#386cb0"
+    if z = 6  then return "#f0027f"
+    if z = 7  then return "#bf5b17"
+    if z = 8  then return "#666666"
+end sub
+
+sub BluesSeq3 z
+    if z = 1  then return "#deebf7"
+    if z = 2  then return "#9ecae1"
+    if z = 3  then return "#3182bd"
+end sub
+
+sub BluesSeq4 z
+    if z = 1  then return "#eff3ff"
+    if z = 2  then return "#bdd7e7"
+    if z = 3  then return "#6baed6"
+    if z = 4  then return "#2171b5"
+end sub
+
+sub BluesSeq5 z
+    if z = 1  then return "#eff3ff"
+    if z = 2  then return "#bdd7e7"
+    if z = 3  then return "#6baed6"
+    if z = 4  then return "#3182bd"
+    if z = 5  then return "#08519c"
+end sub
+
+sub BluesSeq6 z
+    if z = 1  then return "#eff3ff"
+    if z = 2  then return "#c6dbef"
+    if z = 3  then return "#9ecae1"
+    if z = 4  then return "#6baed6"
+    if z = 5  then return "#3182bd"
+    if z = 6  then return "#08519c"
+end sub
+
+sub BluesSeq7 z
+    if z = 1  then return "#eff3ff"
+    if z = 2  then return "#c6dbef"
+    if z = 3  then return "#9ecae1"
+    if z = 4  then return "#6baed6"
+    if z = 5  then return "#4292c6"
+    if z = 6  then return "#2171b5"
+    if z = 7  then return "#084594"
+end sub
+
+sub BluesSeq8 z
+    if z = 1  then return "#f7fbff"
+    if z = 2  then return "#deebf7"
+    if z = 3  then return "#c6dbef"
+    if z = 4  then return "#9ecae1"
+    if z = 5  then return "#6baed6"
+    if z = 6  then return "#4292c6"
+    if z = 7  then return "#2171b5"
+    if z = 8  then return "#084594"
+end sub
+
+sub BluesSeq9 z
+    if z = 1  then return "#f7fbff"
+    if z = 2  then return "#deebf7"
+    if z = 3  then return "#c6dbef"
+    if z = 4  then return "#9ecae1"
+    if z = 5  then return "#6baed6"
+    if z = 6  then return "#4292c6"
+    if z = 7  then return "#2171b5"
+    if z = 8  then return "#08519c"
+    if z = 9  then return "#08306b"
+end sub
+
+sub BrBGDiv3 z
+    if z = 1  then return "#d8b365"
+    if z = 2  then return "#f5f5f5"
+    if z = 3  then return "#5ab4ac"
+end sub
+
+sub BrBGDiv4 z
+    if z = 1  then return "#a6611a"
+    if z = 2  then return "#dfc27d"
+    if z = 3  then return "#80cdc1"
+    if z = 4  then return "#018571"
+end sub
+
+sub BrBGDiv5 z
+    if z = 1  then return "#a6611a"
+    if z = 2  then return "#dfc27d"
+    if z = 3  then return "#f5f5f5"
+    if z = 4  then return "#80cdc1"
+    if z = 5  then return "#018571"
+end sub
+
+sub BrBGDiv6 z
+    if z = 1  then return "#8c510a"
+    if z = 2  then return "#d8b365"
+    if z = 3  then return "#f6e8c3"
+    if z = 4  then return "#c7eae5"
+    if z = 5  then return "#5ab4ac"
+    if z = 6  then return "#01665e"
+end sub
+
+sub BrBGDiv7 z
+    if z = 1  then return "#8c510a"
+    if z = 2  then return "#d8b365"
+    if z = 3  then return "#f6e8c3"
+    if z = 4  then return "#f5f5f5"
+    if z = 5  then return "#c7eae5"
+    if z = 6  then return "#5ab4ac"
+    if z = 7  then return "#01665e"
+end sub
+
+sub BrBGDiv8 z
+    if z = 1  then return "#8c510a"
+    if z = 2  then return "#bf812d"
+    if z = 3  then return "#dfc27d"
+    if z = 4  then return "#f6e8c3"
+    if z = 5  then return "#c7eae5"
+    if z = 6  then return "#80cdc1"
+    if z = 7  then return "#35978f"
+    if z = 8  then return "#01665e"
+end sub
+
+sub BrBGDiv9 z
+    if z = 1  then return "#8c510a"
+    if z = 2  then return "#bf812d"
+    if z = 3  then return "#dfc27d"
+    if z = 4  then return "#f6e8c3"
+    if z = 5  then return "#f5f5f5"
+    if z = 6  then return "#c7eae5"
+    if z = 7  then return "#80cdc1"
+    if z = 8  then return "#35978f"
+    if z = 9  then return "#01665e"
+end sub
+
+sub BrBGDiv10 z
+    if z = 1  then return "#543005"
+    if z = 2  then return "#8c510a"
+    if z = 3  then return "#bf812d"
+    if z = 4  then return "#dfc27d"
+    if z = 5  then return "#f6e8c3"
+    if z = 6  then return "#c7eae5"
+    if z = 7  then return "#80cdc1"
+    if z = 8  then return "#35978f"
+    if z = 9  then return "#01665e"
+    if z = 10 then return "#003c30"
+end sub
+
+sub BrBGDiv11 z
+    if z = 1  then return "#543005"
+    if z = 2  then return "#8c510a"
+    if z = 3  then return "#bf812d"
+    if z = 4  then return "#dfc27d"
+    if z = 5  then return "#f6e8c3"
+    if z = 6  then return "#f5f5f5"
+    if z = 7  then return "#c7eae5"
+    if z = 8  then return "#80cdc1"
+    if z = 9  then return "#35978f"
+    if z = 10 then return "#01665e"
+    if z = 11 then return "#003c30"
+end sub
+
+sub BuGnSeq3 z
+    if z = 1  then return "#e5f5f9"
+    if z = 2  then return "#99d8c9"
+    if z = 3  then return "#2ca25f"
+end sub
+
+sub BuGnSeq4 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#b2e2e2"
+    if z = 3  then return "#66c2a4"
+    if z = 4  then return "#238b45"
+end sub
+
+sub BuGnSeq5 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#b2e2e2"
+    if z = 3  then return "#66c2a4"
+    if z = 4  then return "#2ca25f"
+    if z = 5  then return "#006d2c"
+end sub
+
+sub BuGnSeq6 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#ccece6"
+    if z = 3  then return "#99d8c9"
+    if z = 4  then return "#66c2a4"
+    if z = 5  then return "#2ca25f"
+    if z = 6  then return "#006d2c"
+end sub
+
+sub BuGnSeq7 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#ccece6"
+    if z = 3  then return "#99d8c9"
+    if z = 4  then return "#66c2a4"
+    if z = 5  then return "#41ae76"
+    if z = 6  then return "#238b45"
+    if z = 7  then return "#005824"
+end sub
+
+sub BuGnSeq8 z
+    if z = 1  then return "#f7fcfd"
+    if z = 2  then return "#e5f5f9"
+    if z = 3  then return "#ccece6"
+    if z = 4  then return "#99d8c9"
+    if z = 5  then return "#66c2a4"
+    if z = 6  then return "#41ae76"
+    if z = 7  then return "#238b45"
+    if z = 8  then return "#005824"
+end sub
+
+sub BuGnSeq9 z
+    if z = 1  then return "#f7fcfd"
+    if z = 2  then return "#e5f5f9"
+    if z = 3  then return "#ccece6"
+    if z = 4  then return "#99d8c9"
+    if z = 5  then return "#66c2a4"
+    if z = 6  then return "#41ae76"
+    if z = 7  then return "#238b45"
+    if z = 8  then return "#006d2c"
+    if z = 9  then return "#00441b"
+end sub
+
+sub BuPuSeq3 z
+    if z = 1  then return "#e0ecf4"
+    if z = 2  then return "#9ebcda"
+    if z = 3  then return "#8856a7"
+end sub
+
+sub BuPuSeq4 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#8c96c6"
+    if z = 4  then return "#88419d"
+end sub
+
+sub BuPuSeq5 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#8c96c6"
+    if z = 4  then return "#8856a7"
+    if z = 5  then return "#810f7c"
+end sub
+
+sub BuPuSeq6 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#bfd3e6"
+    if z = 3  then return "#9ebcda"
+    if z = 4  then return "#8c96c6"
+    if z = 5  then return "#8856a7"
+    if z = 6  then return "#810f7c"
+end sub
+
+sub BuPuSeq7 z
+    if z = 1  then return "#edf8fb"
+    if z = 2  then return "#bfd3e6"
+    if z = 3  then return "#9ebcda"
+    if z = 4  then return "#8c96c6"
+    if z = 5  then return "#8c6bb1"
+    if z = 6  then return "#88419d"
+    if z = 7  then return "#6e016b"
+end sub
+
+sub BuPuSeq8 z
+    if z = 1  then return "#f7fcfd"
+    if z = 2  then return "#e0ecf4"
+    if z = 3  then return "#bfd3e6"
+    if z = 4  then return "#9ebcda"
+    if z = 5  then return "#8c96c6"
+    if z = 6  then return "#8c6bb1"
+    if z = 7  then return "#88419d"
+    if z = 8  then return "#6e016b"
+end sub
+
+sub BuPuSeq9 z
+    if z = 1  then return "#f7fcfd"
+    if z = 2  then return "#e0ecf4"
+    if z = 3  then return "#bfd3e6"
+    if z = 4  then return "#9ebcda"
+    if z = 5  then return "#8c96c6"
+    if z = 6  then return "#8c6bb1"
+    if z = 7  then return "#88419d"
+    if z = 8  then return "#810f7c"
+    if z = 9  then return "#4d004b"
+end sub
+
+sub Dark2Qual3 z
+    if z = 1  then return "#1b9e77"
+    if z = 2  then return "#d95f02"
+    if z = 3  then return "#7570b3"
+end sub
+
+sub Dark2Qual4 z
+    if z = 1  then return "#1b9e77"
+    if z = 2  then return "#d95f02"
+    if z = 3  then return "#7570b3"
+    if z = 4  then return "#e7298a"
+end sub
+
+sub Dark2Qual5 z
+    if z = 1  then return "#1b9e77"
+    if z = 2  then return "#d95f02"
+    if z = 3  then return "#7570b3"
+    if z = 4  then return "#e7298a"
+    if z = 5  then return "#66a61e"
+end sub
+
+sub Dark2Qual6 z
+    if z = 1  then return "#1b9e77"
+    if z = 2  then return "#d95f02"
+    if z = 3  then return "#7570b3"
+    if z = 4  then return "#e7298a"
+    if z = 5  then return "#66a61e"
+    if z = 6  then return "#e6ab02"
+end sub
+
+sub Dark2Qual7 z
+    if z = 1  then return "#1b9e77"
+    if z = 2  then return "#d95f02"
+    if z = 3  then return "#7570b3"
+    if z = 4  then return "#e7298a"
+    if z = 5  then return "#66a61e"
+    if z = 6  then return "#e6ab02"
+    if z = 7  then return "#a6761d"
+end sub
+
+sub Dark2Qual8 z
+    if z = 1  then return "#1b9e77"
+    if z = 2  then return "#d95f02"
+    if z = 3  then return "#7570b3"
+    if z = 4  then return "#e7298a"
+    if z = 5  then return "#66a61e"
+    if z = 6  then return "#e6ab02"
+    if z = 7  then return "#a6761d"
+    if z = 8  then return "#666666"
+end sub
+
+sub GnBuSeq3 z
+    if z = 1  then return "#e0f3db"
+    if z = 2  then return "#a8ddb5"
+    if z = 3  then return "#43a2ca"
+end sub
+
+sub GnBuSeq4 z
+    if z = 1  then return "#f0f9e8"
+    if z = 2  then return "#bae4bc"
+    if z = 3  then return "#7bccc4"
+    if z = 4  then return "#2b8cbe"
+end sub
+
+sub GnBuSeq5 z
+    if z = 1  then return "#f0f9e8"
+    if z = 2  then return "#bae4bc"
+    if z = 3  then return "#7bccc4"
+    if z = 4  then return "#43a2ca"
+    if z = 5  then return "#0868ac"
+end sub
+
+sub GnBuSeq6 z
+    if z = 1  then return "#f0f9e8"
+    if z = 2  then return "#ccebc5"
+    if z = 3  then return "#a8ddb5"
+    if z = 4  then return "#7bccc4"
+    if z = 5  then return "#43a2ca"
+    if z = 6  then return "#0868ac"
+end sub
+
+sub GnBuSeq7 z
+    if z = 1  then return "#f0f9e8"
+    if z = 2  then return "#ccebc5"
+    if z = 3  then return "#a8ddb5"
+    if z = 4  then return "#7bccc4"
+    if z = 5  then return "#4eb3d3"
+    if z = 6  then return "#2b8cbe"
+    if z = 7  then return "#08589e"
+end sub
+
+sub GnBuSeq8 z
+    if z = 1  then return "#f7fcf0"
+    if z = 2  then return "#e0f3db"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#a8ddb5"
+    if z = 5  then return "#7bccc4"
+    if z = 6  then return "#4eb3d3"
+    if z = 7  then return "#2b8cbe"
+    if z = 8  then return "#08589e"
+end sub
+
+sub GnBuSeq9 z
+    if z = 1  then return "#f7fcf0"
+    if z = 2  then return "#e0f3db"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#a8ddb5"
+    if z = 5  then return "#7bccc4"
+    if z = 6  then return "#4eb3d3"
+    if z = 7  then return "#2b8cbe"
+    if z = 8  then return "#0868ac"
+    if z = 9  then return "#084081"
+end sub
+
+sub GreensSeq3 z
+    if z = 1  then return "#e5f5e0"
+    if z = 2  then return "#a1d99b"
+    if z = 3  then return "#31a354"
+end sub
+
+sub GreensSeq4 z
+    if z = 1  then return "#edf8e9"
+    if z = 2  then return "#bae4b3"
+    if z = 3  then return "#74c476"
+    if z = 4  then return "#238b45"
+end sub
+
+sub GreensSeq5 z
+    if z = 1  then return "#edf8e9"
+    if z = 2  then return "#bae4b3"
+    if z = 3  then return "#74c476"
+    if z = 4  then return "#31a354"
+    if z = 5  then return "#006d2c"
+end sub
+
+sub GreensSeq6 z
+    if z = 1  then return "#edf8e9"
+    if z = 2  then return "#c7e9c0"
+    if z = 3  then return "#a1d99b"
+    if z = 4  then return "#74c476"
+    if z = 5  then return "#31a354"
+    if z = 6  then return "#006d2c"
+end sub
+
+sub GreensSeq7 z
+    if z = 1  then return "#edf8e9"
+    if z = 2  then return "#c7e9c0"
+    if z = 3  then return "#a1d99b"
+    if z = 4  then return "#74c476"
+    if z = 5  then return "#41ab5d"
+    if z = 6  then return "#238b45"
+    if z = 7  then return "#005a32"
+end sub
+
+sub GreensSeq8 z
+    if z = 1  then return "#f7fcf5"
+    if z = 2  then return "#e5f5e0"
+    if z = 3  then return "#c7e9c0"
+    if z = 4  then return "#a1d99b"
+    if z = 5  then return "#74c476"
+    if z = 6  then return "#41ab5d"
+    if z = 7  then return "#238b45"
+    if z = 8  then return "#005a32"
+end sub
+
+sub GreensSeq9 z
+    if z = 1  then return "#f7fcf5"
+    if z = 2  then return "#e5f5e0"
+    if z = 3  then return "#c7e9c0"
+    if z = 4  then return "#a1d99b"
+    if z = 5  then return "#74c476"
+    if z = 6  then return "#41ab5d"
+    if z = 7  then return "#238b45"
+    if z = 8  then return "#006d2c"
+    if z = 9  then return "#00441b"
+end sub
+
+sub GreysSeq3 z
+    if z = 1  then return "#f0f0f0"
+    if z = 2  then return "#bdbdbd"
+    if z = 3  then return "#636363"
+end sub
+
+sub GreysSeq4 z
+    if z = 1  then return "#f7f7f7"
+    if z = 2  then return "#cccccc"
+    if z = 3  then return "#969696"
+    if z = 4  then return "#525252"
+end sub
+
+sub GreysSeq5 z
+    if z = 1  then return "#f7f7f7"
+    if z = 2  then return "#cccccc"
+    if z = 3  then return "#969696"
+    if z = 4  then return "#636363"
+    if z = 5  then return "#252525"
+end sub
+
+sub GreysSeq6 z
+    if z = 1  then return "#f7f7f7"
+    if z = 2  then return "#d9d9d9"
+    if z = 3  then return "#bdbdbd"
+    if z = 4  then return "#969696"
+    if z = 5  then return "#636363"
+    if z = 6  then return "#252525"
+end sub
+
+sub GreysSeq7 z
+    if z = 1  then return "#f7f7f7"
+    if z = 2  then return "#d9d9d9"
+    if z = 3  then return "#bdbdbd"
+    if z = 4  then return "#969696"
+    if z = 5  then return "#737373"
+    if z = 6  then return "#525252"
+    if z = 7  then return "#252525"
+end sub
+
+sub GreysSeq8 z
+    if z = 1  then return "#ffffff"
+    if z = 2  then return "#f0f0f0"
+    if z = 3  then return "#d9d9d9"
+    if z = 4  then return "#bdbdbd"
+    if z = 5  then return "#969696"
+    if z = 6  then return "#737373"
+    if z = 7  then return "#525252"
+    if z = 8  then return "#252525"
+end sub
+
+sub GreysSeq9 z
+    if z = 1  then return "#ffffff"
+    if z = 2  then return "#f0f0f0"
+    if z = 3  then return "#d9d9d9"
+    if z = 4  then return "#bdbdbd"
+    if z = 5  then return "#969696"
+    if z = 6  then return "#737373"
+    if z = 7  then return "#525252"
+    if z = 8  then return "#252525"
+    if z = 9  then return "#000000"
+end sub
+
+sub OrangesSeq3 z
+    if z = 1  then return "#fee6ce"
+    if z = 2  then return "#fdae6b"
+    if z = 3  then return "#e6550d"
+end sub
+
+sub OrangesSeq4 z
+    if z = 1  then return "#feedde"
+    if z = 2  then return "#fdbe85"
+    if z = 3  then return "#fd8d3c"
+    if z = 4  then return "#d94701"
+end sub
+
+sub OrangesSeq5 z
+    if z = 1  then return "#feedde"
+    if z = 2  then return "#fdbe85"
+    if z = 3  then return "#fd8d3c"
+    if z = 4  then return "#e6550d"
+    if z = 5  then return "#a63603"
+end sub
+
+sub OrangesSeq6 z
+    if z = 1  then return "#feedde"
+    if z = 2  then return "#fdd0a2"
+    if z = 3  then return "#fdae6b"
+    if z = 4  then return "#fd8d3c"
+    if z = 5  then return "#e6550d"
+    if z = 6  then return "#a63603"
+end sub
+
+sub OrangesSeq7 z
+    if z = 1  then return "#feedde"
+    if z = 2  then return "#fdd0a2"
+    if z = 3  then return "#fdae6b"
+    if z = 4  then return "#fd8d3c"
+    if z = 5  then return "#f16913"
+    if z = 6  then return "#d94801"
+    if z = 7  then return "#8c2d04"
+end sub
+
+sub OrangesSeq8 z
+    if z = 1  then return "#fff5eb"
+    if z = 2  then return "#fee6ce"
+    if z = 3  then return "#fdd0a2"
+    if z = 4  then return "#fdae6b"
+    if z = 5  then return "#fd8d3c"
+    if z = 6  then return "#f16913"
+    if z = 7  then return "#d94801"
+    if z = 8  then return "#8c2d04"
+end sub
+
+sub OrangesSeq9 z
+    if z = 1  then return "#fff5eb"
+    if z = 2  then return "#fee6ce"
+    if z = 3  then return "#fdd0a2"
+    if z = 4  then return "#fdae6b"
+    if z = 5  then return "#fd8d3c"
+    if z = 6  then return "#f16913"
+    if z = 7  then return "#d94801"
+    if z = 8  then return "#a63603"
+    if z = 9  then return "#7f2704"
+end sub
+
+sub OrRdSeq3 z
+    if z = 1  then return "#fee8c8"
+    if z = 2  then return "#fdbb84"
+    if z = 3  then return "#e34a33"
+end sub
+
+sub OrRdSeq4 z
+    if z = 1  then return "#fef0d9"
+    if z = 2  then return "#fdcc8a"
+    if z = 3  then return "#fc8d59"
+    if z = 4  then return "#d7301f"
+end sub
+
+sub OrRdSeq5 z
+    if z = 1  then return "#fef0d9"
+    if z = 2  then return "#fdcc8a"
+    if z = 3  then return "#fc8d59"
+    if z = 4  then return "#e34a33"
+    if z = 5  then return "#b30000"
+end sub
+
+sub OrRdSeq6 z
+    if z = 1  then return "#fef0d9"
+    if z = 2  then return "#fdd49e"
+    if z = 3  then return "#fdbb84"
+    if z = 4  then return "#fc8d59"
+    if z = 5  then return "#e34a33"
+    if z = 6  then return "#b30000"
+end sub
+
+sub OrRdSeq7 z
+    if z = 1  then return "#fef0d9"
+    if z = 2  then return "#fdd49e"
+    if z = 3  then return "#fdbb84"
+    if z = 4  then return "#fc8d59"
+    if z = 5  then return "#ef6548"
+    if z = 6  then return "#d7301f"
+    if z = 7  then return "#990000"
+end sub
+
+sub OrRdSeq8 z
+    if z = 1  then return "#fff7ec"
+    if z = 2  then return "#fee8c8"
+    if z = 3  then return "#fdd49e"
+    if z = 4  then return "#fdbb84"
+    if z = 5  then return "#fc8d59"
+    if z = 6  then return "#ef6548"
+    if z = 7  then return "#d7301f"
+    if z = 8  then return "#990000"
+end sub
+
+sub OrRdSeq9 z
+    if z = 1  then return "#fff7ec"
+    if z = 2  then return "#fee8c8"
+    if z = 3  then return "#fdd49e"
+    if z = 4  then return "#fdbb84"
+    if z = 5  then return "#fc8d59"
+    if z = 6  then return "#ef6548"
+    if z = 7  then return "#d7301f"
+    if z = 8  then return "#b30000"
+    if z = 9  then return "#7f0000"
+end sub
+
+sub PairedQual3 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+end sub
+
+sub PairedQual4 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+end sub
+
+sub PairedQual5 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+end sub
+
+sub PairedQual6 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+end sub
+
+sub PairedQual7 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#fdbf6f"
+end sub
+
+sub PairedQual8 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#fdbf6f"
+    if z = 8  then return "#ff7f00"
+end sub
+
+sub PairedQual9 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#fdbf6f"
+    if z = 8  then return "#ff7f00"
+    if z = 9  then return "#cab2d6"
+end sub
+
+sub PairedQual10 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#fdbf6f"
+    if z = 8  then return "#ff7f00"
+    if z = 9  then return "#cab2d6"
+    if z = 10 then return "#6a3d9a"
+end sub
+
+sub PairedQual11 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#fdbf6f"
+    if z = 8  then return "#ff7f00"
+    if z = 9  then return "#cab2d6"
+    if z = 10 then return "#6a3d9a"
+    if z = 11 then return "#ffff99"
+end sub
+
+sub PairedQual12 z
+    if z = 1  then return "#a6cee3"
+    if z = 2  then return "#1f78b4"
+    if z = 3  then return "#b2df8a"
+    if z = 4  then return "#33a02c"
+    if z = 5  then return "#fb9a99"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#fdbf6f"
+    if z = 8  then return "#ff7f00"
+    if z = 9  then return "#cab2d6"
+    if z = 10 then return "#6a3d9a"
+    if z = 11 then return "#ffff99"
+    if z = 12 then return "#b15928"
+end sub
+
+sub Pastel1Qual3 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+end sub
+
+sub Pastel1Qual4 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#decbe4"
+end sub
+
+sub Pastel1Qual5 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#decbe4"
+    if z = 5  then return "#fed9a6"
+end sub
+
+sub Pastel1Qual6 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#decbe4"
+    if z = 5  then return "#fed9a6"
+    if z = 6  then return "#ffffcc"
+end sub
+
+sub Pastel1Qual7 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#decbe4"
+    if z = 5  then return "#fed9a6"
+    if z = 6  then return "#ffffcc"
+    if z = 7  then return "#e5d8bd"
+end sub
+
+sub Pastel1Qual8 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#decbe4"
+    if z = 5  then return "#fed9a6"
+    if z = 6  then return "#ffffcc"
+    if z = 7  then return "#e5d8bd"
+    if z = 8  then return "#fddaec"
+end sub
+
+sub Pastel1Qual9 z
+    if z = 1  then return "#fbb4ae"
+    if z = 2  then return "#b3cde3"
+    if z = 3  then return "#ccebc5"
+    if z = 4  then return "#decbe4"
+    if z = 5  then return "#fed9a6"
+    if z = 6  then return "#ffffcc"
+    if z = 7  then return "#e5d8bd"
+    if z = 8  then return "#fddaec"
+    if z = 9  then return "#f2f2f2"
+end sub
+
+sub Pastel2Qual3 z
+    if z = 1  then return "#b3e2cd"
+    if z = 2  then return "#fdcdac"
+    if z = 3  then return "#cbd5e8"
+end sub
+
+sub Pastel2Qual4 z
+    if z = 1  then return "#b3e2cd"
+    if z = 2  then return "#fdcdac"
+    if z = 3  then return "#cbd5e8"
+    if z = 4  then return "#f4cae4"
+end sub
+
+sub Pastel2Qual5 z
+    if z = 1  then return "#b3e2cd"
+    if z = 2  then return "#fdcdac"
+    if z = 3  then return "#cbd5e8"
+    if z = 4  then return "#f4cae4"
+    if z = 5  then return "#e6f5c9"
+end sub
+
+sub Pastel2Qual6 z
+    if z = 1  then return "#b3e2cd"
+    if z = 2  then return "#fdcdac"
+    if z = 3  then return "#cbd5e8"
+    if z = 4  then return "#f4cae4"
+    if z = 5  then return "#e6f5c9"
+    if z = 6  then return "#fff2ae"
+end sub
+
+sub Pastel2Qual7 z
+    if z = 1  then return "#b3e2cd"
+    if z = 2  then return "#fdcdac"
+    if z = 3  then return "#cbd5e8"
+    if z = 4  then return "#f4cae4"
+    if z = 5  then return "#e6f5c9"
+    if z = 6  then return "#fff2ae"
+    if z = 7  then return "#f1e2cc"
+end sub
+
+sub Pastel2Qual8 z
+    if z = 1  then return "#b3e2cd"
+    if z = 2  then return "#fdcdac"
+    if z = 3  then return "#cbd5e8"
+    if z = 4  then return "#f4cae4"
+    if z = 5  then return "#e6f5c9"
+    if z = 6  then return "#fff2ae"
+    if z = 7  then return "#f1e2cc"
+    if z = 8  then return "#cccccc"
+end sub
+
+sub PiYGDiv3 z
+    if z = 1  then return "#e9a3c9"
+    if z = 2  then return "#f7f7f7"
+    if z = 3  then return "#a1d76a"
+end sub
+
+sub PiYGDiv4 z
+    if z = 1  then return "#d01c8b"
+    if z = 2  then return "#f1b6da"
+    if z = 3  then return "#b8e186"
+    if z = 4  then return "#4dac26"
+end sub
+
+sub PiYGDiv5 z
+    if z = 1  then return "#d01c8b"
+    if z = 2  then return "#f1b6da"
+    if z = 3  then return "#f7f7f7"
+    if z = 4  then return "#b8e186"
+    if z = 5  then return "#4dac26"
+end sub
+
+sub PiYGDiv6 z
+    if z = 1  then return "#c51b7d"
+    if z = 2  then return "#e9a3c9"
+    if z = 3  then return "#fde0ef"
+    if z = 4  then return "#e6f5d0"
+    if z = 5  then return "#a1d76a"
+    if z = 6  then return "#4d9221"
+end sub
+
+sub PiYGDiv7 z
+    if z = 1  then return "#c51b7d"
+    if z = 2  then return "#e9a3c9"
+    if z = 3  then return "#fde0ef"
+    if z = 4  then return "#f7f7f7"
+    if z = 5  then return "#e6f5d0"
+    if z = 6  then return "#a1d76a"
+    if z = 7  then return "#4d9221"
+end sub
+
+sub PiYGDiv8 z
+    if z = 1  then return "#c51b7d"
+    if z = 2  then return "#de77ae"
+    if z = 3  then return "#f1b6da"
+    if z = 4  then return "#fde0ef"
+    if z = 5  then return "#e6f5d0"
+    if z = 6  then return "#b8e186"
+    if z = 7  then return "#7fbc41"
+    if z = 8  then return "#4d9221"
+end sub
+
+sub PiYGDiv9 z
+    if z = 1  then return "#c51b7d"
+    if z = 2  then return "#de77ae"
+    if z = 3  then return "#f1b6da"
+    if z = 4  then return "#fde0ef"
+    if z = 5  then return "#f7f7f7"
+    if z = 6  then return "#e6f5d0"
+    if z = 7  then return "#b8e186"
+    if z = 8  then return "#7fbc41"
+    if z = 9  then return "#4d9221"
+end sub
+
+sub PiYGDiv10 z
+    if z = 1  then return "#8e0152"
+    if z = 2  then return "#c51b7d"
+    if z = 3  then return "#de77ae"
+    if z = 4  then return "#f1b6da"
+    if z = 5  then return "#fde0ef"
+    if z = 6  then return "#e6f5d0"
+    if z = 7  then return "#b8e186"
+    if z = 8  then return "#7fbc41"
+    if z = 9  then return "#4d9221"
+    if z = 10 then return "#276419"
+end sub
+
+sub PiYGDiv11 z
+    if z = 1  then return "#8e0152"
+    if z = 2  then return "#c51b7d"
+    if z = 3  then return "#de77ae"
+    if z = 4  then return "#f1b6da"
+    if z = 5  then return "#fde0ef"
+    if z = 6  then return "#f7f7f7"
+    if z = 7  then return "#e6f5d0"
+    if z = 8  then return "#b8e186"
+    if z = 9  then return "#7fbc41"
+    if z = 10 then return "#4d9221"
+    if z = 11 then return "#276419"
+end sub
+
+sub PRGnDiv3 z
+    if z = 1  then return "#af8dc3"
+    if z = 2  then return "#f7f7f7"
+    if z = 3  then return "#7fbf7b"
+end sub
+
+sub PRGnDiv4 z
+    if z = 1  then return "#7b3294"
+    if z = 2  then return "#c2a5cf"
+    if z = 3  then return "#a6dba0"
+    if z = 4  then return "#008837"
+end sub
+
+sub PRGnDiv5 z
+    if z = 1  then return "#7b3294"
+    if z = 2  then return "#c2a5cf"
+    if z = 3  then return "#f7f7f7"
+    if z = 4  then return "#a6dba0"
+    if z = 5  then return "#008837"
+end sub
+
+sub PRGnDiv6 z
+    if z = 1  then return "#762a83"
+    if z = 2  then return "#af8dc3"
+    if z = 3  then return "#e7d4e8"
+    if z = 4  then return "#d9f0d3"
+    if z = 5  then return "#7fbf7b"
+    if z = 6  then return "#1b7837"
+end sub
+
+sub PRGnDiv7 z
+    if z = 1  then return "#762a83"
+    if z = 2  then return "#af8dc3"
+    if z = 3  then return "#e7d4e8"
+    if z = 4  then return "#f7f7f7"
+    if z = 5  then return "#d9f0d3"
+    if z = 6  then return "#7fbf7b"
+    if z = 7  then return "#1b7837"
+end sub
+
+sub PRGnDiv8 z
+    if z = 1  then return "#762a83"
+    if z = 2  then return "#9970ab"
+    if z = 3  then return "#c2a5cf"
+    if z = 4  then return "#e7d4e8"
+    if z = 5  then return "#d9f0d3"
+    if z = 6  then return "#a6dba0"
+    if z = 7  then return "#5aae61"
+    if z = 8  then return "#1b7837"
+end sub
+
+sub PRGnDiv9 z
+    if z = 1  then return "#762a83"
+    if z = 2  then return "#9970ab"
+    if z = 3  then return "#c2a5cf"
+    if z = 4  then return "#e7d4e8"
+    if z = 5  then return "#f7f7f7"
+    if z = 6  then return "#d9f0d3"
+    if z = 7  then return "#a6dba0"
+    if z = 8  then return "#5aae61"
+    if z = 9  then return "#1b7837"
+end sub
+
+sub PRGnDiv10 z
+    if z = 1  then return "#40004b"
+    if z = 2  then return "#762a83"
+    if z = 3  then return "#9970ab"
+    if z = 4  then return "#c2a5cf"
+    if z = 5  then return "#e7d4e8"
+    if z = 6  then return "#d9f0d3"
+    if z = 7  then return "#a6dba0"
+    if z = 8  then return "#5aae61"
+    if z = 9  then return "#1b7837"
+    if z = 10 then return "#00441b"
+end sub
+
+sub PRGnDiv11 z
+    if z = 1  then return "#40004b"
+    if z = 2  then return "#762a83"
+    if z = 3  then return "#9970ab"
+    if z = 4  then return "#c2a5cf"
+    if z = 5  then return "#e7d4e8"
+    if z = 6  then return "#f7f7f7"
+    if z = 7  then return "#d9f0d3"
+    if z = 8  then return "#a6dba0"
+    if z = 9  then return "#5aae61"
+    if z = 10 then return "#1b7837"
+    if z = 11 then return "#00441b"
+end sub
+
+sub PuBuSeq3 z
+    if z = 1  then return "#ece7f2"
+    if z = 2  then return "#a6bddb"
+    if z = 3  then return "#2b8cbe"
+end sub
+
+sub PuBuSeq4 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#bdc9e1"
+    if z = 3  then return "#74a9cf"
+    if z = 4  then return "#0570b0"
+end sub
+
+sub PuBuSeq5 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#bdc9e1"
+    if z = 3  then return "#74a9cf"
+    if z = 4  then return "#2b8cbe"
+    if z = 5  then return "#045a8d"
+end sub
+
+sub PuBuSeq6 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#d0d1e6"
+    if z = 3  then return "#a6bddb"
+    if z = 4  then return "#74a9cf"
+    if z = 5  then return "#2b8cbe"
+    if z = 6  then return "#045a8d"
+end sub
+
+sub PuBuSeq7 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#d0d1e6"
+    if z = 3  then return "#a6bddb"
+    if z = 4  then return "#74a9cf"
+    if z = 5  then return "#3690c0"
+    if z = 6  then return "#0570b0"
+    if z = 7  then return "#034e7b"
+end sub
+
+sub PuBuSeq8 z
+    if z = 1  then return "#fff7fb"
+    if z = 2  then return "#ece7f2"
+    if z = 3  then return "#d0d1e6"
+    if z = 4  then return "#a6bddb"
+    if z = 5  then return "#74a9cf"
+    if z = 6  then return "#3690c0"
+    if z = 7  then return "#0570b0"
+    if z = 8  then return "#034e7b"
+end sub
+
+sub PuBuSeq9 z
+    if z = 1  then return "#fff7fb"
+    if z = 2  then return "#ece7f2"
+    if z = 3  then return "#d0d1e6"
+    if z = 4  then return "#a6bddb"
+    if z = 5  then return "#74a9cf"
+    if z = 6  then return "#3690c0"
+    if z = 7  then return "#0570b0"
+    if z = 8  then return "#045a8d"
+    if z = 9  then return "#023858"
+end sub
+
+sub PuBuGnSeq3 z
+    if z = 1  then return "#ece2f0"
+    if z = 2  then return "#a6bddb"
+    if z = 3  then return "#1c9099"
+end sub
+
+sub PuBuGnSeq4 z
+    if z = 1  then return "#f6eff7"
+    if z = 2  then return "#bdc9e1"
+    if z = 3  then return "#67a9cf"
+    if z = 4  then return "#02818a"
+end sub
+
+sub PuBuGnSeq5 z
+    if z = 1  then return "#f6eff7"
+    if z = 2  then return "#bdc9e1"
+    if z = 3  then return "#67a9cf"
+    if z = 4  then return "#1c9099"
+    if z = 5  then return "#016c59"
+end sub
+
+sub PuBuGnSeq6 z
+    if z = 1  then return "#f6eff7"
+    if z = 2  then return "#d0d1e6"
+    if z = 3  then return "#a6bddb"
+    if z = 4  then return "#67a9cf"
+    if z = 5  then return "#1c9099"
+    if z = 6  then return "#016c59"
+end sub
+
+sub PuBuGnSeq7 z
+    if z = 1  then return "#f6eff7"
+    if z = 2  then return "#d0d1e6"
+    if z = 3  then return "#a6bddb"
+    if z = 4  then return "#67a9cf"
+    if z = 5  then return "#3690c0"
+    if z = 6  then return "#02818a"
+    if z = 7  then return "#016450"
+end sub
+
+sub PuBuGnSeq8 z
+    if z = 1  then return "#fff7fb"
+    if z = 2  then return "#ece2f0"
+    if z = 3  then return "#d0d1e6"
+    if z = 4  then return "#a6bddb"
+    if z = 5  then return "#67a9cf"
+    if z = 6  then return "#3690c0"
+    if z = 7  then return "#02818a"
+    if z = 8  then return "#016450"
+end sub
+
+sub PuBuGnSeq9 z
+    if z = 1  then return "#fff7fb"
+    if z = 2  then return "#ece2f0"
+    if z = 3  then return "#d0d1e6"
+    if z = 4  then return "#a6bddb"
+    if z = 5  then return "#67a9cf"
+    if z = 6  then return "#3690c0"
+    if z = 7  then return "#02818a"
+    if z = 8  then return "#016c59"
+    if z = 9  then return "#014636"
+end sub
+
+sub PuOrDiv3 z
+    if z = 1  then return "#f1a340"
+    if z = 2  then return "#f7f7f7"
+    if z = 3  then return "#998ec3"
+end sub
+
+sub PuOrDiv4 z
+    if z = 1  then return "#e66101"
+    if z = 2  then return "#fdb863"
+    if z = 3  then return "#b2abd2"
+    if z = 4  then return "#5e3c99"
+end sub
+
+sub PuOrDiv5 z
+    if z = 1  then return "#e66101"
+    if z = 2  then return "#fdb863"
+    if z = 3  then return "#f7f7f7"
+    if z = 4  then return "#b2abd2"
+    if z = 5  then return "#5e3c99"
+end sub
+
+sub PuOrDiv6 z
+    if z = 1  then return "#b35806"
+    if z = 2  then return "#f1a340"
+    if z = 3  then return "#fee0b6"
+    if z = 4  then return "#d8daeb"
+    if z = 5  then return "#998ec3"
+    if z = 6  then return "#542788"
+end sub
+
+sub PuOrDiv7 z
+    if z = 1  then return "#b35806"
+    if z = 2  then return "#f1a340"
+    if z = 3  then return "#fee0b6"
+    if z = 4  then return "#f7f7f7"
+    if z = 5  then return "#d8daeb"
+    if z = 6  then return "#998ec3"
+    if z = 7  then return "#542788"
+end sub
+
+sub PuOrDiv8 z
+    if z = 1  then return "#b35806"
+    if z = 2  then return "#e08214"
+    if z = 3  then return "#fdb863"
+    if z = 4  then return "#fee0b6"
+    if z = 5  then return "#d8daeb"
+    if z = 6  then return "#b2abd2"
+    if z = 7  then return "#8073ac"
+    if z = 8  then return "#542788"
+end sub
+
+sub PuOrDiv9 z
+    if z = 1  then return "#b35806"
+    if z = 2  then return "#e08214"
+    if z = 3  then return "#fdb863"
+    if z = 4  then return "#fee0b6"
+    if z = 5  then return "#f7f7f7"
+    if z = 6  then return "#d8daeb"
+    if z = 7  then return "#b2abd2"
+    if z = 8  then return "#8073ac"
+    if z = 9  then return "#542788"
+end sub
+
+sub PuOrDiv10 z
+    if z = 1  then return "#7f3b08"
+    if z = 2  then return "#b35806"
+    if z = 3  then return "#e08214"
+    if z = 4  then return "#fdb863"
+    if z = 5  then return "#fee0b6"
+    if z = 6  then return "#d8daeb"
+    if z = 7  then return "#b2abd2"
+    if z = 8  then return "#8073ac"
+    if z = 9  then return "#542788"
+    if z = 10 then return "#2d004b"
+end sub
+
+sub PuOrDiv11 z
+    if z = 1  then return "#7f3b08"
+    if z = 2  then return "#b35806"
+    if z = 3  then return "#e08214"
+    if z = 4  then return "#fdb863"
+    if z = 5  then return "#fee0b6"
+    if z = 6  then return "#f7f7f7"
+    if z = 7  then return "#d8daeb"
+    if z = 8  then return "#b2abd2"
+    if z = 9  then return "#8073ac"
+    if z = 10 then return "#542788"
+    if z = 11 then return "#2d004b"
+end sub
+
+sub PuRdSeq3 z
+    if z = 1  then return "#e7e1ef"
+    if z = 2  then return "#c994c7"
+    if z = 3  then return "#dd1c77"
+end sub
+
+sub PuRdSeq4 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#d7b5d8"
+    if z = 3  then return "#df65b0"
+    if z = 4  then return "#ce1256"
+end sub
+
+sub PuRdSeq5 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#d7b5d8"
+    if z = 3  then return "#df65b0"
+    if z = 4  then return "#dd1c77"
+    if z = 5  then return "#980043"
+end sub
+
+sub PuRdSeq6 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#d4b9da"
+    if z = 3  then return "#c994c7"
+    if z = 4  then return "#df65b0"
+    if z = 5  then return "#dd1c77"
+    if z = 6  then return "#980043"
+end sub
+
+sub PuRdSeq7 z
+    if z = 1  then return "#f1eef6"
+    if z = 2  then return "#d4b9da"
+    if z = 3  then return "#c994c7"
+    if z = 4  then return "#df65b0"
+    if z = 5  then return "#e7298a"
+    if z = 6  then return "#ce1256"
+    if z = 7  then return "#91003f"
+end sub
+
+sub PuRdSeq8 z
+    if z = 1  then return "#f7f4f9"
+    if z = 2  then return "#e7e1ef"
+    if z = 3  then return "#d4b9da"
+    if z = 4  then return "#c994c7"
+    if z = 5  then return "#df65b0"
+    if z = 6  then return "#e7298a"
+    if z = 7  then return "#ce1256"
+    if z = 8  then return "#91003f"
+end sub
+
+sub PuRdSeq9 z
+    if z = 1  then return "#f7f4f9"
+    if z = 2  then return "#e7e1ef"
+    if z = 3  then return "#d4b9da"
+    if z = 4  then return "#c994c7"
+    if z = 5  then return "#df65b0"
+    if z = 6  then return "#e7298a"
+    if z = 7  then return "#ce1256"
+    if z = 8  then return "#980043"
+    if z = 9  then return "#67001f"
+end sub
+
+sub PurplesSeq3 z
+    if z = 1  then return "#efedf5"
+    if z = 2  then return "#bcbddc"
+    if z = 3  then return "#756bb1"
+end sub
+
+sub PurplesSeq4 z
+    if z = 1  then return "#f2f0f7"
+    if z = 2  then return "#cbc9e2"
+    if z = 3  then return "#9e9ac8"
+    if z = 4  then return "#6a51a3"
+end sub
+
+sub PurplesSeq5 z
+    if z = 1  then return "#f2f0f7"
+    if z = 2  then return "#cbc9e2"
+    if z = 3  then return "#9e9ac8"
+    if z = 4  then return "#756bb1"
+    if z = 5  then return "#54278f"
+end sub
+
+sub PurplesSeq6 z
+    if z = 1  then return "#f2f0f7"
+    if z = 2  then return "#dadaeb"
+    if z = 3  then return "#bcbddc"
+    if z = 4  then return "#9e9ac8"
+    if z = 5  then return "#756bb1"
+    if z = 6  then return "#54278f"
+end sub
+
+sub PurplesSeq7 z
+    if z = 1  then return "#f2f0f7"
+    if z = 2  then return "#dadaeb"
+    if z = 3  then return "#bcbddc"
+    if z = 4  then return "#9e9ac8"
+    if z = 5  then return "#807dba"
+    if z = 6  then return "#6a51a3"
+    if z = 7  then return "#4a1486"
+end sub
+
+sub PurplesSeq8 z
+    if z = 1  then return "#fcfbfd"
+    if z = 2  then return "#efedf5"
+    if z = 3  then return "#dadaeb"
+    if z = 4  then return "#bcbddc"
+    if z = 5  then return "#9e9ac8"
+    if z = 6  then return "#807dba"
+    if z = 7  then return "#6a51a3"
+    if z = 8  then return "#4a1486"
+end sub
+
+sub PurplesSeq9 z
+    if z = 1  then return "#fcfbfd"
+    if z = 2  then return "#efedf5"
+    if z = 3  then return "#dadaeb"
+    if z = 4  then return "#bcbddc"
+    if z = 5  then return "#9e9ac8"
+    if z = 6  then return "#807dba"
+    if z = 7  then return "#6a51a3"
+    if z = 8  then return "#54278f"
+    if z = 9  then return "#3f007d"
+end sub
+
+sub RdBuDiv3 z
+    if z = 1  then return "#ef8a62"
+    if z = 2  then return "#f7f7f7"
+    if z = 3  then return "#67a9cf"
+end sub
+
+sub RdBuDiv4 z
+    if z = 1  then return "#ca0020"
+    if z = 2  then return "#f4a582"
+    if z = 3  then return "#92c5de"
+    if z = 4  then return "#0571b0"
+end sub
+
+sub RdBuDiv5 z
+    if z = 1  then return "#ca0020"
+    if z = 2  then return "#f4a582"
+    if z = 3  then return "#f7f7f7"
+    if z = 4  then return "#92c5de"
+    if z = 5  then return "#0571b0"
+end sub
+
+sub RdBuDiv6 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#ef8a62"
+    if z = 3  then return "#fddbc7"
+    if z = 4  then return "#d1e5f0"
+    if z = 5  then return "#67a9cf"
+    if z = 6  then return "#2166ac"
+end sub
+
+sub RdBuDiv7 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#ef8a62"
+    if z = 3  then return "#fddbc7"
+    if z = 4  then return "#f7f7f7"
+    if z = 5  then return "#d1e5f0"
+    if z = 6  then return "#67a9cf"
+    if z = 7  then return "#2166ac"
+end sub
+
+sub RdBuDiv8 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#d6604d"
+    if z = 3  then return "#f4a582"
+    if z = 4  then return "#fddbc7"
+    if z = 5  then return "#d1e5f0"
+    if z = 6  then return "#92c5de"
+    if z = 7  then return "#4393c3"
+    if z = 8  then return "#2166ac"
+end sub
+
+sub RdBuDiv9 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#d6604d"
+    if z = 3  then return "#f4a582"
+    if z = 4  then return "#fddbc7"
+    if z = 5  then return "#f7f7f7"
+    if z = 6  then return "#d1e5f0"
+    if z = 7  then return "#92c5de"
+    if z = 8  then return "#4393c3"
+    if z = 9  then return "#2166ac"
+end sub
+
+sub RdBuDiv10 z
+    if z = 1  then return "#67001f"
+    if z = 2  then return "#b2182b"
+    if z = 3  then return "#d6604d"
+    if z = 4  then return "#f4a582"
+    if z = 5  then return "#fddbc7"
+    if z = 6  then return "#d1e5f0"
+    if z = 7  then return "#92c5de"
+    if z = 8  then return "#4393c3"
+    if z = 9  then return "#2166ac"
+    if z = 10 then return "#053061"
+end sub
+
+sub RdBuDiv11 z
+    if z = 1  then return "#67001f"
+    if z = 2  then return "#b2182b"
+    if z = 3  then return "#d6604d"
+    if z = 4  then return "#f4a582"
+    if z = 5  then return "#fddbc7"
+    if z = 6  then return "#f7f7f7"
+    if z = 7  then return "#d1e5f0"
+    if z = 8  then return "#92c5de"
+    if z = 9  then return "#4393c3"
+    if z = 10 then return "#2166ac"
+    if z = 11 then return "#053061"
+end sub
+
+sub RdGyDiv3 z
+    if z = 1  then return "#ef8a62"
+    if z = 2  then return "#ffffff"
+    if z = 3  then return "#999999"
+end sub
+
+sub RdGyDiv4 z
+    if z = 1  then return "#ca0020"
+    if z = 2  then return "#f4a582"
+    if z = 3  then return "#bababa"
+    if z = 4  then return "#404040"
+end sub
+
+sub RdGyDiv5 z
+    if z = 1  then return "#ca0020"
+    if z = 2  then return "#f4a582"
+    if z = 3  then return "#ffffff"
+    if z = 4  then return "#bababa"
+    if z = 5  then return "#404040"
+end sub
+
+sub RdGyDiv6 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#ef8a62"
+    if z = 3  then return "#fddbc7"
+    if z = 4  then return "#e0e0e0"
+    if z = 5  then return "#999999"
+    if z = 6  then return "#4d4d4d"
+end sub
+
+sub RdGyDiv7 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#ef8a62"
+    if z = 3  then return "#fddbc7"
+    if z = 4  then return "#ffffff"
+    if z = 5  then return "#e0e0e0"
+    if z = 6  then return "#999999"
+    if z = 7  then return "#4d4d4d"
+end sub
+
+sub RdGyDiv8 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#d6604d"
+    if z = 3  then return "#f4a582"
+    if z = 4  then return "#fddbc7"
+    if z = 5  then return "#e0e0e0"
+    if z = 6  then return "#bababa"
+    if z = 7  then return "#878787"
+    if z = 8  then return "#4d4d4d"
+end sub
+
+sub RdGyDiv9 z
+    if z = 1  then return "#b2182b"
+    if z = 2  then return "#d6604d"
+    if z = 3  then return "#f4a582"
+    if z = 4  then return "#fddbc7"
+    if z = 5  then return "#ffffff"
+    if z = 6  then return "#e0e0e0"
+    if z = 7  then return "#bababa"
+    if z = 8  then return "#878787"
+    if z = 9  then return "#4d4d4d"
+end sub
+
+sub RdGyDiv10 z
+    if z = 1  then return "#67001f"
+    if z = 2  then return "#b2182b"
+    if z = 3  then return "#d6604d"
+    if z = 4  then return "#f4a582"
+    if z = 5  then return "#fddbc7"
+    if z = 6  then return "#e0e0e0"
+    if z = 7  then return "#bababa"
+    if z = 8  then return "#878787"
+    if z = 9  then return "#4d4d4d"
+    if z = 10 then return "#1a1a1a"
+end sub
+
+sub RdGyDiv11 z
+    if z = 1  then return "#67001f"
+    if z = 2  then return "#b2182b"
+    if z = 3  then return "#d6604d"
+    if z = 4  then return "#f4a582"
+    if z = 5  then return "#fddbc7"
+    if z = 6  then return "#ffffff"
+    if z = 7  then return "#e0e0e0"
+    if z = 8  then return "#bababa"
+    if z = 9  then return "#878787"
+    if z = 10 then return "#4d4d4d"
+    if z = 11 then return "#1a1a1a"
+end sub
+
+sub RdPuSeq3 z
+    if z = 1  then return "#fde0dd"
+    if z = 2  then return "#fa9fb5"
+    if z = 3  then return "#c51b8a"
+end sub
+
+sub RdPuSeq4 z
+    if z = 1  then return "#feebe2"
+    if z = 2  then return "#fbb4b9"
+    if z = 3  then return "#f768a1"
+    if z = 4  then return "#ae017e"
+end sub
+
+sub RdPuSeq5 z
+    if z = 1  then return "#feebe2"
+    if z = 2  then return "#fbb4b9"
+    if z = 3  then return "#f768a1"
+    if z = 4  then return "#c51b8a"
+    if z = 5  then return "#7a0177"
+end sub
+
+sub RdPuSeq6 z
+    if z = 1  then return "#feebe2"
+    if z = 2  then return "#fcc5c0"
+    if z = 3  then return "#fa9fb5"
+    if z = 4  then return "#f768a1"
+    if z = 5  then return "#c51b8a"
+    if z = 6  then return "#7a0177"
+end sub
+
+sub RdPuSeq7 z
+    if z = 1  then return "#feebe2"
+    if z = 2  then return "#fcc5c0"
+    if z = 3  then return "#fa9fb5"
+    if z = 4  then return "#f768a1"
+    if z = 5  then return "#dd3497"
+    if z = 6  then return "#ae017e"
+    if z = 7  then return "#7a0177"
+end sub
+
+sub RdPuSeq8 z
+    if z = 1  then return "#fff7f3"
+    if z = 2  then return "#fde0dd"
+    if z = 3  then return "#fcc5c0"
+    if z = 4  then return "#fa9fb5"
+    if z = 5  then return "#f768a1"
+    if z = 6  then return "#dd3497"
+    if z = 7  then return "#ae017e"
+    if z = 8  then return "#7a0177"
+end sub
+
+sub RdPuSeq9 z
+    if z = 1  then return "#fff7f3"
+    if z = 2  then return "#fde0dd"
+    if z = 3  then return "#fcc5c0"
+    if z = 4  then return "#fa9fb5"
+    if z = 5  then return "#f768a1"
+    if z = 6  then return "#dd3497"
+    if z = 7  then return "#ae017e"
+    if z = 8  then return "#7a0177"
+    if z = 9  then return "#49006a"
+end sub
+
+sub RedsSeq3 z
+    if z = 1  then return "#fee0d2"
+    if z = 2  then return "#fc9272"
+    if z = 3  then return "#de2d26"
+end sub
+
+sub RedsSeq4 z
+    if z = 1  then return "#fee5d9"
+    if z = 2  then return "#fcae91"
+    if z = 3  then return "#fb6a4a"
+    if z = 4  then return "#cb181d"
+end sub
+
+sub RedsSeq5 z
+    if z = 1  then return "#fee5d9"
+    if z = 2  then return "#fcae91"
+    if z = 3  then return "#fb6a4a"
+    if z = 4  then return "#de2d26"
+    if z = 5  then return "#a50f15"
+end sub
+
+sub RedsSeq6 z
+    if z = 1  then return "#fee5d9"
+    if z = 2  then return "#fcbba1"
+    if z = 3  then return "#fc9272"
+    if z = 4  then return "#fb6a4a"
+    if z = 5  then return "#de2d26"
+    if z = 6  then return "#a50f15"
+end sub
+
+sub RedsSeq7 z
+    if z = 1  then return "#fee5d9"
+    if z = 2  then return "#fcbba1"
+    if z = 3  then return "#fc9272"
+    if z = 4  then return "#fb6a4a"
+    if z = 5  then return "#ef3b2c"
+    if z = 6  then return "#cb181d"
+    if z = 7  then return "#99000d"
+end sub
+
+sub RedsSeq8 z
+    if z = 1  then return "#fff5f0"
+    if z = 2  then return "#fee0d2"
+    if z = 3  then return "#fcbba1"
+    if z = 4  then return "#fc9272"
+    if z = 5  then return "#fb6a4a"
+    if z = 6  then return "#ef3b2c"
+    if z = 7  then return "#cb181d"
+    if z = 8  then return "#99000d"
+end sub
+
+sub RedsSeq9 z
+    if z = 1  then return "#fff5f0"
+    if z = 2  then return "#fee0d2"
+    if z = 3  then return "#fcbba1"
+    if z = 4  then return "#fc9272"
+    if z = 5  then return "#fb6a4a"
+    if z = 6  then return "#ef3b2c"
+    if z = 7  then return "#cb181d"
+    if z = 8  then return "#a50f15"
+    if z = 9  then return "#67000d"
+end sub
+
+sub RdYlBuDiv3 z
+    if z = 1  then return "#fc8d59"
+    if z = 2  then return "#ffffbf"
+    if z = 3  then return "#91bfdb"
+end sub
+
+sub RdYlBuDiv4 z
+    if z = 1  then return "#d7191c"
+    if z = 2  then return "#fdae61"
+    if z = 3  then return "#abd9e9"
+    if z = 4  then return "#2c7bb6"
+end sub
+
+sub RdYlBuDiv5 z
+    if z = 1  then return "#d7191c"
+    if z = 2  then return "#fdae61"
+    if z = 3  then return "#ffffbf"
+    if z = 4  then return "#abd9e9"
+    if z = 5  then return "#2c7bb6"
+end sub
+
+sub RdYlBuDiv6 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#fc8d59"
+    if z = 3  then return "#fee090"
+    if z = 4  then return "#e0f3f8"
+    if z = 5  then return "#91bfdb"
+    if z = 6  then return "#4575b4"
+end sub
+
+sub RdYlBuDiv7 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#fc8d59"
+    if z = 3  then return "#fee090"
+    if z = 4  then return "#ffffbf"
+    if z = 5  then return "#e0f3f8"
+    if z = 6  then return "#91bfdb"
+    if z = 7  then return "#4575b4"
+end sub
+
+sub RdYlBuDiv8 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#f46d43"
+    if z = 3  then return "#fdae61"
+    if z = 4  then return "#fee090"
+    if z = 5  then return "#e0f3f8"
+    if z = 6  then return "#abd9e9"
+    if z = 7  then return "#74add1"
+    if z = 8  then return "#4575b4"
+end sub
+
+sub RdYlBuDiv9 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#f46d43"
+    if z = 3  then return "#fdae61"
+    if z = 4  then return "#fee090"
+    if z = 5  then return "#ffffbf"
+    if z = 6  then return "#e0f3f8"
+    if z = 7  then return "#abd9e9"
+    if z = 8  then return "#74add1"
+    if z = 9  then return "#4575b4"
+end sub
+
+sub RdYlBuDiv10 z
+    if z = 1  then return "#a50026"
+    if z = 2  then return "#d73027"
+    if z = 3  then return "#f46d43"
+    if z = 4  then return "#fdae61"
+    if z = 5  then return "#fee090"
+    if z = 6  then return "#e0f3f8"
+    if z = 7  then return "#abd9e9"
+    if z = 8  then return "#74add1"
+    if z = 9  then return "#4575b4"
+    if z = 10 then return "#313695"
+end sub
+
+sub RdYlBuDiv11 z
+    if z = 1  then return "#a50026"
+    if z = 2  then return "#d73027"
+    if z = 3  then return "#f46d43"
+    if z = 4  then return "#fdae61"
+    if z = 5  then return "#fee090"
+    if z = 6  then return "#ffffbf"
+    if z = 7  then return "#e0f3f8"
+    if z = 8  then return "#abd9e9"
+    if z = 9  then return "#74add1"
+    if z = 10 then return "#4575b4"
+    if z = 11 then return "#313695"
+end sub
+
+sub RdYlGnDiv3 z
+    if z = 1  then return "#fc8d59"
+    if z = 2  then return "#ffffbf"
+    if z = 3  then return "#91cf60"
+end sub
+
+sub RdYlGnDiv4 z
+    if z = 1  then return "#d7191c"
+    if z = 2  then return "#fdae61"
+    if z = 3  then return "#a6d96a"
+    if z = 4  then return "#1a9641"
+end sub
+
+sub RdYlGnDiv5 z
+    if z = 1  then return "#d7191c"
+    if z = 2  then return "#fdae61"
+    if z = 3  then return "#ffffbf"
+    if z = 4  then return "#a6d96a"
+    if z = 5  then return "#1a9641"
+end sub
+
+sub RdYlGnDiv6 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#fc8d59"
+    if z = 3  then return "#fee08b"
+    if z = 4  then return "#d9ef8b"
+    if z = 5  then return "#91cf60"
+    if z = 6  then return "#1a9850"
+end sub
+
+sub RdYlGnDiv7 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#fc8d59"
+    if z = 3  then return "#fee08b"
+    if z = 4  then return "#ffffbf"
+    if z = 5  then return "#d9ef8b"
+    if z = 6  then return "#91cf60"
+    if z = 7  then return "#1a9850"
+end sub
+
+sub RdYlGnDiv8 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#f46d43"
+    if z = 3  then return "#fdae61"
+    if z = 4  then return "#fee08b"
+    if z = 5  then return "#d9ef8b"
+    if z = 6  then return "#a6d96a"
+    if z = 7  then return "#66bd63"
+    if z = 8  then return "#1a9850"
+end sub
+
+sub RdYlGnDiv9 z
+    if z = 1  then return "#d73027"
+    if z = 2  then return "#f46d43"
+    if z = 3  then return "#fdae61"
+    if z = 4  then return "#fee08b"
+    if z = 5  then return "#ffffbf"
+    if z = 6  then return "#d9ef8b"
+    if z = 7  then return "#a6d96a"
+    if z = 8  then return "#66bd63"
+    if z = 9  then return "#1a9850"
+end sub
+
+sub RdYlGnDiv10 z
+    if z = 1  then return "#a50026"
+    if z = 2  then return "#d73027"
+    if z = 3  then return "#f46d43"
+    if z = 4  then return "#fdae61"
+    if z = 5  then return "#fee08b"
+    if z = 6  then return "#d9ef8b"
+    if z = 7  then return "#a6d96a"
+    if z = 8  then return "#66bd63"
+    if z = 9  then return "#1a9850"
+    if z = 10 then return "#006837"
+end sub
+
+sub RdYlGnDiv11 z
+    if z = 1  then return "#a50026"
+    if z = 2  then return "#d73027"
+    if z = 3  then return "#f46d43"
+    if z = 4  then return "#fdae61"
+    if z = 5  then return "#fee08b"
+    if z = 6  then return "#ffffbf"
+    if z = 7  then return "#d9ef8b"
+    if z = 8  then return "#a6d96a"
+    if z = 9  then return "#66bd63"
+    if z = 10 then return "#1a9850"
+    if z = 11 then return "#006837"
+end sub
+
+sub Set1Qual3 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+end sub
+
+sub Set1Qual4 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+    if z = 4  then return "#984ea3"
+end sub
+
+sub Set1Qual5 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+    if z = 4  then return "#984ea3"
+    if z = 5  then return "#ff7f00"
+end sub
+
+sub Set1Qual6 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+    if z = 4  then return "#984ea3"
+    if z = 5  then return "#ff7f00"
+    if z = 6  then return "#ffff33"
+end sub
+
+sub Set1Qual7 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+    if z = 4  then return "#984ea3"
+    if z = 5  then return "#ff7f00"
+    if z = 6  then return "#ffff33"
+    if z = 7  then return "#a65628"
+end sub
+
+sub Set1Qual8 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+    if z = 4  then return "#984ea3"
+    if z = 5  then return "#ff7f00"
+    if z = 6  then return "#ffff33"
+    if z = 7  then return "#a65628"
+    if z = 8  then return "#f781bf"
+end sub
+
+sub Set1Qual9 z
+    if z = 1  then return "#e41a1c"
+    if z = 2  then return "#377eb8"
+    if z = 3  then return "#4daf4a"
+    if z = 4  then return "#984ea3"
+    if z = 5  then return "#ff7f00"
+    if z = 6  then return "#ffff33"
+    if z = 7  then return "#a65628"
+    if z = 8  then return "#f781bf"
+    if z = 9  then return "#999999"
+end sub
+
+sub Set2Qual3 z
+    if z = 1  then return "#66c2a5"
+    if z = 2  then return "#fc8d62"
+    if z = 3  then return "#8da0cb"
+end sub
+
+sub Set2Qual4 z
+    if z = 1  then return "#66c2a5"
+    if z = 2  then return "#fc8d62"
+    if z = 3  then return "#8da0cb"
+    if z = 4  then return "#e78ac3"
+end sub
+
+sub Set2Qual5 z
+    if z = 1  then return "#66c2a5"
+    if z = 2  then return "#fc8d62"
+    if z = 3  then return "#8da0cb"
+    if z = 4  then return "#e78ac3"
+    if z = 5  then return "#a6d854"
+end sub
+
+sub Set2Qual6 z
+    if z = 1  then return "#66c2a5"
+    if z = 2  then return "#fc8d62"
+    if z = 3  then return "#8da0cb"
+    if z = 4  then return "#e78ac3"
+    if z = 5  then return "#a6d854"
+    if z = 6  then return "#ffd92f"
+end sub
+
+sub Set2Qual7 z
+    if z = 1  then return "#66c2a5"
+    if z = 2  then return "#fc8d62"
+    if z = 3  then return "#8da0cb"
+    if z = 4  then return "#e78ac3"
+    if z = 5  then return "#a6d854"
+    if z = 6  then return "#ffd92f"
+    if z = 7  then return "#e5c494"
+end sub
+
+sub Set2Qual8 z
+    if z = 1  then return "#66c2a5"
+    if z = 2  then return "#fc8d62"
+    if z = 3  then return "#8da0cb"
+    if z = 4  then return "#e78ac3"
+    if z = 5  then return "#a6d854"
+    if z = 6  then return "#ffd92f"
+    if z = 7  then return "#e5c494"
+    if z = 8  then return "#b3b3b3"
+end sub
+
+sub Set3Qual3 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+end sub
+
+sub Set3Qual4 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+end sub
+
+sub Set3Qual5 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+end sub
+
+sub Set3Qual6 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+end sub
+
+sub Set3Qual7 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+    if z = 7  then return "#b3de69"
+end sub
+
+sub Set3Qual8 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+    if z = 7  then return "#b3de69"
+    if z = 8  then return "#fccde5"
+end sub
+
+sub Set3Qual9 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+    if z = 7  then return "#b3de69"
+    if z = 8  then return "#fccde5"
+    if z = 9  then return "#d9d9d9"
+end sub
+
+sub Set3Qual10 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+    if z = 7  then return "#b3de69"
+    if z = 8  then return "#fccde5"
+    if z = 9  then return "#d9d9d9"
+    if z = 10 then return "#bc80bd"
+end sub
+
+sub Set3Qual11 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+    if z = 7  then return "#b3de69"
+    if z = 8  then return "#fccde5"
+    if z = 9  then return "#d9d9d9"
+    if z = 10 then return "#bc80bd"
+    if z = 11 then return "#ccebc5"
+end sub
+
+sub Set3Qual12 z
+    if z = 1  then return "#8dd3c7"
+    if z = 2  then return "#ffffb3"
+    if z = 3  then return "#bebada"
+    if z = 4  then return "#fb8072"
+    if z = 5  then return "#80b1d3"
+    if z = 6  then return "#fdb462"
+    if z = 7  then return "#b3de69"
+    if z = 8  then return "#fccde5"
+    if z = 9  then return "#d9d9d9"
+    if z = 10 then return "#bc80bd"
+    if z = 11 then return "#ccebc5"
+    if z = 12 then return "#ffed6f"
+end sub
+
+sub SpectralDiv3 z
+    if z = 1  then return "#fc8d59"
+    if z = 2  then return "#ffffbf"
+    if z = 3  then return "#99d594"
+end sub
+
+sub SpectralDiv4 z
+    if z = 1  then return "#d7191c"
+    if z = 2  then return "#fdae61"
+    if z = 3  then return "#abdda4"
+    if z = 4  then return "#2b83ba"
+end sub
+
+sub SpectralDiv5 z
+    if z = 1  then return "#d7191c"
+    if z = 2  then return "#fdae61"
+    if z = 3  then return "#ffffbf"
+    if z = 4  then return "#abdda4"
+    if z = 5  then return "#2b83ba"
+end sub
+
+sub SpectralDiv6 z
+    if z = 1  then return "#d53e4f"
+    if z = 2  then return "#fc8d59"
+    if z = 3  then return "#fee08b"
+    if z = 4  then return "#e6f598"
+    if z = 5  then return "#99d594"
+    if z = 6  then return "#3288bd"
+end sub
+
+sub SpectralDiv7 z
+    if z = 1  then return "#d53e4f"
+    if z = 2  then return "#fc8d59"
+    if z = 3  then return "#fee08b"
+    if z = 4  then return "#ffffbf"
+    if z = 5  then return "#e6f598"
+    if z = 6  then return "#99d594"
+    if z = 7  then return "#3288bd"
+end sub
+
+sub SpectralDiv8 z
+    if z = 1  then return "#d53e4f"
+    if z = 2  then return "#f46d43"
+    if z = 3  then return "#fdae61"
+    if z = 4  then return "#fee08b"
+    if z = 5  then return "#e6f598"
+    if z = 6  then return "#abdda4"
+    if z = 7  then return "#66c2a5"
+    if z = 8  then return "#3288bd"
+end sub
+
+sub SpectralDiv9 z
+    if z = 1  then return "#d53e4f"
+    if z = 2  then return "#f46d43"
+    if z = 3  then return "#fdae61"
+    if z = 4  then return "#fee08b"
+    if z = 5  then return "#ffffbf"
+    if z = 6  then return "#e6f598"
+    if z = 7  then return "#abdda4"
+    if z = 8  then return "#66c2a5"
+    if z = 9  then return "#3288bd"
+end sub
+
+sub SpectralDiv10 z
+    if z = 1  then return "#9e0142"
+    if z = 2  then return "#d53e4f"
+    if z = 3  then return "#f46d43"
+    if z = 4  then return "#fdae61"
+    if z = 5  then return "#fee08b"
+    if z = 6  then return "#e6f598"
+    if z = 7  then return "#abdda4"
+    if z = 8  then return "#66c2a5"
+    if z = 9  then return "#3288bd"
+    if z = 10 then return "#5e4fa2"
+end sub
+
+sub SpectralDiv11 z
+    if z = 1  then return "#9e0142"
+    if z = 2  then return "#d53e4f"
+    if z = 3  then return "#f46d43"
+    if z = 4  then return "#fdae61"
+    if z = 5  then return "#fee08b"
+    if z = 6  then return "#ffffbf"
+    if z = 7  then return "#e6f598"
+    if z = 8  then return "#abdda4"
+    if z = 9  then return "#66c2a5"
+    if z = 10 then return "#3288bd"
+    if z = 11 then return "#5e4fa2"
+end sub
+
+sub YlGnSeq3 z
+    if z = 1  then return "#f7fcb9"
+    if z = 2  then return "#addd8e"
+    if z = 3  then return "#31a354"
+end sub
+
+sub YlGnSeq4 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#c2e699"
+    if z = 3  then return "#78c679"
+    if z = 4  then return "#238443"
+end sub
+
+sub YlGnSeq5 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#c2e699"
+    if z = 3  then return "#78c679"
+    if z = 4  then return "#31a354"
+    if z = 5  then return "#006837"
+end sub
+
+sub YlGnSeq6 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#d9f0a3"
+    if z = 3  then return "#addd8e"
+    if z = 4  then return "#78c679"
+    if z = 5  then return "#31a354"
+    if z = 6  then return "#006837"
+end sub
+
+sub YlGnSeq7 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#d9f0a3"
+    if z = 3  then return "#addd8e"
+    if z = 4  then return "#78c679"
+    if z = 5  then return "#41ab5d"
+    if z = 6  then return "#238443"
+    if z = 7  then return "#005a32"
+end sub
+
+sub YlGnSeq8 z
+    if z = 1  then return "#ffffe5"
+    if z = 2  then return "#f7fcb9"
+    if z = 3  then return "#d9f0a3"
+    if z = 4  then return "#addd8e"
+    if z = 5  then return "#78c679"
+    if z = 6  then return "#41ab5d"
+    if z = 7  then return "#238443"
+    if z = 8  then return "#005a32"
+end sub
+
+sub YlGnSeq9 z
+    if z = 1  then return "#ffffe5"
+    if z = 2  then return "#f7fcb9"
+    if z = 3  then return "#d9f0a3"
+    if z = 4  then return "#addd8e"
+    if z = 5  then return "#78c679"
+    if z = 6  then return "#41ab5d"
+    if z = 7  then return "#238443"
+    if z = 8  then return "#006837"
+    if z = 9  then return "#004529"
+end sub
+
+sub YlGnBuSeq3 z
+    if z = 1  then return "#edf8b1"
+    if z = 2  then return "#7fcdbb"
+    if z = 3  then return "#2c7fb8"
+end sub
+
+sub YlGnBuSeq4 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#a1dab4"
+    if z = 3  then return "#41b6c4"
+    if z = 4  then return "#225ea8"
+end sub
+
+sub YlGnBuSeq5 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#a1dab4"
+    if z = 3  then return "#41b6c4"
+    if z = 4  then return "#2c7fb8"
+    if z = 5  then return "#253494"
+end sub
+
+sub YlGnBuSeq6 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#c7e9b4"
+    if z = 3  then return "#7fcdbb"
+    if z = 4  then return "#41b6c4"
+    if z = 5  then return "#2c7fb8"
+    if z = 6  then return "#253494"
+end sub
+
+sub YlGnBuSeq7 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#c7e9b4"
+    if z = 3  then return "#7fcdbb"
+    if z = 4  then return "#41b6c4"
+    if z = 5  then return "#1d91c0"
+    if z = 6  then return "#225ea8"
+    if z = 7  then return "#0c2c84"
+end sub
+
+sub YlGnBuSeq8 z
+    if z = 1  then return "#ffffd9"
+    if z = 2  then return "#edf8b1"
+    if z = 3  then return "#c7e9b4"
+    if z = 4  then return "#7fcdbb"
+    if z = 5  then return "#41b6c4"
+    if z = 6  then return "#1d91c0"
+    if z = 7  then return "#225ea8"
+    if z = 8  then return "#0c2c84"
+end sub
+
+sub YlGnBuSeq9 z
+    if z = 1  then return "#ffffd9"
+    if z = 2  then return "#edf8b1"
+    if z = 3  then return "#c7e9b4"
+    if z = 4  then return "#7fcdbb"
+    if z = 5  then return "#41b6c4"
+    if z = 6  then return "#1d91c0"
+    if z = 7  then return "#225ea8"
+    if z = 8  then return "#253494"
+    if z = 9  then return "#081d58"
+end sub
+
+sub YlOrBrSeq3 z
+    if z = 1  then return "#fff7bc"
+    if z = 2  then return "#fec44f"
+    if z = 3  then return "#d95f0e"
+end sub
+
+sub YlOrBrSeq4 z
+    if z = 1  then return "#ffffd4"
+    if z = 2  then return "#fed98e"
+    if z = 3  then return "#fe9929"
+    if z = 4  then return "#cc4c02"
+end sub
+
+sub YlOrBrSeq5 z
+    if z = 1  then return "#ffffd4"
+    if z = 2  then return "#fed98e"
+    if z = 3  then return "#fe9929"
+    if z = 4  then return "#d95f0e"
+    if z = 5  then return "#993404"
+end sub
+
+sub YlOrBrSeq6 z
+    if z = 1  then return "#ffffd4"
+    if z = 2  then return "#fee391"
+    if z = 3  then return "#fec44f"
+    if z = 4  then return "#fe9929"
+    if z = 5  then return "#d95f0e"
+    if z = 6  then return "#993404"
+end sub
+
+sub YlOrBrSeq7 z
+    if z = 1  then return "#ffffd4"
+    if z = 2  then return "#fee391"
+    if z = 3  then return "#fec44f"
+    if z = 4  then return "#fe9929"
+    if z = 5  then return "#ec7014"
+    if z = 6  then return "#cc4c02"
+    if z = 7  then return "#8c2d04"
+end sub
+
+sub YlOrBrSeq8 z
+    if z = 1  then return "#ffffe5"
+    if z = 2  then return "#fff7bc"
+    if z = 3  then return "#fee391"
+    if z = 4  then return "#fec44f"
+    if z = 5  then return "#fe9929"
+    if z = 6  then return "#ec7014"
+    if z = 7  then return "#cc4c02"
+    if z = 8  then return "#8c2d04"
+end sub
+
+sub YlOrBrSeq9 z
+    if z = 1  then return "#ffffe5"
+    if z = 2  then return "#fff7bc"
+    if z = 3  then return "#fee391"
+    if z = 4  then return "#fec44f"
+    if z = 5  then return "#fe9929"
+    if z = 6  then return "#ec7014"
+    if z = 7  then return "#cc4c02"
+    if z = 8  then return "#993404"
+    if z = 9  then return "#662506"
+end sub
+
+sub YlOrRdSeq3 z
+    if z = 1  then return "#ffeda0"
+    if z = 2  then return "#feb24c"
+    if z = 3  then return "#f03b20"
+end sub
+
+sub YlOrRdSeq4 z
+    if z = 1  then return "#ffffb2"
+    if z = 2  then return "#fecc5c"
+    if z = 3  then return "#fd8d3c"
+    if z = 4  then return "#e31a1c"
+end sub
+
+sub YlOrRdSeq5 z
+    if z = 1  then return "#ffffb2"
+    if z = 2  then return "#fecc5c"
+    if z = 3  then return "#fd8d3c"
+    if z = 4  then return "#f03b20"
+    if z = 5  then return "#bd0026"
+end sub
+
+sub YlOrRdSeq6 z
+    if z = 1  then return "#ffffb2"
+    if z = 2  then return "#fed976"
+    if z = 3  then return "#feb24c"
+    if z = 4  then return "#fd8d3c"
+    if z = 5  then return "#f03b20"
+    if z = 6  then return "#bd0026"
+end sub
+
+sub YlOrRdSeq7 z
+    if z = 1  then return "#ffffb2"
+    if z = 2  then return "#fed976"
+    if z = 3  then return "#feb24c"
+    if z = 4  then return "#fd8d3c"
+    if z = 5  then return "#fc4e2a"
+    if z = 6  then return "#e31a1c"
+    if z = 7  then return "#b10026"
+end sub
+
+sub YlOrRdSeq8 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#ffeda0"
+    if z = 3  then return "#fed976"
+    if z = 4  then return "#feb24c"
+    if z = 5  then return "#fd8d3c"
+    if z = 6  then return "#fc4e2a"
+    if z = 7  then return "#e31a1c"
+    if z = 8  then return "#b10026"
+end sub
+
+sub YlOrRdSeq9 z
+    if z = 1  then return "#ffffcc"
+    if z = 2  then return "#ffeda0"
+    if z = 3  then return "#fed976"
+    if z = 4  then return "#feb24c"
+    if z = 5  then return "#fd8d3c"
+    if z = 6  then return "#fc4e2a"
+    if z = 7  then return "#e31a1c"
+    if z = 8  then return "#bd0026"
+    if z = 9  then return "#800026"
+end sub
+

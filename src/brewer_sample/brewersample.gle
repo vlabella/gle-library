@@ -1,0 +1,50 @@
+! A small sample of Brewer palettes.
+! Author: Francois Tonneau
+
+include brewer.gle
+
+size 20 19
+
+set font ss hei 0.5 just bl
+
+amove 3 16.8
+write 'BREWER PALETTES (EXAMPLES)'
+
+sub swatch x y palette$ limit
+    set hei 0.4
+    amove x y
+    begin origin
+        write palette$
+        local dx =  0.5
+        local dy = -0.5
+        local pos = -1.5
+        local size, index
+        for size = 3 to limit
+            amove 0 pos
+            if (size = 3) or (size = limit) then
+                rmove -0.6 0
+                set color black just br lwidth 0
+                write size
+                rmove 0.6 0
+            end if
+            for index = 1 to size
+                hue$ = eval(palette$ + size + "(" + index + ")")
+                set color hue$ fill hue$ just bl
+                box 0.3 0.3
+                rmove dx 0
+            next index
+            pos = pos + dy
+        next size
+    end origin
+end sub
+
+amove  3 14.5
+rline  14 0
+swatch 3  15  YlGnBuSeq 9
+swatch 12 15  RedsSeq 9
+
+amove  3 8.0
+rline  14 0
+swatch 3  8.5 PairedQual 12
+swatch 12 8.5 BrBGDiv 11
+
