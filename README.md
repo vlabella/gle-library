@@ -27,7 +27,7 @@ To build all the figures from the source code
 * Windows: `cd src & nmake`
 * Linux & macOS `cd src ; make`
 
-To clean the build. Delete all the files created during the build
+To clean the build, i.e. delete all the files created during the build
 
 * Windows: `cd src & nmake clean`
 * Linux & macOS `cd src ; make clean`
