@@ -13,8 +13,8 @@ Installation of include files is only needed if they get updated prior to the ne
 
 To install the new include files
 
- `cd src`
- `make install-includes` or `nmake install-includes`
+ * Windows: `cd src & nmake install-includes`
+ * Linux & macOS `cd src ; make install-includes`
 
 ## Using Include Files in GLE Figures
 
@@ -24,15 +24,17 @@ The include folder contains several user contributed include files of custom rou
 
 To build all the figures from the source code
 
-  `cd src`
-  `make` or `nmake`
+* Windows: `cd src & nmake`
+* Linux & macOS `cd src ; make`
 
-To clean the build
+To clean the build. Delete all the files created during the build
 
-  `cd src`
-  `make clean` or `nmake clean`
+* Windows: `cd src & nmake clean`
+* Linux & macOS `cd src ; make clean`
 
 ## Contributing Figures
+
+Contributions of figures and include files are always appreciated. The contributed files will have the same license as this repository.  By submitting your files to this repository you accept the license of this repository.
 
 To contribute figures to the library:
 
