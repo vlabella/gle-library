@@ -114,7 +114,7 @@ jobs:
 
         # upload to GLE release location as well
       - name: Upload GLE Library zip file to GLE Release Location
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action = "gle-release"}}
+        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GLE_PAT }}
