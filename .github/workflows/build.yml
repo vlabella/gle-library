@@ -102,15 +102,29 @@ jobs:
           retention-days: 0
           compression-level: 0
 
+        # create release if started from gle-release workflow
+      - name: Create Release
+        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          tag_name: ${{ github.event.client_payload.tag }}
+          name: ${{ github.event.client_payload.tag }}
+          body_path:  "Release to coincide with GLE release of same tag"
+          draft: false
+          prerelease: false
+          overwrite: true
+
         # upload to release location if started with from release workflow
       - name: Upload GLE Library zip file to Release Location
-        if: ${{ github.event_name == 'repository_dispatch' }}
+        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           file: ${{github.workspace}}/gle-library-*.zip
           tag: ${{ github.event.client_payload.tag }}
+          overwrite: true
 
         # upload to GLE release location as well
       - name: Upload GLE Library zip file to GLE Release Location
