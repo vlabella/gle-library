@@ -113,7 +113,6 @@ jobs:
           body_path:  "Release to coincide with GLE release of same tag"
           draft: false
           prerelease: false
-          overwrite: true
 
         # upload to release location if started with from release workflow
       - name: Upload GLE Library zip file to Release Location
