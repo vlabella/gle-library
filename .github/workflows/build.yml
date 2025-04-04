@@ -110,7 +110,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
           tag_name: ${{ github.event.client_payload.tag }}
           name: ${{ github.event.client_payload.tag }}
-          body_path:  "Release to coincide with GLE release of same tag"
+          body:  "Release to coincide with GLE release of same tag"
           draft: false
           prerelease: false
 
