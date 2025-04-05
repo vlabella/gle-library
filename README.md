@@ -34,9 +34,15 @@ To clean the build, i.e. delete all the files created during the build
 
 ## Contributing Figures
 
-Contributions of figures and include files are always appreciated. The contributed files will have the same license as this repository.  By submitting your files to this repository you accept the license of this repository.
+Contributions of figures and include files are always appreciated. 
 
-To contribute figures to the library:
+
+### Licensing
+
+The code is distributed under the BSD 2-clause license. Contributors making pull requests must agree that they are able and willing to put their contributions under that license.
+
+
+### Instructions for Submitting Contributions:
 
 1. Create a fork of the repository.
 
