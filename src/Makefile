@@ -59,6 +59,7 @@ all:
 	cd feynman_2 $(CSEP) $(MAKE)
 	cd sqroot $(CSEP) $(MAKE)
 	cd AFM $(CSEP) $(MAKE)
+	cd ulam $(CSEP) $(MAKE)
 	cd volcano3d $(CSEP) $(MAKE)
 	cd spider $(CSEP) $(MAKE)
 	cd feynman_7 $(CSEP) $(MAKE)
@@ -257,6 +258,7 @@ clean:
 	cd feynman_2 $(CSEP) $(MAKE) clean
 	cd sqroot $(CSEP) $(MAKE) clean
 	cd AFM $(CSEP) $(MAKE) clean
+	cd ulam $(CSEP) $(MAKE) clean
 	cd volcano3d $(CSEP) $(MAKE) clean
 	cd spider $(CSEP) $(MAKE) clean
 	cd feynman_7 $(CSEP) $(MAKE) clean
