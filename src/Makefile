@@ -163,6 +163,7 @@ all:
 	cd stuff $(CSEP) $(MAKE)
 	cd boxplot-ft $(CSEP) $(MAKE)
 	cd four $(CSEP) $(MAKE)
+	cd nottingham $(CSEP) $(MAKE)
 	cd bumpchart $(CSEP) $(MAKE)
 	cd feynman_10 $(CSEP) $(MAKE)
 	cd wallx $(CSEP) $(MAKE)
@@ -362,6 +363,7 @@ clean:
 	cd stuff $(CSEP) $(MAKE) clean
 	cd boxplot-ft $(CSEP) $(MAKE) clean
 	cd four $(CSEP) $(MAKE) clean
+	cd nottingham $(CSEP) $(MAKE) clean
 	cd bumpchart $(CSEP) $(MAKE) clean
 	cd feynman_10 $(CSEP) $(MAKE) clean
 	cd wallx $(CSEP) $(MAKE) clean
