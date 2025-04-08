@@ -98,6 +98,7 @@ all:
 	cd informationgain $(CSEP) $(MAKE)
 	cd intersect $(CSEP) $(MAKE)
 	cd colormap $(CSEP) $(MAKE)
+	cd stairs $(CSEP) $(MAKE)
 	cd steps $(CSEP) $(MAKE)
 	cd bayesiannet $(CSEP) $(MAKE)
 	cd feynman_18 $(CSEP) $(MAKE)
@@ -298,6 +299,7 @@ clean:
 	cd informationgain $(CSEP) $(MAKE) clean
 	cd intersect $(CSEP) $(MAKE) clean
 	cd colormap $(CSEP) $(MAKE) clean
+	cd stairs $(CSEP) $(MAKE) clean
 	cd steps $(CSEP) $(MAKE) clean
 	cd bayesiannet $(CSEP) $(MAKE) clean
 	cd feynman_18 $(CSEP) $(MAKE) clean
