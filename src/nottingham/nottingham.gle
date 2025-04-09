@@ -1,0 +1,54 @@
+! Example of scatter plot with colorized dots.
+! Author: Francois Tonneau
+
+size 20 15
+
+include palettes.gle
+
+amove 4 3
+
+set font ss hei 0.6
+
+! Plot data.
+
+begin graph
+    size 13 10
+    fullsize
+    background "#f0f0f0"
+    xaxis min 0.5 max 12.5 ftick 1 dticks 1
+    yaxis min 28 max 72 ftick 30 dticks 10
+    ticks length 0.15
+    x2ticks off
+    y2ticks off
+    subticks off
+    xnames Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+    xtitle "Month" dist 0.7
+    ytitle "Fahrenheit degrees" dist 0.8
+    data "nottingham.dat"
+    draw scatter                        ! plot monthly data with x jittering
+    d21 line lwidth 0.04 color black    ! add line with 20-month averages
+end graph
+
+sub scatter
+    local noise = 0.25
+    local month, count, x, y, z, xp, yp
+    for month = 1 to 20
+        for count = 1 to ndata(d[month])
+            x = dataxvalue(d[month], count)
+            y = datayvalue(d[month], count)
+            z = (y - 30) / (70 - 30)
+            xp = xg(x) + rnd(noise) - noise/2
+            yp = yg(y)
+            amove xp yp
+            set fill plasma(z)
+            circle 0.10
+        next count
+    next month
+end sub
+
+! Add horizontal line with grand mean.
+
+set lstyle 33
+amove xg(1) yg(49.04)
+aline xg(12) yg(49.04)
+
