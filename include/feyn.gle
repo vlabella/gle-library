@@ -55,7 +55,12 @@
 ! fi,fm,fd        - for loops
 ! flastl$         - type of last drawn line
 ! fcirc           - the arc is a circle
-
+!
+! for documentation see
+! Drawing Feynman diagrams with GLE,
+! Comp. Phys. Commun. 283 (2023) 108590
+! [https://arxiv.org/abs/2207.01351]
+!
 ! sin table
 fs1 = 0.156434465040230869010105319467
 fs2 = 0.309016994374947424102293417183
