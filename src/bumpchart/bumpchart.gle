@@ -1,0 +1,47 @@
+! Example of bumpchart.
+! Author: Francois Tonneau
+
+size 16 13
+
+include bumps.gle
+
+set font ss hei 0.4 color gray70
+
+set just cc
+amove pagewidth()/2 pageheight()-1
+write "Port ranks by volume, years 2004 to 2014"
+
+! Colorize a few categories.
+
+guangzhou$ 	    = navy
+ningbo_z_shan$ 	= navy
+tianjin$ 	    = navy
+
+hamburg$  	    = darkred
+los_angeles$  	= darkred
+long_beach$ 	= darkred
+
+hong_kong$     	= olivedrab
+kaohsiung$ 		= olivedrab
+
+! Define graph surface.
+
+amove 4 2
+begin graph
+    size 8 9
+    fullsize
+    xaxis min 1 max 11 ftick 1 dticks 2
+    yaxis min 1 max 15 negate
+    side   off
+    ticks  off
+    labels off
+    xlabels dist 0.5 hei 0.45
+    xnames 2004 2006 2008 2010 2012 2014
+end graph
+
+! Draw bumpchart. The bumpchart subroutine is called outside of the graph block
+! to avoid clipping on the edges.
+
+bumpchart "ports.dat" 1.0 r  0.5 c  0.5 c  1.0 l &
+          dotsize 0.1 dotstyle open linewidth 0.05 overwidth 0.12 textcolor gray70
+

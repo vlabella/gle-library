@@ -1,0 +1,4 @@
+tex {\normalsize $\alpha$}
+tex {\normalsize $d$}
+tex {\normalsize $\frac{d/2}{\mathrm{sin} \alpha}$}
+tex {\normalsize GLE arrow design}

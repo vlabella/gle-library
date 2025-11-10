@@ -1,0 +1,57 @@
+! Demo about plotting data from a file.
+! Author: Francois Tonneau
+
+size 10 8
+
+set font ss
+
+! To plot data in GLE, we use a 'begin graph ... end graph' block. This block
+! creates a plot area with customizable axes and titles. Additional commands
+! in the graph block allow us to load datasets from a file and to customize
+! the display of each dataset.
+
+begin graph
+
+    subticks off
+
+    xtitle "Percent validity" dist 0.3
+    ytitle "Estimation" dist 0.3
+
+    ! The 'data' command loads datasets from a plain-text file, here the one
+    ! called 'data.dat'. (You should have downloaded this file and copied it in
+    ! your working directory, along with the present script.) In GLE, datasets
+    ! are called d1, d2, d3, etc. Unless told otherwise with the di=cj,ck ...
+    ! syntax, GLE will build dataset
+
+    ! d1 out of file columns 1 and 2
+    ! d2 out of file columns 1 and 3
+    ! d3 out of file columns 1 and 4
+
+    ! etc.
+
+    ! Thus, in our example:
+
+    data "data.dat"
+
+    ! is shorthand for 'data data.dat d1=c1,c2 d2=c1,c3 d3=c1,c4'.
+
+    ! We now plot each of the datasets, specifying line color and width, marker
+    ! type (here, filled circle: 'fcircle'), and marker size ('msize'):
+
+    d1 line color #cd5c5c lwidth 0.03 marker fcircle msize 0.20
+    d2 line color #2e8856 lwidth 0.03 marker fcircle msize 0.24
+    d3 line color #004e58 lwidth 0.03 marker fcircle msize 0.20
+
+    ! The 'key' command inserts a legend in the plot. We place the legend at
+    ! the top left ('tl') with offsets of 0.35 and 0.30 cm; 'compact' means
+    ! that the markers and lines in the legend will be superimposed. Because
+    ! the data.dat file has labels on its first row, these are recognized as
+    ! such and inserted in the legend without further ado.
+
+    key pos tl offset 0.35 0.30 compact nobox
+
+end graph
+
+! Done. We have learned about 'begin graph ... end graph' blocks, dataset
+! loading, dataset plotting, and legend drawing.
+

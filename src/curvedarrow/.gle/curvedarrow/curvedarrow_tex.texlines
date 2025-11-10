@@ -1,0 +1,19 @@
+tex {\scriptsize $c(t) = (x(t),y(t))$}
+tex {\scriptsize $\vec{T}(c(t_1))$}
+tex {\scriptsize $\vec{N}(c(t_1))$}
+tex {\scriptsize $d(c(t),t_0,t_1)$}
+tex {\scriptsize $h(t_1)$}
+tex {\scriptsize $c(t_0)$}
+tex {\scriptsize $c(t_1)$}
+tex {\scriptsize $a(t_1)$}
+multitex 10
+{\scriptsize \begin{tabular}{l}
+$c(t) = (r\cos{t},r\sin{t})$\\
+$\vec{T}(c(t)) = \frac{c'(t)}{||c'(t)||} = (-\sin{t},\cos{t})$  \\
+$\vec{N}(c(t)) = (\vec{T_y}(c(t)), -\vec{T_x}(c(t))) = (\cos{t},\sin{t})$\\
+$d(c(u),t_0,t) = r\cdot(t-t_0)$\\
+$h(t) = d(c(u),t_0,t)\cdot\tan{\alpha}$\\
+$a(t) = c(t) \pm h(t) \cdot \vec{N}(c(t))$\\
+$a_x(t) = (1 \pm (t-t_0)\tan{\alpha}) r \cos{t}$\\
+$a_y(t) = (1 \pm (t-t_0)\tan{\alpha}) r \sin{t}$\\
+\end{tabular}}

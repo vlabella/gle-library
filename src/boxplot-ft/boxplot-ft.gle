@@ -1,0 +1,50 @@
+! Boxplot in Tufte's style.
+! Author: Francois Tonneau
+
+size 18.5 13
+
+! We plot the data points in a graph block.
+
+amove 3 2
+begin graph
+    size 14 10
+    fullsize
+    xaxis min 4.0 max 6.4 dticks 0.2
+    yaxis min 10 max 140 ftick 20 dticks 20 nolast
+    side    off
+    ticks   off
+    xlabels dist 0.7 hei 0.5
+    ylabels dist 0.7 hei 0.5
+    data "boxplot.dat"
+    d3 marker dot
+end graph
+
+! We now add boxplot whiskers.
+
+set lwidth 0.03
+
+total = ndata(d1)
+
+for num = 1 to total
+    x  = dataxvalue(d1, num)
+    y1 = datayvalue(d1, num)
+    y2 = datayvalue(d2, num)
+    y4 = datayvalue(d4, num)
+    y5 = datayvalue(d5, num)
+    amove xg(x) yg(y1)
+    aline xg(x) yg(y2)
+    amove xg(x) yg(y4)
+    aline xg(x) yg(y5)
+next num
+
+! We end with the plot description.
+
+amove xg(4.1) yg(120)
+set just cl hei 0.45
+begin table
+    Number of stations reporting Richter
+    magnitude of Fiji earthquakes
+
+    ({\it n} = 1000)
+end table
+

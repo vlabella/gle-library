@@ -1,0 +1,34 @@
+! Example of bar chart.
+! Author: Francois Tonneau
+
+size 18 12
+
+set font rm
+
+! We setup a white grid for the y axis, and we plot the data in a low-rank
+! layer (< 200) so that the white grid runs over it.
+
+begin graph
+    xaxis min 0.5 max 9.5 ftick 1 dticks 1
+    yaxis min -0.1 max 6 ftick 1 dticks 1 nolast grid color white lwidth 0.06
+    side   off
+    xticks off
+    xlabels hei 0.4
+    ylabels hei 0.5
+    xnames &
+        afraid ashamed guilty hostile irritable jittery nervous scared upset
+    data "bar_chart_ft.dat"
+    begin layer 150
+        bar d1 width 0.35 fill rosybrown color white
+    end layer
+end graph
+
+amove xg(1) 8.75
+set color black hei 0.4 just bl
+begin text
+    Average scores
+    on negative emotion traits
+    from 3896 participants
+    (Watson et al., 1988)
+end text
+

@@ -1,0 +1,90 @@
+! Example of 3d surface plot.
+! Author: Francois Tonneau
+
+! Plot idea from https://www.andybeger.com/blog/3d-surface-plots/
+
+include s3.gle
+include palettes.gle
+
+size 18 12.5
+
+xrange 2000 2019
+yrange 1 186
+zrange 108 125200
+
+scaling 0.6 1 1
+
+angles 60 20
+persp 0.80
+
+viewport 10 9
+
+! Draw plot panes.
+
+amove 3.5 2
+
+begin origin
+
+set lwidth 0.02 color "#a9a9a9" fill "#e9e9e9"
+pane B
+pane I
+grid zI 20000 110000 20000
+pane J
+grid zJ 20000 110000 20000
+
+! Add axis labels and titles.
+
+set color black font ss hei 0.3
+set just cc
+for num = 2000 to 2015 step 5
+    label XB num 0.5 num 0 -0.1
+next num
+label XB 2019 0.5 2019 0 -0.1
+set just cr
+for num = 20000 to 110000 step 20000
+    label JX num 0.35 (num/1000)+"k"
+next num
+label JX 125200 0.35 "125k"
+
+set hei 0.4
+label XB 2010 2.3 Year 0.8
+label JX 70000 1.3 GDP
+label YB 90 3.0 Countries
+
+! Add a few country labels.
+
+sub pin rank last_gdp country$ angle
+    default angle 0
+    local dist = 0.25
+    s3move 2019 rank last_gdp
+    rline dist*cos(torad(angle)) dist*sin(torad(angle))
+    rmove 0.15 0
+    write country$
+end sub
+
+set hei 0.3 just lc
+pin 1 261 Burundi -30
+
+pin 113 9011   Brazil -30
+pin 124 11465  Russia 40
+pin 43  2050   India -30
+pin 118 10170  China 5
+pin 96  6583  "South Africa" -30
+pin 186 113860 Luxembourg 40
+
+! Define palette.
+
+sub hue z
+    local a = 1 / (s3_zmin - s3_zmax)
+    local b = -a * s3_zmax
+    return magma(a * z + b)
+end sub
+
+! Draw surface.
+
+set lwidth 0.02
+s3datasurf formatted.dat hue same
+!                facet --^   ^-- facet borders
+
+end origin
+

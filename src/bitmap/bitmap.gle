@@ -1,0 +1,80 @@
+! Demo about importing bitmaps.
+! Author: Francois Tonneau
+
+! Original script, bitmap, and figure by Ivan Ramos Pagnossin.
+
+size 18 10
+
+! ==========
+
+! Our figure has two panels. We start with panel (a).
+
+set font ss hei 0.60 just bl
+amove 1.2 8.5
+write "a."
+
+! We use the 'bitmap' command to import the 'bitmap.jpg' file into the figure.
+! The name of the image file is 'bitmap.jpg', and the resulting image will have
+! a width of 5 cm. A nominal height of 0 tells GLE to respect the aspect ratio
+! of the bitmap file. The import is done within a 'begin name ... end name'
+! block to be able to refer to the image by name:
+
+amove 2.0 2.5
+begin name afm_image
+   bitmap "bitmap.jpg" 5 0
+end name
+
+! Now that the image has been named ('afm_image'), we can refer to the 'afm_image'
+! region and its reference points (e.g, 'tc': top center; 'bl': bottom left).
+! We can also locate their position via the ptx() and pty() functions.
+
+set hei 0.45 just cc
+amove ptx(afm_image.tc) pty(afm_image.tc)+0.5
+write "AFM Image"
+
+set lwidth 0.03
+amove ptx(afm_image.bl) pty(afm_image.bl)-0.5
+rline 5 0 arrow both
+rmove -5/2 0
+begin box add 0.1 fill white nobox
+   write "3 \sethei{.50}\mu \sethei{0.4}m"
+end box
+
+! ==========
+
+! We now turn to panel (b), which is a line plot in the 'hist' step style.
+
+set font ss hei 0.60 just bl
+amove 8.2 8.5
+write "b."
+
+set hei 0.45
+
+amove 10.5 2.0
+begin graph
+    size 6 6
+    fullsize
+    xaxis min 16 max 90 ftick 20 dticks 10
+    yaxis min 0 max 12 ftick 0 dticks 2
+    xside     off
+    x2axis    off
+    y2axis    off
+    xsubticks off
+    xticks length -0.1
+    xtitle "Diameter (nm)" dist 0.4
+    ytitle "QDs surface density (10^{8} cm^{-2})" dist 0.4
+    data "bitmap.dat"
+    d1 line hist color #004e58
+end graph
+
+! We cover the axes with solid lines as a finishing touch:
+
+set cap square
+amove xg(20) yg(0)
+aline xg(90) yg(0)
+
+amove xg(16) yg(0)
+rline 0.1 0
+
+! Done. We have learned to import bitmap images in GLE.
+

@@ -1,0 +1,14 @@
+tex {\footnotesize 0.0}
+tex {\footnotesize 0.1}
+tex {\footnotesize 0.2}
+tex {\footnotesize 0.3}
+tex {\footnotesize 0.4}
+tex {\footnotesize 0.5}
+tex {\footnotesize 0.6}
+tex {\footnotesize 0.7}
+tex {\footnotesize 0.8}
+tex {\footnotesize 0.9}
+tex {\footnotesize 1.0}
+tex {\normalsize Entropy $E(D)$}
+tex {\normalsize $p_\oplus$}
+tex {\large $E(D) = -p_\oplus \cdot \log_2 p_\oplus - (1-p_\oplus) \cdot \log_2 (1-p_\oplus)$}

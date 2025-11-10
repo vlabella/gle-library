@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[dvips]{graphics}
+\usepackage{tabls}
+\setlength{\tablinesep}{0.3cm}
+\pagestyle{empty}
+\begin{document}
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{\rule{1cm}{1cm}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $c(t) = (x(t),y(t))$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $\vec{T}(c(t_1))$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $\vec{N}(c(t_1))$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $d(c(t),t_0,t_1)$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $h(t_1)$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $c(t_0)$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $c(t_1)$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{{\scriptsize $a(t_1)$}}
+
+\newpage
+\noindent{}\rule{1cm}{0.025cm}\framebox{%
+{\scriptsize \begin{tabular}{l}
+$c(t) = (r\cos{t},r\sin{t})$\\
+$\vec{T}(c(t)) = \frac{c'(t)}{||c'(t)||} = (-\sin{t},\cos{t})$  \\
+$\vec{N}(c(t)) = (\vec{T_y}(c(t)), -\vec{T_x}(c(t))) = (\cos{t},\sin{t})$\\
+$d(c(u),t_0,t) = r\cdot(t-t_0)$\\
+$h(t) = d(c(u),t_0,t)\cdot\tan{\alpha}$\\
+$a(t) = c(t) \pm h(t) \cdot \vec{N}(c(t))$\\
+$a_x(t) = (1 \pm (t-t_0)\tan{\alpha}) r \cos{t}$\\
+$a_y(t) = (1 \pm (t-t_0)\tan{\alpha}) r \sin{t}$\\
+\end{tabular}}}
+
+\end{document}

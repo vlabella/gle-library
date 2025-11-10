@@ -1,0 +1,15 @@
+tex {\footnotesize -3}
+tex {\footnotesize -2}
+tex {\footnotesize -1}
+tex {\footnotesize 0}
+tex {\footnotesize 1}
+tex {\footnotesize 2}
+tex {\footnotesize 3}
+tex {\normalsize $y$}
+tex {\normalsize $x$}
+tex {\large 2D differential equation}
+multitex 4
+{\normalsize $\left\{ \begin{array}{l}
+\frac{dx}{dt}=y\vspace{0.2cm}\\
+\frac{dy}{dt}=-x+y(1-x^2)
+\end{array} \right.$}
