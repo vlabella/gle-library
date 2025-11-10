@@ -1,0 +1,16 @@
+tex {\footnotesize 0}
+tex {\footnotesize 1}
+tex {\footnotesize 2}
+tex {\footnotesize 3}
+tex {\footnotesize 4}
+tex {\footnotesize 5}
+tex {\footnotesize 6}
+tex {\normalsize Output}
+tex {\footnotesize 7}
+tex {\footnotesize 8}
+tex {\footnotesize 9}
+tex {\normalsize Time}
+tex {\large Semi-Transparent Fills}
+tex {\normalsize $1.5\sin(x)+1.5$}
+tex {\normalsize $1/x$}
+tex {\normalsize $\frac{10}{\sqrt{2\pi}}\exp\left(\frac{-2(x-4)^2}{2^2}\right)$}

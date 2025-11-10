@@ -1,0 +1,105 @@
+! Plot of the Lorenz attractor.
+! Author: Francois Tonneau
+
+include s3.gle
+
+size 16 15
+
+xrange -30 30
+yrange -30 30
+zrange 0 50
+
+angles 28 26
+persp 0.60
+
+viewport 10 10
+
+amove 2.5 3
+
+set cap round join round
+
+begin origin
+
+! Draw plot panes.
+
+set lwidth 0.02 color gray40 fill "#fffddd"
+pane "B"
+grid xB -20 20 10
+grid yB -20 20 10
+pane "I"
+grid xI -20 20 10
+grid zI  10 40 10
+pane "J"
+grid yJ -20 20 10
+grid zJ  10 40 10
+set fill clear
+pane "X"
+pane "Y"
+
+! Add axis labels.
+
+set font ss hei 0.4 color gray50
+set just cc
+label XB -20 0.5 -20
+label XB   0 0.5   0
+label XB  20 0.5  20
+
+label YB -20 0.5 -20
+label YB   0 0.5   0
+label YB  20 0.5  20
+
+for num = 10 to 50 step 10
+    label YI num 0.6 num
+next num
+
+! Add axis titles.
+
+set hei 0.55 color black
+label XB  0 1.6 "X"
+label YB  0 1.6 "Y"
+label YI 35 2.0 "Z"
+
+! Draw the attractor.
+
+sub lorenz_xdot x y z
+    xdot = lorenz_sigma * (y - x)
+    return xdot
+end sub
+
+sub lorenz_ydot x y z
+    ydot = (lorenz_rho * x) - y - (x * z)
+    return ydot
+end sub
+
+sub lorenz_zdot x y z
+    zdot = (x * y) - (lorenz_beta * z)
+    return zdot
+end sub
+
+lorenz_sigma = 10
+lorenz_rho = 27
+lorenz_beta  = 3.50
+
+dt = 0.005
+ntimes = 25 * 1000
+
+x = 0.0
+y = 1.0
+z = 1.05
+
+s3move x y z
+
+set color "#003050"
+
+for time = 1 to ntimes
+    x_new = x + dt * lorenz_xdot(x, y, z)
+    y_new = y + dt * lorenz_ydot(x, y, z)
+    z_new = z + dt * lorenz_zdot(x, y, z)
+    s3line x_new y_new z_new
+    x = x_new
+    y = y_new
+    z = z_new
+next time
+
+end origin
+

@@ -1,0 +1,79 @@
+! Example with color ramps.
+! Author: Francois Tonneau
+
+size 19 19
+
+set font ss hei 0.6
+
+include palettes.gle
+
+sub paintslice hue
+    set color hue lwidth 0
+    box 0.02 0.8 just bl fill hue
+    rmove 0.02 0
+end sub
+
+amove 2 17
+set color black
+write "inferno"
+rmove 0 -1
+for z = 0 to 750
+    paintslice inferno(z/750)
+next z
+
+amove 2 15
+set color black
+write "magma"
+rmove 0 -1
+for z = 0 to 750
+    paintslice magma(z/750)
+next z
+
+amove 2 13
+set color black
+write "plasma"
+rmove 0 -1
+for z = 0 to 750
+    paintslice plasma(z/750)
+next z
+
+amove 2 11
+set color black
+write "viridis"
+rmove 0 -1
+for z = 0 to 750
+    paintslice viridis(z/750)
+next z
+
+amove 2 9
+set color black
+write "cividis"
+rmove 0 -1
+for z = 0 to 750
+    paintslice cividis(z/750)
+next z
+
+amove 2 7
+set color black
+write "davos"
+rmove 0 -1
+for z = 0 to 750
+    paintslice davos(z/750)
+next z
+
+amove 2 5
+set color black
+write "devon"
+rmove 0 -1
+for z = 0 to 750
+    paintslice devon(z/750)
+next z
+
+amove 2 3
+set color black
+write "oslo"
+rmove 0 -1
+for z = 0 to 750
+    paintslice oslo(z/750)
+next z
+

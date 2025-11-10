@@ -1,0 +1,16 @@
+tex {\footnotesize -4$\cdot 10^{4}$}
+tex {\footnotesize -2$\cdot 10^{4}$}
+tex {\footnotesize 0$\cdot 10^{0}$}
+tex {\footnotesize 2$\cdot 10^{4}$}
+tex {\footnotesize 4$\cdot 10^{4}$}
+tex {\normalsize $V_x$ [m/s]}
+tex {\footnotesize 0.0}
+tex {\footnotesize 0.01}
+tex {\footnotesize 0.02}
+tex {\footnotesize 0.03}
+tex {\footnotesize 0.04}
+tex {\normalsize $x$ [cm]}
+tex {\large 0 }
+tex {\large 2 }
+tex {\large 5 }
+tex {\large 7 }

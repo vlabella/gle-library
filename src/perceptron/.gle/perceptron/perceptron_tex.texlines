@@ -1,0 +1,15 @@
+tex {\normalsize $B$}
+tex {\normalsize $A$}
+tex {\large $A \land B$}
+tex {\normalsize $\ominus$}
+tex {\normalsize $\oplus$}
+tex {\normalsize $w_0 + w_1 A + w_2 B = 0$}
+tex {\normalsize {\Large $\Sigma$}}
+tex {\normalsize 1}
+tex {\normalsize $w_0$}
+tex {\normalsize A}
+tex {\normalsize $w_1$}
+tex {\normalsize B}
+tex {\normalsize $w_2$}
+tex {\normalsize $o(A,B)$}
+tex {\normalsize $o(A,B) = \mathrm{sign}(w_0 + w_1 A + w_2 B)$}

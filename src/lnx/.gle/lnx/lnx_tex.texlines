@@ -1,0 +1,22 @@
+tex {\footnotesize 0.0}
+tex {\footnotesize 0.2}
+tex {\footnotesize 0.4}
+tex {\footnotesize 0.6}
+tex {\footnotesize 0.8}
+tex {\footnotesize 1.0}
+tex {\footnotesize 1.2}
+tex {\normalsize $y$}
+tex {\footnotesize 0.5}
+tex {\footnotesize 1.5}
+tex {\footnotesize 2.0}
+tex {\footnotesize 2.5}
+tex {\footnotesize 3.0}
+tex {\footnotesize 3.5}
+tex {\footnotesize 4.0}
+tex {\footnotesize 4.5}
+tex {\footnotesize 5.0}
+tex {\normalsize $x$}
+tex {\large Natural Logarithm}
+tex {\normalsize $\displaystyle\log a = \int_{1}^{a}{\textstyle \frac{1}{x}\,dx}$}
+tex {\normalsize $a$}
+tex {\normalsize $y = \frac{1}{x}$}

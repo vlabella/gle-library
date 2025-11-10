@@ -1,0 +1,63 @@
+! Example with marginal histograms.
+! Author: Francois Tonneau
+
+size 14 14
+
+set  font ss
+
+amove 3 3
+
+! Main plot.
+
+begin graph
+    size 8 8
+    fullsize
+    axis grid color gray10
+    labels dist 0.5 color black hei 0.5
+    xtitle "Minutes until eruption" hei 0.5 dist 0.60
+    ytitle "Duration in minutes" hei 0.5 dist 0.80
+    data "margins.dat"
+    d1 marker fcircle color rosybrown msize 0.15
+end graph
+
+! We add two marginal plots. The data in each plot are obtained with 'hist'.
+
+amove 3 11
+begin graph
+    size 8 2
+    fullsize
+    yaxis min 0 max 50
+    axis off
+    data "margins.dat" d1=c1,c1
+    let d2 = hist d1 from 40 to 100 bins 20
+    bar d2 width 3 color rosybrown fill rosybrown
+end graph
+
+amove 11 3
+begin graph
+    size 2 8
+    fullsize
+    xaxis min 0 max 50 dticks 50
+    axis off
+    data "margins.dat" d1=c2,c2
+    let d2 = hist d1 from 1.5 to 5.5 bins 16
+    bar d2 horiz width 0.25 color rosybrown fill rosybrown
+end graph
+
+! We conclude with marginal axis decorations.
+
+amove 11 11
+begin origin
+    set color gray10
+    aline 0 2
+    amove 0 0
+    aline 2 0
+    set color black
+    rmove 0.2 0
+    set just lc
+    write 50
+    amove 0 2.2
+    set just bc
+    write 50
+end origin
+

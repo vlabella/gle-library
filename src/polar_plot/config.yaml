@@ -1,0 +1,8 @@
+author: 'Francois Tonneau'
+author_email: 'francois.tonneau@gmail.com'
+cairo: true
+category: polar
+description: 'An example of a polar plot of a function'
+filename: polar_plot.gle
+name: Polar Plot
+notes: ''

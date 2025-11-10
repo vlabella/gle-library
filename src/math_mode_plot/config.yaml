@@ -1,0 +1,8 @@
+author: Francois Tonneau
+author_email: francois.tonneau@gmail.com
+cairo: true
+category: line
+description: 'An example of math mode with axis crossing at (0,0)'
+filename: math_mode_plot.gle
+name: Math Mode Plot
+notes: ''

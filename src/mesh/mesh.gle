@@ -1,0 +1,78 @@
+! Example of mesh plot.
+! Author: Francois Tonneau
+
+include s3.gle
+include palettes.gle
+
+size 16 15
+
+xrange 0 3
+yrange 0 6
+zrange -1 1
+
+angles 35 25
+persp 0.80
+
+viewport 10 9
+
+amove 3 3
+
+set cap round join round
+
+begin origin
+
+! Draw plot panes.
+
+set lwidth 0.03 color gray40 fill "#e0e0e0"
+pane B
+grid xB 0 3 1
+grid yB 0 6 1
+pane I
+grid xI  0 3 1
+grid zI -0.5 0.5 0.5
+pane J
+grid yJ  0 6 1
+grid zJ -0.5 0.5 0.5
+
+! Add axis labels.
+
+set color black font ss hei 0.4
+set just cr
+label XB 1 0.5 1
+label XB 2 0.5 2
+label XB 3 0.5 3
+set just cc
+label YB 1 0.5 1
+label YB 3 0.5 3
+label YB 5 0.5 5
+set just rc
+label JX -1 0.3 "-1.0"
+label JX  0 0.3 " 0.0"
+label JX  1 0.3 "+1.0"
+
+! Add axis titles.
+
+set hei 0.5
+label XB 1.5 1.8 "X"
+label YB   3 1.8 "Y"
+label JX 0.1 1.6 "Z"
+
+! Proceed to plot.
+
+sub sincos x y
+    return sin(x)*cos(y)
+end sub
+
+sub fillpalette z
+    return "#aaaaaa"
+end sub
+
+sub linepalette z
+    return magma((z + 1)/3)
+end sub
+
+set lwidth 0.02
+s3funcsurf sincos fillpalette linepalette 40 40
+
+end origin
+

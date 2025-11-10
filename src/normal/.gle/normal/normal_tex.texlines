@@ -1,0 +1,22 @@
+tex {\footnotesize 0}
+tex {\footnotesize 10}
+tex {\footnotesize 20}
+tex {\footnotesize 30}
+tex {\footnotesize 40}
+tex {\footnotesize 50}
+tex {\footnotesize 60}
+tex {\footnotesize 70}
+tex {\footnotesize 80}
+tex {\footnotesize 90}
+tex {\footnotesize 100}
+tex {\normalsize Frequency}
+tex {\footnotesize -4}
+tex {\footnotesize -3}
+tex {\footnotesize -2}
+tex {\footnotesize -1}
+tex {\footnotesize 1}
+tex {\footnotesize 2}
+tex {\footnotesize 3}
+tex {\footnotesize 4}
+tex {\normalsize Value}
+tex {\large 1000 samples of $N(\mu=0, \sigma=1)$}

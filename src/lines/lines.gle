@@ -1,0 +1,79 @@
+! Demo about line styles.
+! Author: Francois Tonneau
+
+size 10 8
+
+set font ss
+
+! We set line termination ('cap') to 'round' (other possible values are 'butt'
+! and 'square'):
+
+set cap round
+
+begin graph
+
+    ! In defining axis limits we use 'pi' (= 3.14...), which is a pre-declared
+    ! variable in GLE. As usual, arithmetic expressions may not contain spaces:
+
+    xaxis min 2*pi max 6*pi dticks 2*pi
+    yaxis min -1 max 1 dticks 1
+
+    ! We remove the axes and parts of axes (such as their spine or 'side') we
+    ! don't want:
+
+    x2axis   off
+    y2axis   off
+    xside    off
+    yside    off
+    subticks off
+
+    ! We now define custom names for the x-axis ticks with the 'xnames' command.
+    ! Quotes are not needed, any sequence of non-blank chars will be interpreted
+    ! as a name. Each '\pi' expression (notice the backslash) will render as the
+    ! Greek symbol, pi:
+
+    xnames 2\pi 4\pi 6\pi
+
+    ! A negative tick length makes the ticks face outward:
+
+    ticks length -0.1
+
+    ! In GLE, datasets d1, d2, ... can also be referred to as d[1], d[2], etc.
+    ! The d[i] bracket notation for datasets is useful in scripts, especially
+    ! when combined with loops, because the term inside [] can be any integer
+    ! variable or expression. In this script we will use two 'for ... next'
+    ! loops to define and plot 20 datasets in succession.
+
+    ! First, we use a loop with the 'num' index to define and plot 10 blue
+    ! curves. Because 'sin(x)' is divided by 'amplitude', the curves being
+    ! drawn are progressively flatter:
+
+    for num = 1 to 10
+        amplitude  = num
+        let d[num] = sin(x)/amplitude
+        d[num] line color cadetblue lwidth 0.03
+    next num
+
+    ! We then use another loop to define and plot 10 red curves. As in the
+    ! previous loop, the curves being drawn are progressively flatter:
+
+    for num = 11 to 20
+        amplitude  = num-10
+        let d[num] = -sin(x)/amplitude
+        d[num] line color indianred lwidth 0.03
+    next num
+
+    ! We finish the plot by adding two dashed lines. In GLE, a dash pattern is
+    ! specified as a series of digits, each digit defining the length of a dash
+    ! or a space (by default the pattern is '1', meaning a solid line):
+
+    let d22 = sin(x/2)
+    d22 line color seagreen lstyle 1241
+    let d23 = -sin(x/2)
+    d23 line color seagreen lstyle 11
+
+end graph
+
+! Done. We have learned about the d[...] bracket notation, 'for ... next' loops,
+! and dashes. We have used 23 datasets -- in GLE 4.2 one can use up to 1000.
+

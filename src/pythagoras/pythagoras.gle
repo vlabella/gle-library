@@ -1,0 +1,46 @@
+! Example of Pythagoras tree.
+! Author: Francois Tonneau
+
+! This is a slight modification of the Pythagoras tree example available on GLE
+! 4.2.5. The idea for edge coloring comes from Timo Bingmann:
+
+! https://panthema.net/2013/0627-TikZ-Pythagoras-Tree/
+
+size 32 22
+
+small = 3
+medium = 4
+large = sqrt(small^2 + medium^2)
+
+set lwidth 0.1
+
+sub growtree times
+    local rchan = rnd(0.5)
+    local gchan = rnd(0.8)
+    local bchan = rnd(0.6)
+    set color rgb(rchan, gchan, bchan)
+    box large large
+    if times > 0 then
+        begin translate 0 large
+            begin rotate todeg(acos(medium/large))
+                begin scale medium/large medium/large
+                    growtree times-1
+                end scale
+            end rotate
+        end translate
+        begin translate large large
+            begin rotate todeg(-acos(small/large))
+                begin scale small/large small/large
+                    begin translate -large 0
+                        growtree times-1
+                    end translate
+                end scale
+            end rotate
+        end translate
+    end if
+end sub
+
+begin translate 16 0
+    growtree times 11
+end translate
+

@@ -1,0 +1,52 @@
+! Example of spider plot.
+! Author: Francois Tonneau
+
+size 12 8
+
+set font ss
+
+include pole.gle
+
+begin graph
+    data "spider.dat" d1=c2,c4 d2=c2,c5
+    axis off
+end graph
+
+myred$ = "#cd5c5c"
+myblue$ = "#005d67"
+
+wheelcenter pagewidth()/2 pageheight()/2
+wheeldims 0.8 3.2
+wheelvalues 0 100
+startangles at 90 going clockwise
+
+fillcloth "#f0edda"
+set color gray10 lwidth 0.02 lstyle 22
+drawsomerings 25 50 75
+
+set lstyle 1
+drawrays from 0 to 360 by 15 no last
+drawclothcontour
+
+drawpolarline d1 myred$ close end
+drawpolarline d2 myblue$ close end
+
+drawpolarpoints d1 color myred$ marker fcircle msize 0.1
+drawpolarpoints d2 color myblue$ marker fcircle msize 0.1
+
+set color gray70 hei 0.20
+
+tagstyle just cc format "fix 0 append %"
+writetags at 352 from 0 to 100 by 50
+
+set color gray70 hei 0.25
+
+labelstyle dist 0.4 just textual
+writelabelsfrom "spider.dat"
+
+set just cc
+movepp 16 180
+write 2016
+movepp 71 195
+write 2015
+
