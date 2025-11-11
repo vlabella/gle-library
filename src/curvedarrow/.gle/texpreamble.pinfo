@@ -1,5 +1,0 @@
-preamble: 2
-\documentclass{article}
-\usepackage{tabls}
-\setlength{\tablinesep}{0.3cm}
-0.178893 0.246749 0.283762 0.314605 0.351618 0.419474 0.505836 0.604536 0.727911 0.869792
