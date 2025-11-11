@@ -26,17 +26,17 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 # \
 !endif
 
-all: radar.eps radar.pdf radar.png
+all: phasedemo.eps phasedemo.pdf phasedemo.png
 
-radar.eps: radar.gle
-	gle -device EPS -cairo radar.gle
+phasedemo.eps: phasedemo.gle
+	gle -device EPS -cairo phasedemo.gle
 
-radar.pdf: radar.gle
-	gle -device PDF -cairo radar.gle
+phasedemo.pdf: phasedemo.gle
+	gle -device PDF -cairo phasedemo.gle
 
-radar.png: radar.gle
-	gle -device PNG -cairo -DPI 150 radar.gle
+phasedemo.png: phasedemo.gle
+	gle -device PNG -cairo -DPI 150 phasedemo.gle
 
 clean:
-	-$(RM) radar.eps radar.pdf radar.png
+	-$(RM) phasedemo.eps phasedemo.pdf phasedemo.png
 	-$(RMDIR) .gle
