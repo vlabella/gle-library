@@ -8,16 +8,15 @@ This repository makes both the examples and include files available for users to
 
 Installation of include files is only needed if they get updated prior to the next release of GLE. The installation command below copies all the .gle files from /include to the /gleinc folder at the root of your GLE installation:
 
-* windows: `C:\Program Files\GLE\gleinc`.
-* Linux: `/usr/share/gle/gleinc`.
+* windows: `C:\Program Files\gle-graphics\gleinc`.
+* Linux: `/usr/share/gle-graphics/gleinc`.
 
 To install the new include files:
 
  * Windows: `cd src & nmake install-includes`
-   This will install include files to `C:\Program Files\gle-graphics\gleinc`
+
 
  * Linux & macOS `cd src ; make install-includes`
-   This will install include files to `/usr/share/gle-graphics/gleinc`
 
 ## Using Include Files in GLE Figures
 
