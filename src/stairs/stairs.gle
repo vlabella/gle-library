@@ -1,0 +1,131 @@
+! Figures drawn via vertex repositioning.
+! Author: Francois Tonneau
+
+! Plot idea from Alain Matthes:
+! https://texample.net/rotated-triangle/
+
+size 19.5 10
+
+! ------------------------------
+! Make drawing subroutines available.
+! ------------------------------
+
+declare sub def point$ x y
+declare sub copy source$ destination$
+declare sub fasten new$ refA$ refB$ proportion
+declare sub drawcycle chain$
+declare sub fillcycle chain$ hue$
+
+declare sub bluemix z
+declare sub redmix z
+
+! ------------------------------
+! Use subroutines in figure drawing.
+! ------------------------------
+
+set lwidth 0.01 join round cap round
+
+! Define the initial vertices of an ABC triangle. Then loop to draw a series of
+! triangles: at each step, copy a vertex to a temporary point X; then fasten new
+! vertices along the AB, BC, and CX line segments.
+
+def A 2 2
+def B 5 7
+def C 8 2
+
+for stage = 0 to 20
+    fillcycle ABC bluemix(stage/10)
+    drawcycle ABC
+    copy A X
+    fasten A A B 0.15
+    fasten B B C 0.15
+    fasten C C X 0.15
+next stage
+
+! Use similar methods to draw a series of ABCD squares.
+
+def A 11 2
+def B 11 7
+def C 16 7
+def D 16 2
+
+for stage = 0 to 20
+    fillcycle ABCD redmix(stage/10)
+    drawcycle ABCD
+    copy A X
+    fasten A A B 0.15
+    fasten B B C 0.15
+    fasten C C D 0.15
+    fasten D D X 0.15
+next stage
+
+! ------------------------------
+! Implement drawing subroutines
+! ------------------------------
+
+sub __Point$ id$
+    return "unique_point_"+id$
+end sub
+
+sub def point$ x y
+    gsave
+    amove x y
+    save __Point$(point$)
+    grestore
+end sub
+
+sub copy source$ destination$
+    gsave
+    amove ptx(__Point$(source$)) pty(__Point$(source$))
+    save __Point$(destination$)
+    grestore
+end sub
+
+sub fasten new$ refA$ refB$ proportion
+    local xA = ptx(__Point$(refA$))
+    local yA = pty(__Point$(refA$))
+    local xB = ptx(__Point$(refB$))
+    local yB = pty(__Point$(refB$))
+    local xcoord = xA + (xB - xA) * proportion
+    local ycoord = yA + (yB - yA) * proportion
+    def new$ xcoord ycoord
+end sub
+
+sub drawcycle chain$
+    local first$ = seg$(chain$, 1, 1)
+    local fullcycle$ = chain$+first$
+    local end = len(fullcycle$)
+    local id$, pos
+    amove ptx(__Point$(first$)) pty(__Point$(first$))
+    for pos = 2 to end
+        id$ = seg$(fullcycle$, pos, pos)
+        aline ptx(__Point$(id$)) pty(__Point$(id$))
+    next pos
+end sub
+
+sub fillcycle chain$ hue$
+    begin path fill hue$
+        drawcycle chain$
+    end path
+end sub
+
+sub bluemix z
+    if z > 1 then z = 1
+    local r_low =  183; local g_low =  227;  local b_low =  233
+    local r_high =   0; local g_high = 120;  local b_high = 130
+    local r = (1 - z) * r_low + z * r_high
+    local g = (1 - z) * g_low + z * g_high
+    local b = (1 - z) * b_low + z * b_high
+    return rgb255(r, g, b)
+end sub
+
+sub redmix z
+    if z > 1 then z = 1
+    local r_low =  227; local g_low =  150;  local b_low =  150
+    local r_high = 130; local g_high =   0;  local b_high = 110
+    local r = (1 - z) * r_low + z * r_high
+    local g = (1 - z) * g_low + z * g_high
+    local b = (1 - z) * b_low + z * b_high
+    return rgb255(r, g, b)
+end sub
+
