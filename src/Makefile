@@ -31,6 +31,7 @@ all:
 	cd gradient $(CSEP) $(MAKE)
 	cd intersect $(CSEP) $(MAKE)
 	cd quantilescale $(CSEP) $(MAKE)
+	cd stairs $(CSEP) $(MAKE)
 	cd keyexamples $(CSEP) $(MAKE)
 	cd polar_plot $(CSEP) $(MAKE)
 	cd polar_histogram $(CSEP) $(MAKE)
@@ -41,7 +42,6 @@ all:
 	cd elliptical_arcs $(CSEP) $(MAKE)
 	cd sin $(CSEP) $(MAKE)
 	cd line $(CSEP) $(MAKE)
-	cd square $(CSEP) $(MAKE)
 	cd feynman_16 $(CSEP) $(MAKE)
 	cd labeled-scatter $(CSEP) $(MAKE)
 	cd color_sample $(CSEP) $(MAKE)
@@ -69,6 +69,7 @@ all:
 	cd feynman_19 $(CSEP) $(MAKE)
 	cd feynman_7 $(CSEP) $(MAKE)
 	cd cavity $(CSEP) $(MAKE)
+	cd nottingham $(CSEP) $(MAKE)
 	cd maunga3c $(CSEP) $(MAKE)
 	cd join $(CSEP) $(MAKE)
 	cd koch $(CSEP) $(MAKE)
@@ -94,7 +95,6 @@ all:
 	cd hat $(CSEP) $(MAKE)
 	cd feynman_11 $(CSEP) $(MAKE)
 	cd corrs $(CSEP) $(MAKE)
-	cd sqroot $(CSEP) $(MAKE)
 	cd curve $(CSEP) $(MAKE)
 	cd scatter_plot $(CSEP) $(MAKE)
 	cd diffeq $(CSEP) $(MAKE)
@@ -141,6 +141,7 @@ all:
 	cd ellipsearrow $(CSEP) $(MAKE)
 	cd saddlecol $(CSEP) $(MAKE)
 	cd fitting $(CSEP) $(MAKE)
+	cd brewer_sample $(CSEP) $(MAKE)
 	cd feynman_12 $(CSEP) $(MAKE)
 	cd stack1 $(CSEP) $(MAKE)
 	cd adjust $(CSEP) $(MAKE)
@@ -193,12 +194,14 @@ all:
 	cd feynman_1 $(CSEP) $(MAKE)
 	cd gc_color $(CSEP) $(MAKE)
 	cd normal $(CSEP) $(MAKE)
+	cd ulam $(CSEP) $(MAKE)
 	cd stack2 $(CSEP) $(MAKE)
 	cd boxplot-ft $(CSEP) $(MAKE)
 	cd bspline $(CSEP) $(MAKE)
 	cd informationgain $(CSEP) $(MAKE)
 	cd margins $(CSEP) $(MAKE)
 	cd polargrid $(CSEP) $(MAKE)
+	cd brewer_usage $(CSEP) $(MAKE)
 	cd texgraph $(CSEP) $(MAKE)
 	cd fill-ft $(CSEP) $(MAKE)
 	cd markers $(CSEP) $(MAKE)
@@ -227,6 +230,7 @@ clean:
 	cd gradient $(CSEP) $(MAKE) clean
 	cd intersect $(CSEP) $(MAKE) clean
 	cd quantilescale $(CSEP) $(MAKE) clean
+	cd stairs $(CSEP) $(MAKE) clean
 	cd keyexamples $(CSEP) $(MAKE) clean
 	cd polar_plot $(CSEP) $(MAKE) clean
 	cd polar_histogram $(CSEP) $(MAKE) clean
@@ -237,7 +241,6 @@ clean:
 	cd elliptical_arcs $(CSEP) $(MAKE) clean
 	cd sin $(CSEP) $(MAKE) clean
 	cd line $(CSEP) $(MAKE) clean
-	cd square $(CSEP) $(MAKE) clean
 	cd feynman_16 $(CSEP) $(MAKE) clean
 	cd labeled-scatter $(CSEP) $(MAKE) clean
 	cd color_sample $(CSEP) $(MAKE) clean
@@ -265,6 +268,7 @@ clean:
 	cd feynman_19 $(CSEP) $(MAKE) clean
 	cd feynman_7 $(CSEP) $(MAKE) clean
 	cd cavity $(CSEP) $(MAKE) clean
+	cd nottingham $(CSEP) $(MAKE) clean
 	cd maunga3c $(CSEP) $(MAKE) clean
 	cd join $(CSEP) $(MAKE) clean
 	cd koch $(CSEP) $(MAKE) clean
@@ -290,7 +294,6 @@ clean:
 	cd hat $(CSEP) $(MAKE) clean
 	cd feynman_11 $(CSEP) $(MAKE) clean
 	cd corrs $(CSEP) $(MAKE) clean
-	cd sqroot $(CSEP) $(MAKE) clean
 	cd curve $(CSEP) $(MAKE) clean
 	cd scatter_plot $(CSEP) $(MAKE) clean
 	cd diffeq $(CSEP) $(MAKE) clean
@@ -337,6 +340,7 @@ clean:
 	cd ellipsearrow $(CSEP) $(MAKE) clean
 	cd saddlecol $(CSEP) $(MAKE) clean
 	cd fitting $(CSEP) $(MAKE) clean
+	cd brewer_sample $(CSEP) $(MAKE) clean
 	cd feynman_12 $(CSEP) $(MAKE) clean
 	cd stack1 $(CSEP) $(MAKE) clean
 	cd adjust $(CSEP) $(MAKE) clean
@@ -389,12 +393,14 @@ clean:
 	cd feynman_1 $(CSEP) $(MAKE) clean
 	cd gc_color $(CSEP) $(MAKE) clean
 	cd normal $(CSEP) $(MAKE) clean
+	cd ulam $(CSEP) $(MAKE) clean
 	cd stack2 $(CSEP) $(MAKE) clean
 	cd boxplot-ft $(CSEP) $(MAKE) clean
 	cd bspline $(CSEP) $(MAKE) clean
 	cd informationgain $(CSEP) $(MAKE) clean
 	cd margins $(CSEP) $(MAKE) clean
 	cd polargrid $(CSEP) $(MAKE) clean
+	cd brewer_usage $(CSEP) $(MAKE) clean
 	cd texgraph $(CSEP) $(MAKE) clean
 	cd fill-ft $(CSEP) $(MAKE) clean
 	cd markers $(CSEP) $(MAKE) clean
