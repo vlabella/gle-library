@@ -11,10 +11,13 @@ Installation of include files is only needed if they get updated prior to the ne
 * windows: `C:\Program Files\GLE\gleinc`.
 * Linux: `/usr/share/gle/gleinc`.
 
-To install the new include files
+To install the new include files:
 
  * Windows: `cd src & nmake install-includes`
+   This will install include files to `C:\Program Files\gle-graphics\gleinc`
+
  * Linux & macOS `cd src ; make install-includes`
+   This will install include files to `/usr/share/gle-graphics/gleinc`
 
 ## Using Include Files in GLE Figures
 
