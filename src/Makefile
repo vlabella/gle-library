@@ -42,6 +42,7 @@ all:
 	cd elliptical_arcs $(CSEP) $(MAKE)
 	cd sin $(CSEP) $(MAKE)
 	cd line $(CSEP) $(MAKE)
+	cd square $(CSEP) $(MAKE)
 	cd feynman_16 $(CSEP) $(MAKE)
 	cd labeled-scatter $(CSEP) $(MAKE)
 	cd color_sample $(CSEP) $(MAKE)
@@ -95,6 +96,7 @@ all:
 	cd hat $(CSEP) $(MAKE)
 	cd feynman_11 $(CSEP) $(MAKE)
 	cd corrs $(CSEP) $(MAKE)
+	cd sqroot $(CSEP) $(MAKE)
 	cd curve $(CSEP) $(MAKE)
 	cd scatter_plot $(CSEP) $(MAKE)
 	cd diffeq $(CSEP) $(MAKE)
@@ -241,6 +243,7 @@ clean:
 	cd elliptical_arcs $(CSEP) $(MAKE) clean
 	cd sin $(CSEP) $(MAKE) clean
 	cd line $(CSEP) $(MAKE) clean
+	cd square $(CSEP) $(MAKE) clean
 	cd feynman_16 $(CSEP) $(MAKE) clean
 	cd labeled-scatter $(CSEP) $(MAKE) clean
 	cd color_sample $(CSEP) $(MAKE) clean
@@ -294,6 +297,7 @@ clean:
 	cd hat $(CSEP) $(MAKE) clean
 	cd feynman_11 $(CSEP) $(MAKE) clean
 	cd corrs $(CSEP) $(MAKE) clean
+	cd sqroot $(CSEP) $(MAKE) clean
 	cd curve $(CSEP) $(MAKE) clean
 	cd scatter_plot $(CSEP) $(MAKE) clean
 	cd diffeq $(CSEP) $(MAKE) clean
