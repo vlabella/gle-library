@@ -33,9 +33,32 @@ jobs:
           repository: "vlabella/gle"
           path: gle
 
-      - name: Get Version Number from GLE's CMakeLists.txt file
-        id: version-number
-        run: echo "VERSION=$(awk 'tolower($0) ~ /project\([[:blank:]]*[[:alnum:]]+[[:blank:]]+version[[:blank:]]+[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+[[:blank:]]*\)/{print $4}' gle/src/CMakeLists.txt)" >> $GITHUB_ENV
+      - name: Extract version with grep (full SemVer)
+        shell: bash
+        run: |
+            set -euo pipefail
+            VERSION="$(grep -Po '^\s*[Pp][Rr][Oo][Jj][Ee][Cc][Tt]\(\s*[^ )]+\s+[Vv][Ee][Rr][Ss][Ii][Oo][Nn]\s+\K[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?' gle/src/CMakeLists.txt | tr -d '\r')"
+            if [[ -z "${VERSION:-}" ]]; then
+              echo "Failed to extract VERSION from gle/src/CMakeLists.txt" >&2
+              exit 1
+            fi
+            echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Print the version number for confiramtion
+        run: printf '%s\n' "$VERSION"
+
+      - name: Validate VERSION before release
+        shell: bash
+        run: |
+            set -euo pipefail
+            if [[ -z "${VERSION:-}" ]]; then
+              echo "VERSION is empty; aborting release." >&2
+              exit 1
+            fi
+            if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([\-+][0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$ ]]; then
+              echo "VERSION '$VERSION' is not SemVer; aborting release." >&2
+              exit 1
+            fi
 
       - name: Add gle-library to GLE_USRLIB
         working-directory: ${{github.workspace}}
