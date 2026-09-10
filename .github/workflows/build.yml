@@ -25,10 +25,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout GLE Library
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Checkout GLE
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: "vlabella/gle"
           path: gle
@@ -115,7 +115,7 @@ jobs:
           zip -r gle-library-${{ env.VERSION }}.zip src include scripts
 
       - name: Upload Artifacts - GLE Library zip file
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v7
         with:
           name: GLE Library
           path: |
