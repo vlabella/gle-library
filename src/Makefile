@@ -148,6 +148,7 @@ all:
 	cd feynman_5 $(CSEP) $(MAKE)
 	cd brewer_sample $(CSEP) $(MAKE)
 	cd inpstm $(CSEP) $(MAKE)
+	cd spectrum $(CSEP) $(MAKE)
 	cd f-f2 $(CSEP) $(MAKE)
 	cd hat $(CSEP) $(MAKE)
 	cd nottingham $(CSEP) $(MAKE)
@@ -349,6 +350,7 @@ clean:
 	cd feynman_5 $(CSEP) $(MAKE) clean
 	cd brewer_sample $(CSEP) $(MAKE) clean
 	cd inpstm $(CSEP) $(MAKE) clean
+	cd spectrum $(CSEP) $(MAKE) clean
 	cd f-f2 $(CSEP) $(MAKE) clean
 	cd hat $(CSEP) $(MAKE) clean
 	cd nottingham $(CSEP) $(MAKE) clean
