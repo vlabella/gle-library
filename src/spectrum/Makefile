@@ -26,17 +26,17 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 # \
 !endif
 
-all: <spectrum.eps <spectrum.pdf <spectrum.png
+all: spectrum.eps spectrum.pdf spectrum.png
 
-<spectrum.eps: <spectrum.gle>
-	gle -device EPS -cairo <spectrum.gle>
+spectrum.eps: spectrum.gle
+	gle -device EPS -cairo spectrum.gle
 
-<spectrum.pdf: <spectrum.gle>
-	gle -device PDF -cairo <spectrum.gle>
+spectrum.pdf: spectrum.gle
+	gle -device PDF -cairo spectrum.gle
 
-<spectrum.png: <spectrum.gle>
-	gle -device PNG -cairo -DPI 150 <spectrum.gle>
+spectrum.png: spectrum.gle
+	gle -device PNG -cairo -DPI 150 spectrum.gle
 
 clean:
-	-$(RM) <spectrum.eps <spectrum.pdf <spectrum.png
+	-$(RM) spectrum.eps spectrum.pdf spectrum.png
 	-$(RMDIR) .gle
