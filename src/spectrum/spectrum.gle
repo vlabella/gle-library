@@ -1,1 +1,56 @@
+! Example by Jan Soubusta
 
+size 26 20
+include "../spectrum_lib.gle"
+set hei .6 lwidth .04 font texcmr
+
+! ----------------------------------------------------------
+! graph x and y ranges
+! ----------------------------------------------------------
+xod = 300
+xdo =  850
+yod = -1000 
+ydo = 40000
+
+! ----------------------------------------------------------
+! vertical line at a given wavelength
+! ----------------------------------------------------------
+sub linka kde
+  xx = xg(kde)
+  amove xx yg(ygmin); aline xx yg(ygmax)
+  rmove 0 1
+  write kde
+end sub
+
+! ----------------------------------------------------------
+! Graph with rainbow and vertical lines at maxima
+! ----------------------------------------------------------
+amove 2 2.2
+begin graph
+    fullsize
+    size 23 16
+    xaxis min xod max xdo dticks 50 dsubticks 10
+    yaxis min yod max ydo 
+    xlabels hei .7
+    ylabels off
+    xtitle "\lambda\ [nm]" hei .8
+    ytitle "Photoluminescence [arb. unit.]"  hei .8 dist .4
+    data "P_spec.dat" d1 d2 d3 d4 d5
+    d1 line color red    
+    d2 line color orange 
+    d3 line color black lwidth .03  
+    d4 line color green  
+    d5 line color blue   
+    key pos tl nobox offset .2 .2
+end graph
+
+fig_top_spec .3 2
+fig_bottom_spec -.2 2
+
+set color black lstyle 2 just cc
+linka 401.5
+linka 485
+linka 535
+linka 573
+linka 607
+linka 647
