@@ -1,7 +1,7 @@
 ! Example by Jan Soubusta
 
 size 26 20
-include "../spectrum_lib.gle"
+include "spectrum_lib.gle"
 set hei .6 lwidth .04 font texcmr
 
 ! ----------------------------------------------------------
