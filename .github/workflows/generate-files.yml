@@ -32,6 +32,6 @@ jobs:
         run: |
           cd scripts ; python3 gen_makefile.py ; python3 gen_include.py
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Automatic Regenaration of Makefiles and Include File
