@@ -1,0 +1,178 @@
+! Library by Jan Soubusta
+! -------------------------------------------------------------------
+! from 350 nm to 800 nm
+! -------------------------------------------------------------------
+rainbow_outside_color$="white"
+
+! -------------------------------------------------------------------
+sub rainbow_lambda_RGB lambda
+local z = 3.423455e-3
+  z = z*(lambda-400) 
+RGB_r = 0
+RGB_g = 0
+RGB_b = 0
+if (lambda < 350) then
+  return
+else if (lambda > 800) then
+  return
+else if (z <= 0.0) then
+  RGB_r = 1.0+z*5.0
+  RGB_g = 0.0
+  RGB_b = RGB_r
+else if (z <= 0.1) then
+  RGB_r = 1.0*((0.1-z)/0.1)
+  RGB_g = 0.0
+  RGB_b = 1.0
+else if (z < 0.2) then
+  RGB_r = 0.0
+  RGB_g = 1.0*((z-0.1)/0.1)
+  RGB_b = 1.0
+else if (z < 0.4) then
+  RGB_r = 0.0
+  RGB_g = 1.0
+  RGB_b = 1.0*(0.4-z)/0.2
+else if (z < 0.6) then
+  RGB_r = 1.0*((z-0.4)/0.2)
+  RGB_g = 1.0
+  RGB_b = 0.0
+else if (z < 0.8) then
+  RGB_r = 1.0
+  RGB_g = 1.0*(0.8-z)/0.2
+  RGB_b = 0.0
+else if (z <= 1.3) then
+  RGB_r = 0.25*(1.2-z)/0.2+0.5
+  RGB_g = 0.0
+  RGB_b = 0.0
+else 
+  RGB_r = 0.375; RGB_g = 0; RGB_b = 0
+end if
+end sub
+
+! -------------------------------------------------------------------
+sub rainbow_lambda lambda
+  if (lambda < 350) then
+    return rainbow_outside_color$
+  else if (lambda > 800) then
+    return rainbow_outside_color$
+  else 
+    rainbow_lambda_RGB lambda
+    return rgb(RGB_r,RGB_g,RGB_b)
+  end if
+end sub
+
+! -------------------------------------------------------------------
+! gray_factor = 0 ... Colored
+!             = 1 ... Grayscale
+ 
+sub pale_rainbow_lambda lambda gray_factor
+  local ygray, gray1
+  gray1 = 1-gray_factor
+
+  rainbow_lambda_RGB lambda
+  ygray = (0.299*RGB_r + 0.587*RGB_g + 0.114*RGB_b)*gray_factor
+  
+  RGB_r = ygray + RGB_r*gray1
+  RGB_g = ygray + RGB_g*gray1
+  RGB_b = ygray + RGB_b*gray1
+
+  return rgb(RGB_r,RGB_g,RGB_b)
+end sub
+
+! -------------------------------------------------------------------
+! Plots rainbow to a graph with xaxis in nanometers. 
+! visible colors are between 350-800 nm
+! It is placed above or below x_axis.
+! sy = width e.g. -.2 plotted below x_axis
+!                  .2 plotted abowe x_axis
+! po = step in nanometers
+
+sub fig_top_spec sy po
+  default sy .2
+  default po 2
+  po2 = .5*po
+  sx = xg(xgmax) - xg(xgmin)
+  yy = yg(ygmax)
+
+  xst = po*sx / (xgmax-xgmin)
+  for x = xgmin to xgmax-po2 step po
+   if (x>=350) and (x+po2<=800) then 
+    amove xg(x) yy
+    set fill rainbow_lambda(x+po2)
+    box xst sy nobox
+   end if 
+  next x 
+end sub
+
+! -------------------------------------------------------------------
+sub fig_bottom_spec sy po
+  default sy .2
+  default po 2
+  po2 = .5*po
+  sx = xg(xgmax) - xg(xgmin)
+  yy = yg(ygmin)
+
+  xst = po*sx / (xgmax-xgmin)
+  for x = xgmin to xgmax-po2 step po
+   if (x>=350) and (x+po2<=800) then 
+    amove xg(x) yy
+    set fill rainbow_lambda(x+po2)
+    box xst sy nobox
+   end if 
+  next x 
+end sub
+
+! -------------------------------------------------------------------
+! Six color palettes with rainbow colors 
+! The values are mapped to the interval of variable z from 0 to 1. 
+! nm = from BLUE to RED, THz = from RED to BLUE
+! lin = linear mapping, quad and sqrt = pushed to sides.
+
+sub palette_rainbow_nm_lin z 
+   return rainbow_lambda(380*(z+1))
+end sub
+
+sub palette_rainbow_nm_quad z
+   return rainbow_lambda(380*(z^2+1))
+end sub
+
+sub palette_rainbow_nm_sqrt z
+   return rainbow_lambda(380*(sqrt(z)+1))
+end sub
+
+sub palette_rainbow_THz_lin z
+   return rainbow_lambda(380*2/(z+1))
+end sub
+
+sub palette_rainbow_THz_quad z
+   return rainbow_lambda(380*2/(z^2+1))
+end sub
+
+sub palette_rainbow_THz_sqrt z
+   return rainbow_lambda(380*2/(sqrt(z)+1))
+end sub
+
+! -------------------------------------------------------------------
+! Two parameters: z (0-1, color), k (0-1, color-gray) 
+sub z2palette_rainbow_nm_lin z k 
+   return pale_rainbow_lambda(380*(z+1),k)
+end sub
+
+sub z2palette_rainbow_nm_quad z k
+   return pale_rainbow_lambda(380*(z^2+1),k)
+end sub
+
+sub z2palette_rainbow_nm_sqrt z k
+   return pale_rainbow_lambda(380*(sqrt(z)+1),k)
+end sub
+
+sub z2palette_rainbow_THz_lin z k
+   return pale_rainbow_lambda(380*2/(z+1),k)
+end sub
+
+sub z2palette_rainbow_THz_quad z k
+   return pale_rainbow_lambda(380*2/(z^2+1),k)
+end sub
+
+sub z2palette_rainbow_THz_sqrt z k
+   return pale_rainbow_lambda(380*2/(sqrt(z)+1),k)
+end sub
