@@ -1,1 +1,45 @@
+size 18 5
+set just cc hei .35 font texcmr lwidth .02 join round
+include spectrum_lib.gle 
 
+! -------------------------------------------------------------------------
+! -------------------------------------------------------------------------
+! -------------------------------------------------------------------------
+amove 1. 1.1
+begin graph
+  title "Colors of rainbow"
+  size 15 3
+  fullsize
+  xaxis min 350 max 800 
+  yaxis min -.1 max 1.2 nolast 
+  y2axis off
+  x2axis off
+  xticks length -.2
+end graph
+amove xg(xgmax)+1 yg(ygmin)-.5
+write "\lambda\ [nm]"
+
+@fig_top_spec -.2 2
+
+po = 2
+po2 = .5*po
+set color red
+amove xg(xgmin) yg(.144)
+for x = xgmin to xgmax-po2 step po
+  rainbow_lambda_RGB(x+po2)
+  aline xg(x) yg(RGB_r)
+next x
+
+set color green
+amove xg(xgmin) yg(0)
+for x = xgmin to xgmax-po2 step po
+  rainbow_lambda_RGB(x+po2)
+  aline xg(x) yg(RGB_g)
+next x
+
+set color blue
+amove xg(xgmin) yg(.144)
+for x = xgmin to xgmax-po2 step po
+  rainbow_lambda_RGB(x+po2)
+  aline xg(x) yg(RGB_b)
+next x
