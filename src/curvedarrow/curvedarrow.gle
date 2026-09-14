@@ -5,8 +5,11 @@ include "shape.gle"
 
 ! extra space between rows in LaTeX table (on the right)
 begin texpreamble
-   \usepackage{tabls}
-   \setlength{\tablinesep}{0.3cm}
+   ! old latex package replace with below
+   ! \usepackage{tabls}
+   ! \setlength{\tablinesep}{0.3cm}
+   \usepackage{array}
+   \setlength{\extrarowheight}{2mm}
 end texpreamble
 
 ! draw tiny dotted lines between point and corresponding label
@@ -292,7 +295,7 @@ begin box add 0.1 fill rgb255(240,240,240) round 0.2
    begin tex
       \begin{tabular}{l}
       $c(t) = (r\cos{t},r\sin{t})$\\
-      $\vec{T}(c(t)) = \frac{c'(t)}{||c'(t)||} = (-\sin{t},\cos{t})$  \\
+      $\vec{T}(c(t)) = \frac{c'(t)}{||c'(t)||} = (-\sin{t},\cos{t})$\\
       $\vec{N}(c(t)) = (\vec{T_y}(c(t)), -\vec{T_x}(c(t))) = (\cos{t},\sin{t})$\\
       $d(c(u),t_0,t) = r\cdot(t-t_0)$\\
       $h(t) = d(c(u),t_0,t)\cdot\tan{\alpha}$\\
