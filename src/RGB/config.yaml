@@ -1,8 +1,8 @@
-author: Jan Soubusta>
-author_email: <>
-cairo: <false>
-category: <line>
-description: <RGB components of spectrum lines>
-filename: <RGB_gaph.gle>
-name: <RGB_gaph>
-notes: <>
+author: Jan Soubusta
+author_email: 
+cairo: false
+category: line
+description: RGB components of spectrum lines
+filename: RGB_gaph.gle
+name: RGB_gaph
+notes:
