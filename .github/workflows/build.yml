@@ -65,17 +65,18 @@ jobs:
         run: export GLE_USRLIB=${{github.workspace}}/include:$GLE_USRLIB
 
       - name: update apt
-        run: sudo apt update
+        run: sudo apt-get update
 
       - name: install packages
         # do not install qt - not building the GUI
         run: |
          set -x
          touch ${{github.workspace}}/gle/configure.args
-         sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng \
-         cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev \
-         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev \
-         python3
+         sudo apt-get install cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev \
+         libgs-dev libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev \
+         libz-dev libpoppler-dev libpoppler-cpp-dev libpoppler-glib-dev \
+         libglib2.0-dev extra-cmake-modules ghostscript dpkg-dev docbook-to-man \
+         texlive texlive-latex-extra texlive-science dvipng latexmk
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle
