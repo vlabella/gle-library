@@ -192,28 +192,72 @@ end sub
 sub dmaxx ds$
    ! Function to compute the maximum x-value of a dataset
    local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
    local crmax = dataxvalue(ds$,1)
-   for i = 2 to ndata(ds$)
+   if nd = 1 then
+      return crmax
+   end if
+   for i = 2 to nd
       crmax = max(crmax, dataxvalue(ds$,i))
    next i
    return crmax
 end sub
 
+
 sub dmaxy ds$
    ! Function to compute the maximum y-value of a dataset
    local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set" ds$ "has zero elements"
+      return 0
+   end if
    local crmax = datayvalue(ds$,1)
-   for i = 2 to ndata(ds$)
+   if nd = 1 then
+      return crmax
+   end if
+   for i = 2 to nd
       crmax = max(crmax, datayvalue(ds$,i))
    next i
    return crmax
 end sub
 
+sub dmaxy_original ds$
+   ! Function to compute the maximum y-value of a dataset
+   local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
+   local crmax = datayvalue(ds$,1)
+   if nd = 1 then
+      return crmax
+   end if
+   for i = 2 to nd
+      crmax = max(crmax, datayvalue(ds$,i))
+   next i
+   return crmax
+end sub
+
+
 sub dminx ds$
    ! Function to compute the minimum x-value of a dataset
    local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
    local crmin = dataxvalue(ds$,1)
-   for i = 2 to ndata(ds$)
+   if nd = 1 then
+      return crmin
+   end if
+   for i = 2 to nd
       crmin = min(crmin, dataxvalue(ds$,i))
    next i
    return crmin
@@ -222,8 +266,16 @@ end sub
 sub dminy ds$
    ! Function to compute the minimum y-value of a dataset
    local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
    local crmin = datayvalue(ds$,1)
-   for i = 2 to ndata(ds$)
+   if nd = 1 then
+      return crmin
+   end if
+   for i = 2 to nd
       crmin = min(crmin, datayvalue(ds$,i))
    next i
    return crmin
@@ -232,17 +284,96 @@ end sub
 sub dmeany ds$
    ! Function to compute the mean y-value of a dataset
    local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
    local sum = 0
-   for i = 1 to ndata(ds$)
+   for i = 1 to nd
       sum = sum + datayvalue(ds$,i)
    next i
    return sum/ndata(ds$)
+end sub
+
+sub dmeanx ds$
+   ! Function to compute the mean x-value of a dataset
+   local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
+   local sum = 0
+   for i = 1 to nd
+      sum = sum + dataxvalue(ds$,i)
+   next i
+   return sum/ndata(ds$)
+end sub
+
+sub dstdevy ds$ sample
+   ! Function to compute the standard deviation of the y-values
+   ! sample = 0: population standard deviation, divide by n
+   ! sample = 1: sample standard deviation, divide by n-1
+   default sample 0
+   local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
+   if sample = 1 and nd = 1 then
+      print "Error: data set " ds$ "has one element. Sample standard deviation requires at least two elements"
+      return 0
+   end if
+   local mean = dmeany(ds$)
+   local sum = 0
+   local denom = nd
+   if sample = 1 then
+      denom = nd-1
+   end if
+   for i = 1 to nd
+      sum = sum + (datayvalue(ds$,i) - mean)^2
+   next i
+   return sqrt(sum/denom)
+end sub
+
+sub dstdevx ds$ sample
+   ! Function to compute the standard deviation of the x-values
+   ! sample = 0: population standard deviation, divide by n
+   ! sample = 1: sample standard deviation, divide by n-1
+   default sample 0
+   local i
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return 0
+   end if
+   if sample = 1 and nd = 1 then
+      print "Error: data set " ds$ "has one element. Sample standard deviation requires at least two elements"
+      return 0
+   end if
+   local mean = dmeanx(ds$)
+   local sum = 0
+   local denom = nd
+   if sample = 1 then
+      denom = nd-1
+   end if
+   for i = 1 to nd
+      sum = sum + (dataxvalue(ds$,i) - mean)^2
+   next i
+   return sqrt(sum/denom)
 end sub
 
 sub darea ds$
    ! Function to compute the area between a dataset and the x-axis
    local i
    local area = 0
+   local nd = ndata(ds$)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return area
+   end if
    local prev_x = dataxvalue(ds$,1)
    local prev_y = datayvalue(ds$,1)
    for i = 2 to ndata(ds$)
@@ -254,41 +385,53 @@ sub darea ds$
    return area
 end sub
 
-sub dmeany_x d$ x
-   ! compute average y-value for given x-value x for dataset d$
-   local i   
+sub dmeany_x ds$ x
+   ! compute average y-value for given x-value x for dataset ds$
+   local i
    local nb_y = 0
    local sum_y = 0
-   for i = 1 to ndata(d$)
-      if dataxvalue(d$,i) = x then
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return area
+   end if
+   for i = 1 to ndata(ds$)
+      if dataxvalue(ds$,i) = x then
          nb_y = nb_y + 1
-         sum_y = sum_y + datayvalue(d$,i)
+         sum_y = sum_y + datayvalue(ds$,i)
       end if
    next i
    return sum_y / nb_y
 end sub
 
-sub derry_up_x d$ x
+sub derry_up_x ds$ x
    ! compute maximum upward deviation from the mean y-value
    local i
    local max_err = -1e300
-   local mean = dmeany_x(d$, x)
-   for i = 1 to ndata(d$)
-      if dataxvalue(d$,i) = x then
-         max_err = max(max_err, datayvalue(d$,i)-mean)
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return area
+   end if
+   local mean = dmeany_x(ds$, x)
+   for i = 1 to ndata(ds$)
+      if dataxvalue(ds$,i) = x then
+         max_err = max(max_err, datayvalue(ds$,i)-mean)
       end if
    next i
    return max_err
 end sub
 
-sub derry_down_x d$ x
+sub derry_down_x ds$ x
    ! compute maximum downward deviation from the mean y-value
    local i
+   if nd = 0 then
+      print "Error: data set " ds$ "has zero elements"
+      return area
+   end if
    local max_err = -1e300
-   local mean = dmeany_x(d$, x)
-   for i = 1 to ndata(d$)
-      if dataxvalue(d$,i) = x then
-         max_err = max(max_err, mean-datayvalue(d$,i))
+   local mean = dmeany_x(ds$, x)
+   for i = 1 to ndata(ds$)
+      if dataxvalue(ds$,i) = x then
+         max_err = max(max_err, mean-datayvalue(ds$,i))
       end if
    next i
    return max_err

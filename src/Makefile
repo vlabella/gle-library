@@ -132,7 +132,6 @@ all:
 	cd adphas $(CSEP) $(MAKE)
 	cd feynman_7 $(CSEP) $(MAKE)
 	cd radar $(CSEP) $(MAKE)
-	cd RGB $(CSEP) $(MAKE)
 	cd armand $(CSEP) $(MAKE)
 	cd perceptron $(CSEP) $(MAKE)
 	cd colormapcontour $(CSEP) $(MAKE)
@@ -335,7 +334,6 @@ clean:
 	cd adphas $(CSEP) $(MAKE) clean
 	cd feynman_7 $(CSEP) $(MAKE) clean
 	cd radar $(CSEP) $(MAKE) clean
-	cd RGB $(CSEP) $(MAKE) clean
 	cd armand $(CSEP) $(MAKE) clean
 	cd perceptron $(CSEP) $(MAKE) clean
 	cd colormapcontour $(CSEP) $(MAKE) clean
