@@ -62,8 +62,6 @@ begin name perceptron
    drawsign width(sum)
 end name
 
-
-
 ! draw ellipse around internal node
 set_ellipse_c 0.65
 ellipse_obj perceptron ell
@@ -101,8 +99,6 @@ sub drawinode idx name$ wi$
       tex wi$
    end box
 end sub
-
-dummy
 
 ! draw the input and output nodes
 drawinode 1  "1" "$w_0$"

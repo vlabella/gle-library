@@ -8,7 +8,9 @@
 
 size 10 8
 
-set font ss cap round join round
+! set font ss cap round join round
+
+set font texcmr
 
 begin graph
 
