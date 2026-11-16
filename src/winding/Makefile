@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: winding.eps winding.pdf winding.png
 
 winding.eps: winding.gle
-	gle -device EPS -cairo winding.gle
+	gle -device EPS -cairo  winding.gle
+
+eps: winding.eps
 
 winding.pdf: winding.gle
-	gle -device PDF -cairo winding.gle
+	gle -device PDF -cairo  winding.gle
+
+pdf: winding.pdf
 
 winding.png: winding.gle
 	gle -device PNG -cairo -DPI 150 winding.gle
+
+png: winding.png
 
 clean:
 	-$(RM) winding.eps winding.pdf winding.png

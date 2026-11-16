@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: jitter.eps jitter.pdf jitter.png
 
 jitter.eps: jitter.gle
-	gle -device EPS -cairo jitter.gle
+	gle -device EPS -cairo  jitter.gle
+
+eps: jitter.eps
 
 jitter.pdf: jitter.gle
-	gle -device PDF -cairo jitter.gle
+	gle -device PDF -cairo  jitter.gle
+
+pdf: jitter.pdf
 
 jitter.png: jitter.gle
 	gle -device PNG -cairo -DPI 150 jitter.gle
+
+png: jitter.png
 
 clean:
 	-$(RM) jitter.eps jitter.pdf jitter.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: dvifill.eps dvifill.pdf dvifill.png
 
 dvifill.eps: dvifill.gle
-	gle -device EPS -cairo dvifill.gle
+	gle -device EPS -cairo  dvifill.gle
+
+eps: dvifill.eps
 
 dvifill.pdf: dvifill.gle
-	gle -device PDF -cairo dvifill.gle
+	gle -device PDF -cairo  dvifill.gle
+
+pdf: dvifill.pdf
 
 dvifill.png: dvifill.gle
 	gle -device PNG -cairo -DPI 150 dvifill.gle
+
+png: dvifill.png
 
 clean:
 	-$(RM) dvifill.eps dvifill.pdf dvifill.png

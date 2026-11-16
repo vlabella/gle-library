@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: stairs.eps stairs.pdf stairs.png
 
 stairs.eps: stairs.gle
-	gle -device EPS -cairo stairs.gle
+	gle -device EPS  stairs.gle
+
+eps: stairs.eps
 
 stairs.pdf: stairs.gle
-	gle -device PDF -cairo stairs.gle
+	gle -device PDF  stairs.gle
+
+pdf: stairs.pdf
 
 stairs.png: stairs.gle
-	gle -device PNG -cairo -DPI 150 stairs.gle
+	gle -device PNG -DPI 150 stairs.gle
+
+png: stairs.png
 
 clean:
 	-$(RM) stairs.eps stairs.pdf stairs.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: protract.eps protract.pdf protract.png
 
 protract.eps: protract.gle
-	gle -device EPS -cairo protract.gle
+	gle -device EPS -cairo  protract.gle
+
+eps: protract.eps
 
 protract.pdf: protract.gle
-	gle -device PDF -cairo protract.gle
+	gle -device PDF -cairo  protract.gle
+
+pdf: protract.pdf
 
 protract.png: protract.gle
 	gle -device PNG -cairo -DPI 150 protract.gle
+
+png: protract.png
 
 clean:
 	-$(RM) protract.eps protract.pdf protract.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: gradient.eps gradient.pdf gradient.png
 
 gradient.eps: gradient.gle
-	gle -device EPS -cairo gradient.gle
+	gle -device EPS -cairo  gradient.gle
+
+eps: gradient.eps
 
 gradient.pdf: gradient.gle
-	gle -device PDF -cairo gradient.gle
+	gle -device PDF -cairo  gradient.gle
+
+pdf: gradient.pdf
 
 gradient.png: gradient.gle
 	gle -device PNG -cairo -DPI 150 gradient.gle
+
+png: gradient.png
 
 clean:
 	-$(RM) gradient.eps gradient.pdf gradient.png

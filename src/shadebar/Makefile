@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: shadebar.eps shadebar.pdf shadebar.png
 
 shadebar.eps: shadebar.gle
-	gle -device EPS -cairo shadebar.gle
+	gle -device EPS -cairo  shadebar.gle
+
+eps: shadebar.eps
 
 shadebar.pdf: shadebar.gle
-	gle -device PDF -cairo shadebar.gle
+	gle -device PDF -cairo  shadebar.gle
+
+pdf: shadebar.pdf
 
 shadebar.png: shadebar.gle
 	gle -device PNG -cairo -DPI 150 shadebar.gle
+
+png: shadebar.png
 
 clean:
 	-$(RM) shadebar.eps shadebar.pdf shadebar.png

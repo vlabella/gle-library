@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: opening.eps opening.pdf opening.png
 
 opening.eps: opening.gle
-	gle -device EPS -cairo opening.gle
+	gle -device EPS -cairo  opening.gle
+
+eps: opening.eps
 
 opening.pdf: opening.gle
-	gle -device PDF -cairo opening.gle
+	gle -device PDF -cairo  opening.gle
+
+pdf: opening.pdf
 
 opening.png: opening.gle
 	gle -device PNG -cairo -DPI 150 opening.gle
+
+png: opening.png
 
 clean:
 	-$(RM) opening.eps opening.pdf opening.png

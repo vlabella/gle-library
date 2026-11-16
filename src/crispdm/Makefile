@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: crispdm.eps crispdm.pdf crispdm.png
 
 crispdm.eps: crispdm.gle
-	gle -device EPS -cairo crispdm.gle
+	gle -device EPS -cairo  crispdm.gle
+
+eps: crispdm.eps
 
 crispdm.pdf: crispdm.gle
-	gle -device PDF -cairo crispdm.gle
+	gle -device PDF -cairo  crispdm.gle
+
+pdf: crispdm.pdf
 
 crispdm.png: crispdm.gle
 	gle -device PNG -cairo -DPI 150 crispdm.gle
+
+png: crispdm.png
 
 clean:
 	-$(RM) crispdm.eps crispdm.pdf crispdm.png

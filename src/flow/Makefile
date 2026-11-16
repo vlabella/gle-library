@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: flow.eps flow.pdf flow.png
 
 flow.eps: flow.gle
-	gle -device EPS -cairo flow.gle
+	gle -device EPS -cairo  flow.gle
+
+eps: flow.eps
 
 flow.pdf: flow.gle
-	gle -device PDF -cairo flow.gle
+	gle -device PDF -cairo  flow.gle
+
+pdf: flow.pdf
 
 flow.png: flow.gle
 	gle -device PNG -cairo -DPI 150 flow.gle
+
+png: flow.png
 
 clean:
 	-$(RM) flow.eps flow.pdf flow.png

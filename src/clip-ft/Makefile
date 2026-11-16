@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: clip-ft.eps clip-ft.pdf clip-ft.png
 
 clip-ft.eps: clip-ft.gle
-	gle -device EPS -cairo clip-ft.gle
+	gle -device EPS -cairo  clip-ft.gle
+
+eps: clip-ft.eps
 
 clip-ft.pdf: clip-ft.gle
-	gle -device PDF -cairo clip-ft.gle
+	gle -device PDF -cairo  clip-ft.gle
+
+pdf: clip-ft.pdf
 
 clip-ft.png: clip-ft.gle
 	gle -device PNG -cairo -DPI 150 clip-ft.gle
+
+png: clip-ft.png
 
 clean:
 	-$(RM) clip-ft.eps clip-ft.pdf clip-ft.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: M4_Re_Im.eps M4_Re_Im.pdf M4_Re_Im.png
 
 M4_Re_Im.eps: M4_Re_Im.gle
-	gle -device EPS -cairo M4_Re_Im.gle
+	gle -device EPS -cairo  M4_Re_Im.gle
+
+eps: M4_Re_Im.eps
 
 M4_Re_Im.pdf: M4_Re_Im.gle
-	gle -device PDF -cairo M4_Re_Im.gle
+	gle -device PDF -cairo  M4_Re_Im.gle
+
+pdf: M4_Re_Im.pdf
 
 M4_Re_Im.png: M4_Re_Im.gle
 	gle -device PNG -cairo -DPI 150 M4_Re_Im.gle
+
+png: M4_Re_Im.png
 
 clean:
 	-$(RM) M4_Re_Im.eps M4_Re_Im.pdf M4_Re_Im.png

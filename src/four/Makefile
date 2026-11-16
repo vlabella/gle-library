@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: four.eps four.pdf four.png
 
 four.eps: four.gle
-	gle -device EPS -cairo four.gle
+	gle -device EPS -cairo  four.gle
+
+eps: four.eps
 
 four.pdf: four.gle
-	gle -device PDF -cairo four.gle
+	gle -device PDF -cairo  four.gle
+
+pdf: four.pdf
 
 four.png: four.gle
 	gle -device PNG -cairo -DPI 150 four.gle
+
+png: four.png
 
 clean:
 	-$(RM) four.eps four.pdf four.png

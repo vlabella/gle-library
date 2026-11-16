@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: sine-approx.eps sine-approx.pdf sine-approx.png
 
 sine-approx.eps: sine-approx.gle
-	gle -device EPS -cairo sine-approx.gle
+	gle -device EPS -cairo  sine-approx.gle
+
+eps: sine-approx.eps
 
 sine-approx.pdf: sine-approx.gle
-	gle -device PDF -cairo sine-approx.gle
+	gle -device PDF -cairo  sine-approx.gle
+
+pdf: sine-approx.pdf
 
 sine-approx.png: sine-approx.gle
 	gle -device PNG -cairo -DPI 150 sine-approx.gle
+
+png: sine-approx.png
 
 clean:
 	-$(RM) sine-approx.eps sine-approx.pdf sine-approx.png

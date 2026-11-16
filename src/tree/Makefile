@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: tree.eps tree.pdf tree.png
 
 tree.eps: tree.gle
-	gle -device EPS -cairo tree.gle
+	gle -device EPS -cairo  tree.gle
+
+eps: tree.eps
 
 tree.pdf: tree.gle
-	gle -device PDF -cairo tree.gle
+	gle -device PDF -cairo  tree.gle
+
+pdf: tree.pdf
 
 tree.png: tree.gle
 	gle -device PNG -cairo -DPI 150 tree.gle
+
+png: tree.png
 
 clean:
 	-$(RM) tree.eps tree.pdf tree.png

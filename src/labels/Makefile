@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: labels.eps labels.pdf labels.png
 
 labels.eps: labels.gle
-	gle -device EPS -cairo labels.gle
+	gle -device EPS -cairo  labels.gle
+
+eps: labels.eps
 
 labels.pdf: labels.gle
-	gle -device PDF -cairo labels.gle
+	gle -device PDF -cairo  labels.gle
+
+pdf: labels.pdf
 
 labels.png: labels.gle
 	gle -device PNG -cairo -DPI 150 labels.gle
+
+png: labels.png
 
 clean:
 	-$(RM) labels.eps labels.pdf labels.png

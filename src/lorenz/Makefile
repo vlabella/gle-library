@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: lorenz.eps lorenz.pdf lorenz.png
 
 lorenz.eps: lorenz.gle
-	gle -device EPS -cairo lorenz.gle
+	gle -device EPS  lorenz.gle
+
+eps: lorenz.eps
 
 lorenz.pdf: lorenz.gle
-	gle -device PDF -cairo lorenz.gle
+	gle -device PDF  lorenz.gle
+
+pdf: lorenz.pdf
 
 lorenz.png: lorenz.gle
-	gle -device PNG -cairo -DPI 150 lorenz.gle
+	gle -device PNG -DPI 150 lorenz.gle
+
+png: lorenz.png
 
 clean:
 	-$(RM) lorenz.eps lorenz.pdf lorenz.png

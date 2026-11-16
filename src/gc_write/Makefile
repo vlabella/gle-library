@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: gc_write.eps gc_write.pdf gc_write.png
 
 gc_write.eps: gc_write.gle
-	gle -device EPS -cairo gc_write.gle
+	gle -device EPS -cairo  gc_write.gle
+
+eps: gc_write.eps
 
 gc_write.pdf: gc_write.gle
-	gle -device PDF -cairo gc_write.gle
+	gle -device PDF -cairo  gc_write.gle
+
+pdf: gc_write.pdf
 
 gc_write.png: gc_write.gle
 	gle -device PNG -cairo -DPI 150 gc_write.gle
+
+png: gc_write.png
 
 clean:
 	-$(RM) gc_write.eps gc_write.pdf gc_write.png

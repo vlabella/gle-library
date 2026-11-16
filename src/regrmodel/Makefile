@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: regrmodel.eps regrmodel.pdf regrmodel.png
 
 regrmodel.eps: regrmodel.gle
-	gle -device EPS -cairo regrmodel.gle
+	gle -device EPS -cairo  regrmodel.gle
+
+eps: regrmodel.eps
 
 regrmodel.pdf: regrmodel.gle
-	gle -device PDF -cairo regrmodel.gle
+	gle -device PDF -cairo  regrmodel.gle
+
+pdf: regrmodel.pdf
 
 regrmodel.png: regrmodel.gle
 	gle -device PNG -cairo -DPI 150 regrmodel.gle
+
+png: regrmodel.png
 
 clean:
 	-$(RM) regrmodel.eps regrmodel.pdf regrmodel.png

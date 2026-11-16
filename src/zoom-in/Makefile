@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: zoom-in.eps zoom-in.pdf zoom-in.png
 
 zoom-in.eps: zoom-in.gle
-	gle -device EPS -cairo zoom-in.gle
+	gle -device EPS -cairo  zoom-in.gle
+
+eps: zoom-in.eps
 
 zoom-in.pdf: zoom-in.gle
-	gle -device PDF -cairo zoom-in.gle
+	gle -device PDF -cairo  zoom-in.gle
+
+pdf: zoom-in.pdf
 
 zoom-in.png: zoom-in.gle
 	gle -device PNG -cairo -DPI 150 zoom-in.gle
+
+png: zoom-in.png
 
 clean:
 	-$(RM) zoom-in.eps zoom-in.pdf zoom-in.png

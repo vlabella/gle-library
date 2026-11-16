@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: brics.eps brics.pdf brics.png
 
 brics.eps: brics.gle
-	gle -device EPS -cairo brics.gle
+	gle -device EPS  brics.gle
+
+eps: brics.eps
 
 brics.pdf: brics.gle
-	gle -device PDF -cairo brics.gle
+	gle -device PDF  brics.gle
+
+pdf: brics.pdf
 
 brics.png: brics.gle
-	gle -device PNG -cairo -DPI 150 brics.gle
+	gle -device PNG -DPI 150 brics.gle
+
+png: brics.png
 
 clean:
 	-$(RM) brics.eps brics.pdf brics.png

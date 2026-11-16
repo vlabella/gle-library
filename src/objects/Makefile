@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: objects.eps objects.pdf objects.png
 
 objects.eps: objects.gle
-	gle -device EPS -cairo objects.gle
+	gle -device EPS -cairo  objects.gle
+
+eps: objects.eps
 
 objects.pdf: objects.gle
-	gle -device PDF -cairo objects.gle
+	gle -device PDF -cairo  objects.gle
+
+pdf: objects.pdf
 
 objects.png: objects.gle
 	gle -device PNG -cairo -DPI 150 objects.gle
+
+png: objects.png
 
 clean:
 	-$(RM) objects.eps objects.pdf objects.png

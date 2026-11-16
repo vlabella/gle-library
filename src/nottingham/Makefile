@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: nottingham.eps nottingham.pdf nottingham.png
 
 nottingham.eps: nottingham.gle
-	gle -device EPS -cairo nottingham.gle
+	gle -device EPS  nottingham.gle
+
+eps: nottingham.eps
 
 nottingham.pdf: nottingham.gle
-	gle -device PDF -cairo nottingham.gle
+	gle -device PDF  nottingham.gle
+
+pdf: nottingham.pdf
 
 nottingham.png: nottingham.gle
-	gle -device PNG -cairo -DPI 150 nottingham.gle
+	gle -device PNG -DPI 150 nottingham.gle
+
+png: nottingham.png
 
 clean:
 	-$(RM) nottingham.eps nottingham.pdf nottingham.png

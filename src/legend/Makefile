@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: legend.eps legend.pdf legend.png
 
 legend.eps: legend.gle
-	gle -device EPS -cairo legend.gle
+	gle -device EPS -cairo  legend.gle
+
+eps: legend.eps
 
 legend.pdf: legend.gle
-	gle -device PDF -cairo legend.gle
+	gle -device PDF -cairo  legend.gle
+
+pdf: legend.pdf
 
 legend.png: legend.gle
 	gle -device PNG -cairo -DPI 150 legend.gle
+
+png: legend.png
 
 clean:
 	-$(RM) legend.eps legend.pdf legend.png

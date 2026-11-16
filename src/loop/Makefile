@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: loop.eps loop.pdf loop.png
 
 loop.eps: loop.gle
-	gle -device EPS -cairo loop.gle
+	gle -device EPS -cairo  loop.gle
+
+eps: loop.eps
 
 loop.pdf: loop.gle
-	gle -device PDF -cairo loop.gle
+	gle -device PDF -cairo  loop.gle
+
+pdf: loop.pdf
 
 loop.png: loop.gle
 	gle -device PNG -cairo -DPI 150 loop.gle
+
+png: loop.png
 
 clean:
 	-$(RM) loop.eps loop.pdf loop.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: hat.eps hat.pdf hat.png
 
 hat.eps: hat.gle
-	gle -device EPS -cairo hat.gle
+	gle -device EPS  hat.gle
+
+eps: hat.eps
 
 hat.pdf: hat.gle
-	gle -device PDF -cairo hat.gle
+	gle -device PDF  hat.gle
+
+pdf: hat.pdf
 
 hat.png: hat.gle
-	gle -device PNG -cairo -DPI 150 hat.gle
+	gle -device PNG -DPI 150 hat.gle
+
+png: hat.png
 
 clean:
 	-$(RM) hat.eps hat.pdf hat.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: semitrans.eps semitrans.pdf semitrans.png
 
 semitrans.eps: semitrans.gle
-	gle -device EPS -cairo semitrans.gle
+	gle -device EPS -cairo  semitrans.gle
+
+eps: semitrans.eps
 
 semitrans.pdf: semitrans.gle
-	gle -device PDF -cairo semitrans.gle
+	gle -device PDF -cairo  semitrans.gle
+
+pdf: semitrans.pdf
 
 semitrans.png: semitrans.gle
 	gle -device PNG -cairo -DPI 150 semitrans.gle
+
+png: semitrans.png
 
 clean:
 	-$(RM) semitrans.eps semitrans.pdf semitrans.png

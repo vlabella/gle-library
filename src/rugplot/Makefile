@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: rugplot.eps rugplot.pdf rugplot.png
 
 rugplot.eps: rugplot.gle
-	gle -device EPS -cairo rugplot.gle
+	gle -device EPS -cairo  rugplot.gle
+
+eps: rugplot.eps
 
 rugplot.pdf: rugplot.gle
-	gle -device PDF -cairo rugplot.gle
+	gle -device PDF -cairo  rugplot.gle
+
+pdf: rugplot.pdf
 
 rugplot.png: rugplot.gle
 	gle -device PNG -cairo -DPI 150 rugplot.gle
+
+png: rugplot.png
 
 clean:
 	-$(RM) rugplot.eps rugplot.pdf rugplot.png

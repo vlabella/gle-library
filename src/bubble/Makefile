@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: bubble.eps bubble.pdf bubble.png
 
 bubble.eps: bubble.gle
-	gle -device EPS -cairo bubble.gle
+	gle -device EPS -cairo  bubble.gle
+
+eps: bubble.eps
 
 bubble.pdf: bubble.gle
-	gle -device PDF -cairo bubble.gle
+	gle -device PDF -cairo  bubble.gle
+
+pdf: bubble.pdf
 
 bubble.png: bubble.gle
 	gle -device PNG -cairo -DPI 150 bubble.gle
+
+png: bubble.png
 
 clean:
 	-$(RM) bubble.eps bubble.pdf bubble.png

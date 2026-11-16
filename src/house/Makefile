@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: house.eps house.pdf house.png
 
 house.eps: house.gle
-	gle -device EPS -cairo house.gle
+	gle -device EPS -cairo  house.gle
+
+eps: house.eps
 
 house.pdf: house.gle
-	gle -device PDF -cairo house.gle
+	gle -device PDF -cairo  house.gle
+
+pdf: house.pdf
 
 house.png: house.gle
 	gle -device PNG -cairo -DPI 150 house.gle
+
+png: house.png
 
 clean:
 	-$(RM) house.eps house.pdf house.png

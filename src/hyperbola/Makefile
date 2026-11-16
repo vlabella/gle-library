@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: hyperbola.eps hyperbola.pdf hyperbola.png
 
 hyperbola.eps: hyperbola.gle
-	gle -device EPS -cairo hyperbola.gle
+	gle -device EPS -cairo  hyperbola.gle
+
+eps: hyperbola.eps
 
 hyperbola.pdf: hyperbola.gle
-	gle -device PDF -cairo hyperbola.gle
+	gle -device PDF -cairo  hyperbola.gle
+
+pdf: hyperbola.pdf
 
 hyperbola.png: hyperbola.gle
 	gle -device PNG -cairo -DPI 150 hyperbola.gle
+
+png: hyperbola.png
 
 clean:
 	-$(RM) hyperbola.eps hyperbola.pdf hyperbola.png

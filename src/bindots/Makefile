@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: bindots.eps bindots.pdf bindots.png
 
 bindots.eps: bindots.gle
-	gle -device EPS -cairo bindots.gle
+	gle -device EPS -cairo  bindots.gle
+
+eps: bindots.eps
 
 bindots.pdf: bindots.gle
-	gle -device PDF -cairo bindots.gle
+	gle -device PDF -cairo  bindots.gle
+
+pdf: bindots.pdf
 
 bindots.png: bindots.gle
 	gle -device PNG -cairo -DPI 150 bindots.gle
+
+png: bindots.png
 
 clean:
 	-$(RM) bindots.eps bindots.pdf bindots.png

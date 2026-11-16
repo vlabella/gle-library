@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: arrowstyle.eps arrowstyle.pdf arrowstyle.png
 
 arrowstyle.eps: arrowstyle.gle
-	gle -device EPS -cairo arrowstyle.gle
+	gle -device EPS -cairo  arrowstyle.gle
+
+eps: arrowstyle.eps
 
 arrowstyle.pdf: arrowstyle.gle
-	gle -device PDF -cairo arrowstyle.gle
+	gle -device PDF -cairo  arrowstyle.gle
+
+pdf: arrowstyle.pdf
 
 arrowstyle.png: arrowstyle.gle
 	gle -device PNG -cairo -DPI 150 arrowstyle.gle
+
+png: arrowstyle.png
 
 clean:
 	-$(RM) arrowstyle.eps arrowstyle.pdf arrowstyle.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: errors.eps errors.pdf errors.png
 
 errors.eps: errors.gle
-	gle -device EPS -cairo errors.gle
+	gle -device EPS -cairo  errors.gle
+
+eps: errors.eps
 
 errors.pdf: errors.gle
-	gle -device PDF -cairo errors.gle
+	gle -device PDF -cairo  errors.gle
+
+pdf: errors.pdf
 
 errors.png: errors.gle
 	gle -device PNG -cairo -DPI 150 errors.gle
+
+png: errors.png
 
 clean:
 	-$(RM) errors.eps errors.pdf errors.png

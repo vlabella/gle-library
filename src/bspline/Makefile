@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: bspline.eps bspline.pdf bspline.png
 
 bspline.eps: bspline.gle
-	gle -device EPS -cairo bspline.gle
+	gle -device EPS -cairo  bspline.gle
+
+eps: bspline.eps
 
 bspline.pdf: bspline.gle
-	gle -device PDF -cairo bspline.gle
+	gle -device PDF -cairo  bspline.gle
+
+pdf: bspline.pdf
 
 bspline.png: bspline.gle
 	gle -device PNG -cairo -DPI 150 bspline.gle
+
+png: bspline.png
 
 clean:
 	-$(RM) bspline.eps bspline.pdf bspline.png

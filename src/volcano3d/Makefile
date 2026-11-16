@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: volcano3d.eps volcano3d.pdf volcano3d.png
 
 volcano3d.eps: volcano3d.gle
-	gle -device EPS -cairo volcano3d.gle
+	gle -device EPS -cairo  volcano3d.gle
+
+eps: volcano3d.eps
 
 volcano3d.pdf: volcano3d.gle
-	gle -device PDF -cairo volcano3d.gle
+	gle -device PDF -cairo  volcano3d.gle
+
+pdf: volcano3d.pdf
 
 volcano3d.png: volcano3d.gle
 	gle -device PNG -cairo -DPI 150 volcano3d.gle
+
+png: volcano3d.png
 
 clean:
 	-$(RM) volcano3d.eps volcano3d.pdf volcano3d.png

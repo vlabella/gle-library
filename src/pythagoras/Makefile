@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: pythagoras.eps pythagoras.pdf pythagoras.png
 
 pythagoras.eps: pythagoras.gle
-	gle -device EPS -cairo pythagoras.gle
+	gle -device EPS -cairo  pythagoras.gle
+
+eps: pythagoras.eps
 
 pythagoras.pdf: pythagoras.gle
-	gle -device PDF -cairo pythagoras.gle
+	gle -device PDF -cairo  pythagoras.gle
+
+pdf: pythagoras.pdf
 
 pythagoras.png: pythagoras.gle
 	gle -device PNG -cairo -DPI 150 pythagoras.gle
+
+png: pythagoras.png
 
 clean:
 	-$(RM) pythagoras.eps pythagoras.pdf pythagoras.png

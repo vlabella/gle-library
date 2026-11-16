@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: histogram.eps histogram.pdf histogram.png
 
 histogram.eps: histogram.gle
-	gle -device EPS -cairo histogram.gle
+	gle -device EPS -cairo  histogram.gle
+
+eps: histogram.eps
 
 histogram.pdf: histogram.gle
-	gle -device PDF -cairo histogram.gle
+	gle -device PDF -cairo  histogram.gle
+
+pdf: histogram.pdf
 
 histogram.png: histogram.gle
 	gle -device PNG -cairo -DPI 150 histogram.gle
+
+png: histogram.png
 
 clean:
 	-$(RM) histogram.eps histogram.pdf histogram.png

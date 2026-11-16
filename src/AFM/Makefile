@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: AFM.eps AFM.pdf AFM.png
 
 AFM.eps: AFM.gle
-	gle -device EPS -cairo AFM.gle
+	gle -device EPS -cairo  AFM.gle
+
+eps: AFM.eps
 
 AFM.pdf: AFM.gle
-	gle -device PDF -cairo AFM.gle
+	gle -device PDF -cairo  AFM.gle
+
+pdf: AFM.pdf
 
 AFM.png: AFM.gle
 	gle -device PNG -cairo -DPI 150 AFM.gle
+
+png: AFM.png
 
 clean:
 	-$(RM) AFM.eps AFM.pdf AFM.png

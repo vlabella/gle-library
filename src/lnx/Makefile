@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: lnx.eps lnx.pdf lnx.png
 
 lnx.eps: lnx.gle
-	gle -device EPS -cairo lnx.gle
+	gle -device EPS -cairo  lnx.gle
+
+eps: lnx.eps
 
 lnx.pdf: lnx.gle
-	gle -device PDF -cairo lnx.gle
+	gle -device PDF -cairo  lnx.gle
+
+pdf: lnx.pdf
 
 lnx.png: lnx.gle
 	gle -device PNG -cairo -DPI 150 lnx.gle
+
+png: lnx.png
 
 clean:
 	-$(RM) lnx.eps lnx.pdf lnx.png

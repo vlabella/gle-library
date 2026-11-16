@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: quantilescale.eps quantilescale.pdf quantilescale.png
 
 quantilescale.eps: quantilescale.gle
-	gle -device EPS -cairo quantilescale.gle
+	gle -device EPS -cairo  quantilescale.gle
+
+eps: quantilescale.eps
 
 quantilescale.pdf: quantilescale.gle
-	gle -device PDF -cairo quantilescale.gle
+	gle -device PDF -cairo  quantilescale.gle
+
+pdf: quantilescale.pdf
 
 quantilescale.png: quantilescale.gle
 	gle -device PNG -cairo -DPI 150 quantilescale.gle
+
+png: quantilescale.png
 
 clean:
 	-$(RM) quantilescale.eps quantilescale.pdf quantilescale.png

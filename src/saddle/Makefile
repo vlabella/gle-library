@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: saddle.eps saddle.pdf saddle.png
 
 saddle.eps: saddle.gle
-	gle -device EPS -cairo saddle.gle
+	gle -device EPS -cairo  saddle.gle
+
+eps: saddle.eps
 
 saddle.pdf: saddle.gle
-	gle -device PDF -cairo saddle.gle
+	gle -device PDF -cairo  saddle.gle
+
+pdf: saddle.pdf
 
 saddle.png: saddle.gle
 	gle -device PNG -cairo -DPI 150 saddle.gle
+
+png: saddle.png
 
 clean:
 	-$(RM) saddle.eps saddle.pdf saddle.png

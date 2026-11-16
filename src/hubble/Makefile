@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: hubble.eps hubble.pdf hubble.png
 
 hubble.eps: hubble.gle
-	gle -device EPS -cairo hubble.gle
+	gle -device EPS -cairo  hubble.gle
+
+eps: hubble.eps
 
 hubble.pdf: hubble.gle
-	gle -device PDF -cairo hubble.gle
+	gle -device PDF -cairo  hubble.gle
+
+pdf: hubble.pdf
 
 hubble.png: hubble.gle
 	gle -device PNG -cairo -DPI 150 hubble.gle
+
+png: hubble.png
 
 clean:
 	-$(RM) hubble.eps hubble.pdf hubble.png

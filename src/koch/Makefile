@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: koch.eps koch.pdf koch.png
 
 koch.eps: koch.gle
-	gle -device EPS -cairo koch.gle
+	gle -device EPS -cairo  koch.gle
+
+eps: koch.eps
 
 koch.pdf: koch.gle
-	gle -device PDF -cairo koch.gle
+	gle -device PDF -cairo  koch.gle
+
+pdf: koch.pdf
 
 koch.png: koch.gle
 	gle -device PNG -cairo -DPI 150 koch.gle
+
+png: koch.png
 
 clean:
 	-$(RM) koch.eps koch.pdf koch.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: fitting.eps fitting.pdf fitting.png
 
 fitting.eps: fitting.gle
-	gle -device EPS -cairo fitting.gle
+	gle -device EPS -cairo  fitting.gle
+
+eps: fitting.eps
 
 fitting.pdf: fitting.gle
-	gle -device PDF -cairo fitting.gle
+	gle -device PDF -cairo  fitting.gle
+
+pdf: fitting.pdf
 
 fitting.png: fitting.gle
 	gle -device PNG -cairo -DPI 150 fitting.gle
+
+png: fitting.png
 
 clean:
 	-$(RM) fitting.eps fitting.pdf fitting.png

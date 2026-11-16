@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: diffeq.eps diffeq.pdf diffeq.png
 
 diffeq.eps: diffeq.gle
-	gle -device EPS -cairo diffeq.gle
+	gle -device EPS -cairo  diffeq.gle
+
+eps: diffeq.eps
 
 diffeq.pdf: diffeq.gle
-	gle -device PDF -cairo diffeq.gle
+	gle -device PDF -cairo  diffeq.gle
+
+pdf: diffeq.pdf
 
 diffeq.png: diffeq.gle
 	gle -device PNG -cairo -DPI 150 diffeq.gle
+
+png: diffeq.png
 
 clean:
 	-$(RM) diffeq.eps diffeq.pdf diffeq.png

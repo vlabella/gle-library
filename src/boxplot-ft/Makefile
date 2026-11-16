@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: boxplot-ft.eps boxplot-ft.pdf boxplot-ft.png
 
 boxplot-ft.eps: boxplot-ft.gle
-	gle -device EPS -cairo boxplot-ft.gle
+	gle -device EPS -cairo  boxplot-ft.gle
+
+eps: boxplot-ft.eps
 
 boxplot-ft.pdf: boxplot-ft.gle
-	gle -device PDF -cairo boxplot-ft.gle
+	gle -device PDF -cairo  boxplot-ft.gle
+
+pdf: boxplot-ft.pdf
 
 boxplot-ft.png: boxplot-ft.gle
 	gle -device PNG -cairo -DPI 150 boxplot-ft.gle
+
+png: boxplot-ft.png
 
 clean:
 	-$(RM) boxplot-ft.eps boxplot-ft.pdf boxplot-ft.png

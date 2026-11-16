@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: curve.eps curve.pdf curve.png
 
 curve.eps: curve.gle
-	gle -device EPS -cairo curve.gle
+	gle -device EPS -cairo  curve.gle
+
+eps: curve.eps
 
 curve.pdf: curve.gle
-	gle -device PDF -cairo curve.gle
+	gle -device PDF -cairo  curve.gle
+
+pdf: curve.pdf
 
 curve.png: curve.gle
 	gle -device PNG -cairo -DPI 150 curve.gle
+
+png: curve.png
 
 clean:
 	-$(RM) curve.eps curve.pdf curve.png

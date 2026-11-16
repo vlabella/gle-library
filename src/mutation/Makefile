@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: mutation.eps mutation.pdf mutation.png
 
 mutation.eps: mutation.gle
-	gle -device EPS -cairo mutation.gle
+	gle -device EPS -cairo  mutation.gle
+
+eps: mutation.eps
 
 mutation.pdf: mutation.gle
-	gle -device PDF -cairo mutation.gle
+	gle -device PDF -cairo  mutation.gle
+
+pdf: mutation.pdf
 
 mutation.png: mutation.gle
 	gle -device PNG -cairo -DPI 150 mutation.gle
+
+png: mutation.png
 
 clean:
 	-$(RM) mutation.eps mutation.pdf mutation.png

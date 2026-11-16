@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: brewersample.eps brewersample.pdf brewersample.png
 
 brewersample.eps: brewersample.gle
-	gle -device EPS -cairo brewersample.gle
+	gle -device EPS  brewersample.gle
+
+eps: brewersample.eps
 
 brewersample.pdf: brewersample.gle
-	gle -device PDF -cairo brewersample.gle
+	gle -device PDF  brewersample.gle
+
+pdf: brewersample.pdf
 
 brewersample.png: brewersample.gle
-	gle -device PNG -cairo -DPI 150 brewersample.gle
+	gle -device PNG -DPI 150 brewersample.gle
+
+png: brewersample.png
 
 clean:
 	-$(RM) brewersample.eps brewersample.pdf brewersample.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: perceptron.eps perceptron.pdf perceptron.png
 
 perceptron.eps: perceptron.gle
-	gle -device EPS -cairo perceptron.gle
+	gle -device EPS  perceptron.gle
+
+eps: perceptron.eps
 
 perceptron.pdf: perceptron.gle
-	gle -device PDF -cairo perceptron.gle
+	gle -device PDF  perceptron.gle
+
+pdf: perceptron.pdf
 
 perceptron.png: perceptron.gle
-	gle -device PNG -cairo -DPI 150 perceptron.gle
+	gle -device PNG -DPI 150 perceptron.gle
+
+png: perceptron.png
 
 clean:
 	-$(RM) perceptron.eps perceptron.pdf perceptron.png

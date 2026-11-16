@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: mandelbrot.eps mandelbrot.pdf mandelbrot.png
 
 mandelbrot.eps: mandelbrot.gle
-	gle -device EPS -cairo mandelbrot.gle
+	gle -device EPS -cairo  mandelbrot.gle
+
+eps: mandelbrot.eps
 
 mandelbrot.pdf: mandelbrot.gle
-	gle -device PDF -cairo mandelbrot.gle
+	gle -device PDF -cairo  mandelbrot.gle
+
+pdf: mandelbrot.pdf
 
 mandelbrot.png: mandelbrot.gle
 	gle -device PNG -cairo -DPI 150 mandelbrot.gle
+
+png: mandelbrot.png
 
 clean:
 	-$(RM) mandelbrot.eps mandelbrot.pdf mandelbrot.png

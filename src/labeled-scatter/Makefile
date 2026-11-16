@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: labeled-scatter.eps labeled-scatter.pdf labeled-scatter.png
 
 labeled-scatter.eps: labeled-scatter.gle
-	gle -device EPS -cairo labeled-scatter.gle
+	gle -device EPS -cairo  labeled-scatter.gle
+
+eps: labeled-scatter.eps
 
 labeled-scatter.pdf: labeled-scatter.gle
-	gle -device PDF -cairo labeled-scatter.gle
+	gle -device PDF -cairo  labeled-scatter.gle
+
+pdf: labeled-scatter.pdf
 
 labeled-scatter.png: labeled-scatter.gle
 	gle -device PNG -cairo -DPI 150 labeled-scatter.gle
+
+png: labeled-scatter.png
 
 clean:
 	-$(RM) labeled-scatter.eps labeled-scatter.pdf labeled-scatter.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: sierpinski.eps sierpinski.pdf sierpinski.png
 
 sierpinski.eps: sierpinski.gle
-	gle -device EPS -cairo sierpinski.gle
+	gle -device EPS -cairo  sierpinski.gle
+
+eps: sierpinski.eps
 
 sierpinski.pdf: sierpinski.gle
-	gle -device PDF -cairo sierpinski.gle
+	gle -device PDF -cairo  sierpinski.gle
+
+pdf: sierpinski.pdf
 
 sierpinski.png: sierpinski.gle
 	gle -device PNG -cairo -DPI 150 sierpinski.gle
+
+png: sierpinski.png
 
 clean:
 	-$(RM) sierpinski.eps sierpinski.pdf sierpinski.png

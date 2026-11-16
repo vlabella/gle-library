@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: cos2t.eps cos2t.pdf cos2t.png
 
 cos2t.eps: cos2t.gle
-	gle -device EPS -cairo cos2t.gle
+	gle -device EPS -cairo  cos2t.gle
+
+eps: cos2t.eps
 
 cos2t.pdf: cos2t.gle
-	gle -device PDF -cairo cos2t.gle
+	gle -device PDF -cairo  cos2t.gle
+
+pdf: cos2t.pdf
 
 cos2t.png: cos2t.gle
 	gle -device PNG -cairo -DPI 150 cos2t.gle
+
+png: cos2t.png
 
 clean:
 	-$(RM) cos2t.eps cos2t.pdf cos2t.png

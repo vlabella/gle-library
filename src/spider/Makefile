@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: spider.eps spider.pdf spider.png
 
 spider.eps: spider.gle
-	gle -device EPS -cairo spider.gle
+	gle -device EPS -cairo  spider.gle
+
+eps: spider.eps
 
 spider.pdf: spider.gle
-	gle -device PDF -cairo spider.gle
+	gle -device PDF -cairo  spider.gle
+
+pdf: spider.pdf
 
 spider.png: spider.gle
 	gle -device PNG -cairo -DPI 150 spider.gle
+
+png: spider.png
 
 clean:
 	-$(RM) spider.eps spider.pdf spider.png

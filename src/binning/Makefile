@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: binning.eps binning.pdf binning.png
 
 binning.eps: binning.gle
-	gle -device EPS -cairo binning.gle
+	gle -device EPS -cairo  binning.gle
+
+eps: binning.eps
 
 binning.pdf: binning.gle
-	gle -device PDF -cairo binning.gle
+	gle -device PDF -cairo  binning.gle
+
+pdf: binning.pdf
 
 binning.png: binning.gle
 	gle -device PNG -cairo -DPI 150 binning.gle
+
+png: binning.png
 
 clean:
 	-$(RM) binning.eps binning.pdf binning.png

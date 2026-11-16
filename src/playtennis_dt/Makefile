@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: playtennis_dt.eps playtennis_dt.pdf playtennis_dt.png
 
 playtennis_dt.eps: playtennis_dt.gle
-	gle -device EPS -cairo playtennis_dt.gle
+	gle -device EPS -cairo  playtennis_dt.gle
+
+eps: playtennis_dt.eps
 
 playtennis_dt.pdf: playtennis_dt.gle
-	gle -device PDF -cairo playtennis_dt.gle
+	gle -device PDF -cairo  playtennis_dt.gle
+
+pdf: playtennis_dt.pdf
 
 playtennis_dt.png: playtennis_dt.gle
 	gle -device PNG -cairo -DPI 150 playtennis_dt.gle
+
+png: playtennis_dt.png
 
 clean:
 	-$(RM) playtennis_dt.eps playtennis_dt.pdf playtennis_dt.png

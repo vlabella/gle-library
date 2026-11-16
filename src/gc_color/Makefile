@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: gc_color.eps gc_color.pdf gc_color.png
 
 gc_color.eps: gc_color.gle
-	gle -device EPS -cairo gc_color.gle
+	gle -device EPS -cairo  gc_color.gle
+
+eps: gc_color.eps
 
 gc_color.pdf: gc_color.gle
-	gle -device PDF -cairo gc_color.gle
+	gle -device PDF -cairo  gc_color.gle
+
+pdf: gc_color.pdf
 
 gc_color.png: gc_color.gle
 	gle -device PNG -cairo -DPI 150 gc_color.gle
+
+png: gc_color.png
 
 clean:
 	-$(RM) gc_color.eps gc_color.pdf gc_color.png

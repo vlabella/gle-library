@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: dragon.eps dragon.pdf dragon.png
 
 dragon.eps: dragon.gle
-	gle -device EPS -cairo dragon.gle
+	gle -device EPS -cairo  dragon.gle
+
+eps: dragon.eps
 
 dragon.pdf: dragon.gle
-	gle -device PDF -cairo dragon.gle
+	gle -device PDF -cairo  dragon.gle
+
+pdf: dragon.pdf
 
 dragon.png: dragon.gle
 	gle -device PNG -cairo -DPI 150 dragon.gle
+
+png: dragon.png
 
 clean:
 	-$(RM) dragon.eps dragon.pdf dragon.png

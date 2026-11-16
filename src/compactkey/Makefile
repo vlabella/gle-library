@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: compactkey.eps compactkey.pdf compactkey.png
 
 compactkey.eps: compactkey.gle
-	gle -device EPS -cairo compactkey.gle
+	gle -device EPS -cairo  compactkey.gle
+
+eps: compactkey.eps
 
 compactkey.pdf: compactkey.gle
-	gle -device PDF -cairo compactkey.gle
+	gle -device PDF -cairo  compactkey.gle
+
+pdf: compactkey.pdf
 
 compactkey.png: compactkey.gle
 	gle -device PNG -cairo -DPI 150 compactkey.gle
+
+png: compactkey.png
 
 clean:
 	-$(RM) compactkey.eps compactkey.pdf compactkey.png

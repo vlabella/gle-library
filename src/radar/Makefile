@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: radar.eps radar.pdf radar.png
 
 radar.eps: radar.gle
-	gle -device EPS -cairo radar.gle
+	gle -device EPS -cairo  radar.gle
+
+eps: radar.eps
 
 radar.pdf: radar.gle
-	gle -device PDF -cairo radar.gle
+	gle -device PDF -cairo  radar.gle
+
+pdf: radar.pdf
 
 radar.png: radar.gle
 	gle -device PNG -cairo -DPI 150 radar.gle
+
+png: radar.png
 
 clean:
 	-$(RM) radar.eps radar.pdf radar.png

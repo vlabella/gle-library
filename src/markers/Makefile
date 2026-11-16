@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: markers.eps markers.pdf markers.png
 
 markers.eps: markers.gle
-	gle -device EPS -cairo markers.gle
+	gle -device EPS  markers.gle
+
+eps: markers.eps
 
 markers.pdf: markers.gle
-	gle -device PDF -cairo markers.gle
+	gle -device PDF  markers.gle
+
+pdf: markers.pdf
 
 markers.png: markers.gle
-	gle -device PNG -cairo -DPI 150 markers.gle
+	gle -device PNG -DPI 150 markers.gle
+
+png: markers.png
 
 clean:
 	-$(RM) markers.eps markers.pdf markers.png

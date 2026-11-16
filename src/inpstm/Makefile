@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: inpstm.eps inpstm.pdf inpstm.png
 
 inpstm.eps: inpstm.gle
-	gle -device EPS -cairo inpstm.gle
+	gle -device EPS -cairo  inpstm.gle
+
+eps: inpstm.eps
 
 inpstm.pdf: inpstm.gle
-	gle -device PDF -cairo inpstm.gle
+	gle -device PDF -cairo  inpstm.gle
+
+pdf: inpstm.pdf
 
 inpstm.png: inpstm.gle
 	gle -device PNG -cairo -DPI 150 inpstm.gle
+
+png: inpstm.png
 
 clean:
 	-$(RM) inpstm.eps inpstm.pdf inpstm.png

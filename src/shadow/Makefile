@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: shadow.eps shadow.pdf shadow.png
 
 shadow.eps: shadow.gle
-	gle -device EPS -cairo shadow.gle
+	gle -device EPS -cairo  shadow.gle
+
+eps: shadow.eps
 
 shadow.pdf: shadow.gle
-	gle -device PDF -cairo shadow.gle
+	gle -device PDF -cairo  shadow.gle
+
+pdf: shadow.pdf
 
 shadow.png: shadow.gle
 	gle -device PNG -cairo -DPI 150 shadow.gle
+
+png: shadow.png
 
 clean:
 	-$(RM) shadow.eps shadow.pdf shadow.png

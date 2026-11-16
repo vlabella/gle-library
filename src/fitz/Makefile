@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: fitz.eps fitz.pdf fitz.png
 
 fitz.eps: fitz.gle
-	gle -device EPS -cairo fitz.gle
+	gle -device EPS -cairo  fitz.gle
+
+eps: fitz.eps
 
 fitz.pdf: fitz.gle
-	gle -device PDF -cairo fitz.gle
+	gle -device PDF -cairo  fitz.gle
+
+pdf: fitz.pdf
 
 fitz.png: fitz.gle
 	gle -device PNG -cairo -DPI 150 fitz.gle
+
+png: fitz.png
 
 clean:
 	-$(RM) fitz.eps fitz.pdf fitz.png

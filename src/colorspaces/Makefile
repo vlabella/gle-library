@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: colorspaces.eps colorspaces.pdf colorspaces.png
 
 colorspaces.eps: colorspaces.gle
-	gle -device EPS -cairo colorspaces.gle
+	gle -device EPS -cairo  colorspaces.gle
+
+eps: colorspaces.eps
 
 colorspaces.pdf: colorspaces.gle
-	gle -device PDF -cairo colorspaces.gle
+	gle -device PDF -cairo  colorspaces.gle
+
+pdf: colorspaces.pdf
 
 colorspaces.png: colorspaces.gle
 	gle -device PNG -cairo -DPI 150 colorspaces.gle
+
+png: colorspaces.png
 
 clean:
 	-$(RM) colorspaces.eps colorspaces.pdf colorspaces.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: scatter_plot.eps scatter_plot.pdf scatter_plot.png
 
 scatter_plot.eps: scatter_plot.gle
-	gle -device EPS -cairo scatter_plot.gle
+	gle -device EPS -cairo  scatter_plot.gle
+
+eps: scatter_plot.eps
 
 scatter_plot.pdf: scatter_plot.gle
-	gle -device PDF -cairo scatter_plot.gle
+	gle -device PDF -cairo  scatter_plot.gle
+
+pdf: scatter_plot.pdf
 
 scatter_plot.png: scatter_plot.gle
 	gle -device PNG -cairo -DPI 150 scatter_plot.gle
+
+png: scatter_plot.png
 
 clean:
 	-$(RM) scatter_plot.eps scatter_plot.pdf scatter_plot.png

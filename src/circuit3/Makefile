@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: circuit3.eps circuit3.pdf circuit3.png
 
 circuit3.eps: circuit3.gle
-	gle -device EPS -cairo circuit3.gle
+	gle -device EPS -cairo  circuit3.gle
+
+eps: circuit3.eps
 
 circuit3.pdf: circuit3.gle
-	gle -device PDF -cairo circuit3.gle
+	gle -device PDF -cairo  circuit3.gle
+
+pdf: circuit3.pdf
 
 circuit3.png: circuit3.gle
 	gle -device PNG -cairo -DPI 150 circuit3.gle
+
+png: circuit3.png
 
 clean:
 	-$(RM) circuit3.eps circuit3.pdf circuit3.png

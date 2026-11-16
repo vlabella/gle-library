@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: bar_chart.eps bar_chart.pdf bar_chart.png
 
 bar_chart.eps: bar_chart.gle
-	gle -device EPS -cairo bar_chart.gle
+	gle -device EPS -cairo  bar_chart.gle
+
+eps: bar_chart.eps
 
 bar_chart.pdf: bar_chart.gle
-	gle -device PDF -cairo bar_chart.gle
+	gle -device PDF -cairo  bar_chart.gle
+
+pdf: bar_chart.pdf
 
 bar_chart.png: bar_chart.gle
 	gle -device PNG -cairo -DPI 150 bar_chart.gle
+
+png: bar_chart.png
 
 clean:
 	-$(RM) bar_chart.eps bar_chart.pdf bar_chart.png

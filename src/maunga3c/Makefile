@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: maunga3c.eps maunga3c.pdf maunga3c.png
 
 maunga3c.eps: maunga3c.gle
-	gle -device EPS -cairo maunga3c.gle
+	gle -device EPS  maunga3c.gle
+
+eps: maunga3c.eps
 
 maunga3c.pdf: maunga3c.gle
-	gle -device PDF -cairo maunga3c.gle
+	gle -device PDF  maunga3c.gle
+
+pdf: maunga3c.pdf
 
 maunga3c.png: maunga3c.gle
-	gle -device PNG -cairo -DPI 150 maunga3c.gle
+	gle -device PNG -DPI 150 maunga3c.gle
+
+png: maunga3c.png
 
 clean:
 	-$(RM) maunga3c.eps maunga3c.pdf maunga3c.png

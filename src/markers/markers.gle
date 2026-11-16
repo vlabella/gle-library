@@ -1,90 +1,123 @@
-! Example with custom markers.
-! Author: Francois Tonneau
+size 10 14
+include "extra_graph_markers.gle"
 
-size 12 7
+set font texcmss
+set hei 0.25
+marker_size=2
+set just tc
 
-set font ss join round lwidth 0.03 hei 0.30
+!-----------------------------------------------------------------------
+! Built-in markers
+!-----------------------------------------------------------------------
 
-! We define a scaling factor to make the size of custom markers comparable to
-! the standard size, which is about equal to character height (0.7 times 1).
+amove 5 13.2
+write "Built-in Markers"
 
-custom_marker_scaling = 0.7
+! Row 1
+amove 1.0 12.3 ; marker asterisk marker_size   ; rmove 0 -0.30 ; write "asterisk"
+amove 2.1 12.3 ; marker asterix marker_size    ; rmove 0 -0.30 ; write "asterix"
+amove 3.2 12.3 ; marker circle marker_size     ; rmove 0 -0.30 ; write "circle"
+amove 4.3 12.3 ; marker cross marker_size      ; rmove 0 -0.30 ; write "cross"
+amove 5.4 12.3 ; marker dag marker_size        ; rmove 0 -0.30 ; write "dag"
+amove 6.5 12.3 ; marker ddag marker_size       ; rmove 0 -0.30 ; write "ddag"
+amove 7.6 12.3 ; marker diamond marker_size    ; rmove 0 -0.30 ; write "diamond"
+amove 8.7 12.3 ; marker diamondz marker_size   ; rmove 0 -0.30 ; write "diamondz"
 
-! GLE lets us define markers in terms of custom subroutines that accept two
-! parameters. When called with the 'msize' option, the first parameter will
-! determine marker size. When called with the 'mdata dk' option, the second
-! parameter will determine a marker property of our choice (say, a rotation
-! angle) based on the values from dataset dk. Inside the subroutine, we put
-! graphical commands to draw the marker we want.
+! Row 2
+amove 1.0 10.8 ; marker dot marker_size         ; rmove 0 -0.30 ; write "dot"
+amove 2.1 10.8 ; marker fcircle marker_size     ; rmove 0 -0.30 ; write "fcircle"
+amove 3.2 10.8 ; marker fdiamond marker_size    ; rmove 0 -0.30 ; write "fdiamond"
+amove 4.3 10.8 ; marker fsquare marker_size     ; rmove 0 -0.30 ; write "fsquare"
+amove 5.4 10.8 ; marker fstarr marker_size      ; rmove 0 -0.30 ; write "fstarr"
+amove 6.5 10.8 ; marker ftriangle marker_size   ; rmove 0 -0.30 ; write "ftriangle"
+amove 7.6 10.8 ; marker ftriangled marker_size  ; rmove 0 -0.30 ; write "ftriangled"
+amove 8.7 10.8 ; marker heart marker_size       ; rmove 0 -0.30 ; write "heart"
 
-! Here we define three subroutines to draw custom markers. We employ only one
-! parameter (the one related to marker size), but we need to declare two, so
-! we put 'datum' as an empty placeholder (any other name would do). The color
-! drawn in each subroutine is that of the marker fill; edge color will be
-! determined at run time by the line color used when plotting a dataset.
+! Row 3
+amove 1.0 9.3 ; marker minus marker_size       ; rmove 0 -0.30 ; write "minus"
+amove 2.1 9.3 ; marker odot marker_size        ; rmove 0 -0.30 ; write "odot"
+amove 3.2 9.3 ; marker ominus marker_size      ; rmove 0 -0.30 ; write "ominus"
+amove 4.3 9.3 ; marker oplus marker_size       ; rmove 0 -0.30 ; write "oplus"
+amove 5.4 9.3 ; marker otimes marker_size      ; rmove 0 -0.30 ; write "otimes"
+amove 6.5 9.3 ; marker pcross marker_size      ; rmove 0 -0.30 ; write "pcross"
+amove 7.6 9.3 ; marker plus marker_size        ; rmove 0 -0.30 ; write "plus"
+amove 8.7 9.3 ; marker snake marker_size       ; rmove 0 -0.30 ; write "snake"
 
-sub draw_blue_circle weight datum
-    local radius = custom_marker_scaling * weight/2
-    circle radius fill cadetblue
-end sub
+! Row 4
+amove 1.0 7.8 ; marker square marker_size      ; rmove 0 -0.30 ; write "square"
+amove 2.1 7.8 ; marker star marker_size        ; rmove 0 -0.30 ; write "star"
+amove 3.2 7.8 ; marker starr marker_size       ; rmove 0 -0.30 ; write "starr"
+amove 4.3 7.8 ; marker triangle marker_size    ; rmove 0 -0.30 ; write "triangle"
+amove 5.4 7.8 ; marker triangled marker_size   ; rmove 0 -0.30 ; write "triangled"
+amove 6.5 7.8 ; marker trianglez marker_size   ; rmove 0 -0.30 ; write "trianglez"
+amove 7.6 7.8 ; marker wcircle marker_size     ; rmove 0 -0.30 ; write "wcircle"
+amove 8.7 7.8 ; marker wdiamond marker_size    ; rmove 0 -0.30 ; write "wdiamond"
 
-sub draw_beige_square weight datum
-    local width = custom_marker_scaling * weight
-    box width width justify cc fill goldenrod
-end sub
+! Row 5
+amove 1.0 6.3 ; marker wsquare marker_size      ; rmove 0 -0.30 ; write "wsquare"
+amove 2.1 6.3 ; marker wstarr marker_size       ; rmove 0 -0.30 ; write "wstarr"
+amove 3.2 6.3 ; marker wtriangle marker_size    ; rmove 0 -0.30 ; write "wtriangle"
+amove 4.3 6.3 ; marker wtriangled marker_size   ; rmove 0 -0.30 ; write "wtriangled"
 
-sub draw_red_triangle weight datum
-    local width = custom_marker_scaling * weight
-    rmove -width/2 width/3
-    begin path stroke fill tomato
-        rline  width    0
-        rline -width/2 -width
-        closepath
-    end path
-end sub
 
-! We define markers in terms of our subroutines:
+!-----------------------------------------------------------------------
+! PostScript markers (PSZD / Zapf Dingbats)
+!-----------------------------------------------------------------------
 
-define marker blue_circle  draw_blue_circle
-define marker beige_square draw_beige_square
-define marker red_triangle draw_red_triangle
+if isghostscript() then
 
-! These markers can now be used to plot data:
+    amove 5 5.3
+    write "PostScript Markers (Zapf Dingbats)"
 
-amove 2 1.5
-begin graph
-    size 5 5
-    fullsize
-    xaxis min 0 max 4.5 ftick 0 dticks 1
-    yaxis min 0 max 80 ftick 0 dticks 20
-    subticks off
-    side lwidth 0.02
-    labels dist 0.2
-    xtitle "Pellets per min" dist 0.3 color black
-    ytitle "Lever presses per min" dist 0.3 color black
+    ! Row 1
+    amove 1.0 4.5 ; marker club marker_size      ; rmove 0 -0.30 ; write "club"
+    amove 2.1 4.5 ; marker flower marker_size    ; rmove 0 -0.30 ; write "flower"
+    amove 3.2 4.5 ; marker handpen marker_size   ; rmove 0 -0.30 ; write "handpen"
+    amove 4.3 4.5 ; marker letter marker_size    ; rmove 0 -0.30 ; write "letter"
+    amove 5.4 4.5 ; marker phone marker_size     ; rmove 0 -0.30 ; write "phone"
+    amove 6.5 4.5 ; marker plane marker_size     ; rmove 0 -0.30 ; write "plane"
 
-    data "markers.dat"
+    ! Row 2
+    amove 1.0 3.3 ; marker scircle marker_size   ; rmove 0 -0.30 ; write "scircle"
+    amove 2.1 3.3 ; marker spade marker_size     ; rmove 0 -0.30 ; write "spade"
+    amove 3.2 3.3 ; marker ssquare marker_size   ; rmove 0 -0.30 ; write "ssquare"
+    amove 4.3 3.3 ; marker star2 marker_size     ; rmove 0 -0.30 ; write "star2"
+    amove 5.4 3.3 ; marker star3 marker_size     ; rmove 0 -0.30 ; write "star3"
+    amove 6.5 3.3 ; marker star4 marker_size     ; rmove 0 -0.30 ; write "star4"
 
-    d1 line color #004e58 marker fcircle      msize 0.25
-    d2 line color #004e58 marker blue_circle  msize 0.25
-    d3 line color brown   marker beige_square msize 0.22
-    d4 line color brown   marker red_triangle msize 0.28
-end graph
+else
 
-! We end with the legend, using an empty text as fake row to provide vertical
-! spacing -- another useful trick.
+    amove 5 4.8
+    write "Zapf Dingbats markers are only available with the Ghostscript rendering engine."
 
-amove 7.45 5.0
-write "Group:"
+    amove 5 4.3
+    write "This output was rendered using " render_engine() "."
 
-begin key
-    absolute 7.2 2.5 nobox compact llen 1.0
-    line color #004e58 marker fcircle      msize 0.25 text "Normals"
-    line color #004e58 marker blue_circle  msize 0.25 text "Sham-lesioned"
-    text
-    line color brown   marker beige_square msize 0.22 text "Non-obese VMH"
-    line color brown   marker red_triangle msize 0.28 text "Obese VMH"
-end key
+    amove 5 3.8
+    write "Unavailable markers:"
 
-! Done. We have learned how to define markers in terms of subroutines.
+    amove 5 3.3
+    write "club, flower, handpen, letter, phone, plane"
 
+    amove 5 2.8
+    write "scircle, spade, ssquare, star2, star3, star4"
+
+    amove 5 2.2
+    write "Render without the -cairo option to display these markers."
+
+end if
+
+
+!-----------------------------------------------------------------------
+! User-contributed markers
+!-----------------------------------------------------------------------
+
+amove 5 1.8
+write "User-Contributed Markers see extra_graph\_markers.gle"
+
+amove 1.0 1.0 ; marker hexagon marker_size   ; rmove 0 -0.30 ; write "hexagon"
+amove 2.1 1.0 ; marker whexagon marker_size  ; rmove 0 -0.30 ; write "whexagon"
+amove 3.2 1.0 ; marker fhexagon marker_size  ; rmove 0 -0.30 ; write "fhexagon"
+amove 4.3 1.0 ; marker octagon marker_size   ; rmove 0 -0.30 ; write "octagon"
+amove 5.4 1.0 ; marker woctagon marker_size  ; rmove 0 -0.30 ; write "woctagon"
+amove 6.5 1.0 ; marker foctagon marker_size  ; rmove 0 -0.30 ; write "foctagon"

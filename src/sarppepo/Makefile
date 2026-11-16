@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: sarppepo.eps sarppepo.pdf sarppepo.png
 
 sarppepo.eps: sarppepo.gle
-	gle -device EPS -cairo sarppepo.gle
+	gle -device EPS -cairo  sarppepo.gle
+
+eps: sarppepo.eps
 
 sarppepo.pdf: sarppepo.gle
-	gle -device PDF -cairo sarppepo.gle
+	gle -device PDF -cairo  sarppepo.gle
+
+pdf: sarppepo.pdf
 
 sarppepo.png: sarppepo.gle
 	gle -device PNG -cairo -DPI 150 sarppepo.gle
+
+png: sarppepo.png
 
 clean:
 	-$(RM) sarppepo.eps sarppepo.pdf sarppepo.png

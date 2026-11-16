@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: sqroot.eps sqroot.pdf sqroot.png
 
 sqroot.eps: sqroot.gle
-	gle -device EPS -cairo sqroot.gle
+	gle -device EPS -cairo  sqroot.gle
+
+eps: sqroot.eps
 
 sqroot.pdf: sqroot.gle
-	gle -device PDF -cairo sqroot.gle
+	gle -device PDF -cairo  sqroot.gle
+
+pdf: sqroot.pdf
 
 sqroot.png: sqroot.gle
 	gle -device PNG -cairo -DPI 150 sqroot.gle
+
+png: sqroot.png
 
 clean:
 	-$(RM) sqroot.eps sqroot.pdf sqroot.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: join.eps join.pdf join.png
 
 join.eps: join.gle
-	gle -device EPS -cairo join.gle
+	gle -device EPS -cairo  join.gle
+
+eps: join.eps
 
 join.pdf: join.gle
-	gle -device PDF -cairo join.gle
+	gle -device PDF -cairo  join.gle
+
+pdf: join.pdf
 
 join.png: join.gle
 	gle -device PNG -cairo -DPI 150 join.gle
+
+png: join.png
 
 clean:
 	-$(RM) join.eps join.pdf join.png

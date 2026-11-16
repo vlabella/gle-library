@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: decay.eps decay.pdf decay.png
 
 decay.eps: decay.gle
-	gle -device EPS -cairo decay.gle
+	gle -device EPS -cairo  decay.gle
+
+eps: decay.eps
 
 decay.pdf: decay.gle
-	gle -device PDF -cairo decay.gle
+	gle -device PDF -cairo  decay.gle
+
+pdf: decay.pdf
 
 decay.png: decay.gle
 	gle -device PNG -cairo -DPI 150 decay.gle
+
+png: decay.png
 
 clean:
 	-$(RM) decay.eps decay.pdf decay.png

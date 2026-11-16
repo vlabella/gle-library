@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: testaccents.eps testaccents.pdf testaccents.png
 
 testaccents.eps: testaccents.gle
-	gle -device EPS -cairo testaccents.gle
+	gle -device EPS -cairo  testaccents.gle
+
+eps: testaccents.eps
 
 testaccents.pdf: testaccents.gle
-	gle -device PDF -cairo testaccents.gle
+	gle -device PDF -cairo  testaccents.gle
+
+pdf: testaccents.pdf
 
 testaccents.png: testaccents.gle
 	gle -device PNG -cairo -DPI 150 testaccents.gle
+
+png: testaccents.png
 
 clean:
 	-$(RM) testaccents.eps testaccents.pdf testaccents.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: discontinuity.eps discontinuity.pdf discontinuity.png
 
 discontinuity.eps: discontinuity.gle
-	gle -device EPS -cairo discontinuity.gle
+	gle -device EPS -cairo  discontinuity.gle
+
+eps: discontinuity.eps
 
 discontinuity.pdf: discontinuity.gle
-	gle -device PDF -cairo discontinuity.gle
+	gle -device PDF -cairo  discontinuity.gle
+
+pdf: discontinuity.pdf
 
 discontinuity.png: discontinuity.gle
 	gle -device PNG -cairo -DPI 150 discontinuity.gle
+
+png: discontinuity.png
 
 clean:
 	-$(RM) discontinuity.eps discontinuity.pdf discontinuity.png

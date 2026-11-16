@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: curvedarrow.eps curvedarrow.pdf curvedarrow.png
 
 curvedarrow.eps: curvedarrow.gle
-	gle -device EPS -cairo curvedarrow.gle
+	gle -device EPS -cairo  curvedarrow.gle
+
+eps: curvedarrow.eps
 
 curvedarrow.pdf: curvedarrow.gle
-	gle -device PDF -cairo curvedarrow.gle
+	gle -device PDF -cairo  curvedarrow.gle
+
+pdf: curvedarrow.pdf
 
 curvedarrow.png: curvedarrow.gle
 	gle -device PNG -cairo -DPI 150 curvedarrow.gle
+
+png: curvedarrow.png
 
 clean:
 	-$(RM) curvedarrow.eps curvedarrow.pdf curvedarrow.png

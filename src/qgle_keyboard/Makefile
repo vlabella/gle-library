@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: qgle_keyboard.eps qgle_keyboard.pdf qgle_keyboard.png
 
 qgle_keyboard.eps: qgle_keyboard.gle
-	gle -device EPS -cairo qgle_keyboard.gle
+	gle -device EPS -cairo  qgle_keyboard.gle
+
+eps: qgle_keyboard.eps
 
 qgle_keyboard.pdf: qgle_keyboard.gle
-	gle -device PDF -cairo qgle_keyboard.gle
+	gle -device PDF -cairo  qgle_keyboard.gle
+
+pdf: qgle_keyboard.pdf
 
 qgle_keyboard.png: qgle_keyboard.gle
 	gle -device PNG -cairo -DPI 150 qgle_keyboard.gle
+
+png: qgle_keyboard.png
 
 clean:
 	-$(RM) qgle_keyboard.eps qgle_keyboard.pdf qgle_keyboard.png

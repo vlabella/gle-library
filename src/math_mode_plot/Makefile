@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: math_mode_plot.eps math_mode_plot.pdf math_mode_plot.png
 
 math_mode_plot.eps: math_mode_plot.gle
-	gle -device EPS -cairo math_mode_plot.gle
+	gle -device EPS -cairo  math_mode_plot.gle
+
+eps: math_mode_plot.eps
 
 math_mode_plot.pdf: math_mode_plot.gle
-	gle -device PDF -cairo math_mode_plot.gle
+	gle -device PDF -cairo  math_mode_plot.gle
+
+pdf: math_mode_plot.pdf
 
 math_mode_plot.png: math_mode_plot.gle
 	gle -device PNG -cairo -DPI 150 math_mode_plot.gle
+
+png: math_mode_plot.png
 
 clean:
 	-$(RM) math_mode_plot.eps math_mode_plot.pdf math_mode_plot.png

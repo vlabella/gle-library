@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: SdHmethod.eps SdHmethod.pdf SdHmethod.png
 
 SdHmethod.eps: SdHmethod.gle
-	gle -device EPS -cairo SdHmethod.gle
+	gle -device EPS -cairo  SdHmethod.gle
+
+eps: SdHmethod.eps
 
 SdHmethod.pdf: SdHmethod.gle
-	gle -device PDF -cairo SdHmethod.gle
+	gle -device PDF -cairo  SdHmethod.gle
+
+pdf: SdHmethod.pdf
 
 SdHmethod.png: SdHmethod.gle
 	gle -device PNG -cairo -DPI 150 SdHmethod.gle
+
+png: SdHmethod.png
 
 clean:
 	-$(RM) SdHmethod.eps SdHmethod.pdf SdHmethod.png

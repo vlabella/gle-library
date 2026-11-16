@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: parallel.eps parallel.pdf parallel.png
 
 parallel.eps: parallel.gle
-	gle -device EPS -cairo parallel.gle
+	gle -device EPS  parallel.gle
+
+eps: parallel.eps
 
 parallel.pdf: parallel.gle
-	gle -device PDF -cairo parallel.gle
+	gle -device PDF  parallel.gle
+
+pdf: parallel.pdf
 
 parallel.png: parallel.gle
-	gle -device PNG -cairo -DPI 150 parallel.gle
+	gle -device PNG -DPI 150 parallel.gle
+
+png: parallel.png
 
 clean:
 	-$(RM) parallel.eps parallel.pdf parallel.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: super-ellipse.eps super-ellipse.pdf super-ellipse.png
 
 super-ellipse.eps: super-ellipse.gle
-	gle -device EPS -cairo super-ellipse.gle
+	gle -device EPS -cairo  super-ellipse.gle
+
+eps: super-ellipse.eps
 
 super-ellipse.pdf: super-ellipse.gle
-	gle -device PDF -cairo super-ellipse.gle
+	gle -device PDF -cairo  super-ellipse.gle
+
+pdf: super-ellipse.pdf
 
 super-ellipse.png: super-ellipse.gle
 	gle -device PNG -cairo -DPI 150 super-ellipse.gle
+
+png: super-ellipse.png
 
 clean:
 	-$(RM) super-ellipse.eps super-ellipse.pdf super-ellipse.png

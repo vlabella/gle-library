@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: logo.eps logo.pdf logo.png
 
 logo.eps: logo.gle
-	gle -device EPS -cairo logo.gle
+	gle -device EPS -cairo  logo.gle
+
+eps: logo.eps
 
 logo.pdf: logo.gle
-	gle -device PDF -cairo logo.gle
+	gle -device PDF -cairo  logo.gle
+
+pdf: logo.pdf
 
 logo.png: logo.gle
 	gle -device PNG -cairo -DPI 150 logo.gle
+
+png: logo.png
 
 clean:
 	-$(RM) logo.eps logo.pdf logo.png

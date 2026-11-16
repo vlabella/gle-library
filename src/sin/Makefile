@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: sin.eps sin.pdf sin.png
 
 sin.eps: sin.gle
-	gle -device EPS -cairo sin.gle
+	gle -device EPS -cairo  sin.gle
+
+eps: sin.eps
 
 sin.pdf: sin.gle
-	gle -device PDF -cairo sin.gle
+	gle -device PDF -cairo  sin.gle
+
+pdf: sin.pdf
 
 sin.png: sin.gle
 	gle -device PNG -cairo -DPI 150 sin.gle
+
+png: sin.png
 
 clean:
 	-$(RM) sin.eps sin.pdf sin.png

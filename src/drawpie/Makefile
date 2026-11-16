@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: drawpie.eps drawpie.pdf drawpie.png
 
 drawpie.eps: drawpie.gle
-	gle -device EPS -cairo drawpie.gle
+	gle -device EPS -cairo  drawpie.gle
+
+eps: drawpie.eps
 
 drawpie.pdf: drawpie.gle
-	gle -device PDF -cairo drawpie.gle
+	gle -device PDF -cairo  drawpie.gle
+
+pdf: drawpie.pdf
 
 drawpie.png: drawpie.gle
 	gle -device PNG -cairo -DPI 150 drawpie.gle
+
+png: drawpie.png
 
 clean:
 	-$(RM) drawpie.eps drawpie.pdf drawpie.png

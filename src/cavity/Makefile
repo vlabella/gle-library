@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: cavity.eps cavity.pdf cavity.png
 
 cavity.eps: cavity.gle
-	gle -device EPS -cairo cavity.gle
+	gle -device EPS -cairo  cavity.gle
+
+eps: cavity.eps
 
 cavity.pdf: cavity.gle
-	gle -device PDF -cairo cavity.gle
+	gle -device PDF -cairo  cavity.gle
+
+pdf: cavity.pdf
 
 cavity.png: cavity.gle
 	gle -device PNG -cairo -DPI 150 cavity.gle
+
+png: cavity.png
 
 clean:
 	-$(RM) cavity.eps cavity.pdf cavity.png

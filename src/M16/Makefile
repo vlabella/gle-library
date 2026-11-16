@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: M16.eps M16.pdf M16.png
 
 M16.eps: M16.gle
-	gle -device EPS -cairo M16.gle
+	gle -device EPS -cairo  M16.gle
+
+eps: M16.eps
 
 M16.pdf: M16.gle
-	gle -device PDF -cairo M16.gle
+	gle -device PDF -cairo  M16.gle
+
+pdf: M16.pdf
 
 M16.png: M16.gle
 	gle -device PNG -cairo -DPI 150 M16.gle
+
+png: M16.png
 
 clean:
 	-$(RM) M16.eps M16.pdf M16.png

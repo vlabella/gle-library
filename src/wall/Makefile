@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: wall.eps wall.pdf wall.png
 
 wall.eps: wall.gle
-	gle -device EPS -cairo wall.gle
+	gle -device EPS -cairo  wall.gle
+
+eps: wall.eps
 
 wall.pdf: wall.gle
-	gle -device PDF -cairo wall.gle
+	gle -device PDF -cairo  wall.gle
+
+pdf: wall.pdf
 
 wall.png: wall.gle
 	gle -device PNG -cairo -DPI 150 wall.gle
+
+png: wall.png
 
 clean:
 	-$(RM) wall.eps wall.pdf wall.png

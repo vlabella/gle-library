@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: corrs.eps corrs.pdf corrs.png
 
 corrs.eps: corrs.gle
-	gle -device EPS -cairo corrs.gle
+	gle -device EPS -cairo  corrs.gle
+
+eps: corrs.eps
 
 corrs.pdf: corrs.gle
-	gle -device PDF -cairo corrs.gle
+	gle -device PDF -cairo  corrs.gle
+
+pdf: corrs.pdf
 
 corrs.png: corrs.gle
 	gle -device PNG -cairo -DPI 150 corrs.gle
+
+png: corrs.png
 
 clean:
 	-$(RM) corrs.eps corrs.pdf corrs.png

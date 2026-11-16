@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: intersect.eps intersect.pdf intersect.png
 
 intersect.eps: intersect.gle
-	gle -device EPS -cairo intersect.gle
+	gle -device EPS -cairo  intersect.gle
+
+eps: intersect.eps
 
 intersect.pdf: intersect.gle
-	gle -device PDF -cairo intersect.gle
+	gle -device PDF -cairo  intersect.gle
+
+pdf: intersect.pdf
 
 intersect.png: intersect.gle
 	gle -device PNG -cairo -DPI 150 intersect.gle
+
+png: intersect.png
 
 clean:
 	-$(RM) intersect.eps intersect.pdf intersect.png

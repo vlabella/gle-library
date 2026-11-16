@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: polar_histogram.eps polar_histogram.pdf polar_histogram.png
 
 polar_histogram.eps: polar_histogram.gle
-	gle -device EPS -cairo polar_histogram.gle
+	gle -device EPS -cairo  polar_histogram.gle
+
+eps: polar_histogram.eps
 
 polar_histogram.pdf: polar_histogram.gle
-	gle -device PDF -cairo polar_histogram.gle
+	gle -device PDF -cairo  polar_histogram.gle
+
+pdf: polar_histogram.pdf
 
 polar_histogram.png: polar_histogram.gle
 	gle -device PNG -cairo -DPI 150 polar_histogram.gle
+
+png: polar_histogram.png
 
 clean:
 	-$(RM) polar_histogram.eps polar_histogram.pdf polar_histogram.png

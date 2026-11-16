@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: utitle.eps utitle.pdf utitle.png
 
 utitle.eps: utitle.gle
-	gle -device EPS -cairo utitle.gle
+	gle -device EPS -cairo  utitle.gle
+
+eps: utitle.eps
 
 utitle.pdf: utitle.gle
-	gle -device PDF -cairo utitle.gle
+	gle -device PDF -cairo  utitle.gle
+
+pdf: utitle.pdf
 
 utitle.png: utitle.gle
 	gle -device PNG -cairo -DPI 150 utitle.gle
+
+png: utitle.png
 
 clean:
 	-$(RM) utitle.eps utitle.pdf utitle.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: fruitbar.eps fruitbar.pdf fruitbar.png
 
 fruitbar.eps: fruitbar.gle
-	gle -device EPS -cairo fruitbar.gle
+	gle -device EPS -cairo  fruitbar.gle
+
+eps: fruitbar.eps
 
 fruitbar.pdf: fruitbar.gle
-	gle -device PDF -cairo fruitbar.gle
+	gle -device PDF -cairo  fruitbar.gle
+
+pdf: fruitbar.pdf
 
 fruitbar.png: fruitbar.gle
 	gle -device PNG -cairo -DPI 150 fruitbar.gle
+
+png: fruitbar.png
 
 clean:
 	-$(RM) fruitbar.eps fruitbar.pdf fruitbar.png

@@ -122,12 +122,14 @@ def generate_makefile(root_dir,dpi,formats):
             targets = {}
             target_files = []
 
+            cairo_opt = "-cairo " if config.get('cairo', False) else ""
+
             for device, ext in formats.items():
                 item = {}
                 item['target'] = f"{base_name}.{ext}"
                 target_files.append(item['target'])
                 item['device'] = device
-                item['options'] = f"-cairo -DPI {dpi}" if device == "PNG" else "-cairo"
+                item['options'] = f"{cairo_opt}-DPI {dpi}" if device == "PNG" else f"{cairo_opt}"
                 targets[device] = item
 
             makefile_content.append(f"all: {' '.join(target_files)}")
@@ -135,6 +137,8 @@ def generate_makefile(root_dir,dpi,formats):
             for device, item in targets.items():
                 makefile_content.append(f"{item['target']}: {gle_file}")
                 makefile_content.append(f"\tgle -device {item['device']} {item['options']} {gle_file}")
+                makefile_content.append(f"")
+                makefile_content.append(f"{item['device'].lower()}: {item['target']}")
                 makefile_content.append(f"")
             makefile_content.append(f"clean:")
             makefile_content.append(f"\t-$(RM) {' '.join(target_files)}")

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: business_cards_10_per_A4.eps business_cards_10_per_A4.pdf business_cards_10_per_A4.png
 
 business_cards_10_per_A4.eps: business_cards_10_per_A4.gle
-	gle -device EPS -cairo business_cards_10_per_A4.gle
+	gle -device EPS -cairo  business_cards_10_per_A4.gle
+
+eps: business_cards_10_per_A4.eps
 
 business_cards_10_per_A4.pdf: business_cards_10_per_A4.gle
-	gle -device PDF -cairo business_cards_10_per_A4.gle
+	gle -device PDF -cairo  business_cards_10_per_A4.gle
+
+pdf: business_cards_10_per_A4.pdf
 
 business_cards_10_per_A4.png: business_cards_10_per_A4.gle
 	gle -device PNG -cairo -DPI 150 business_cards_10_per_A4.gle
+
+png: business_cards_10_per_A4.png
 
 clean:
 	-$(RM) business_cards_10_per_A4.eps business_cards_10_per_A4.pdf business_cards_10_per_A4.png

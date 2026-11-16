@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: stack4b.eps stack4b.pdf stack4b.png
 
 stack4b.eps: stack4b.gle
-	gle -device EPS -cairo stack4b.gle
+	gle -device EPS -cairo  stack4b.gle
+
+eps: stack4b.eps
 
 stack4b.pdf: stack4b.gle
-	gle -device PDF -cairo stack4b.gle
+	gle -device PDF -cairo  stack4b.gle
+
+pdf: stack4b.pdf
 
 stack4b.png: stack4b.gle
 	gle -device PNG -cairo -DPI 150 stack4b.gle
+
+png: stack4b.png
 
 clean:
 	-$(RM) stack4b.eps stack4b.pdf stack4b.png

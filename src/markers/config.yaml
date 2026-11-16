@@ -1,8 +1,8 @@
-author: Francois Tonneau
-author_email: francois.tonneau@gmail.com
-cairo: true
-category: scatter
-description: ''
+author: Vincent LaBella
+author_email: vlabella@albany.edu
+cairo: false
+category: misc
+description: 'display all markers available in GLE'
 filename: markers.gle
 name: markers
 notes: ''

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: polarcircle.eps polarcircle.pdf polarcircle.png
 
 polarcircle.eps: polarcircle.gle
-	gle -device EPS -cairo polarcircle.gle
+	gle -device EPS -cairo  polarcircle.gle
+
+eps: polarcircle.eps
 
 polarcircle.pdf: polarcircle.gle
-	gle -device PDF -cairo polarcircle.gle
+	gle -device PDF -cairo  polarcircle.gle
+
+pdf: polarcircle.pdf
 
 polarcircle.png: polarcircle.gle
 	gle -device PNG -cairo -DPI 150 polarcircle.gle
+
+png: polarcircle.png
 
 clean:
 	-$(RM) polarcircle.eps polarcircle.pdf polarcircle.png

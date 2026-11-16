@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: armand.eps armand.pdf armand.png
 
 armand.eps: armand.gle
-	gle -device EPS -cairo armand.gle
+	gle -device EPS -cairo  armand.gle
+
+eps: armand.eps
 
 armand.pdf: armand.gle
-	gle -device PDF -cairo armand.gle
+	gle -device PDF -cairo  armand.gle
+
+pdf: armand.pdf
 
 armand.png: armand.gle
 	gle -device PNG -cairo -DPI 150 armand.gle
+
+png: armand.png
 
 clean:
 	-$(RM) armand.eps armand.pdf armand.png

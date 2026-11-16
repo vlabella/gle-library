@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: heatmap.eps heatmap.pdf heatmap.png
 
 heatmap.eps: heatmap.gle
-	gle -device EPS -cairo heatmap.gle
+	gle -device EPS -cairo  heatmap.gle
+
+eps: heatmap.eps
 
 heatmap.pdf: heatmap.gle
-	gle -device PDF -cairo heatmap.gle
+	gle -device PDF -cairo  heatmap.gle
+
+pdf: heatmap.pdf
 
 heatmap.png: heatmap.gle
 	gle -device PNG -cairo -DPI 150 heatmap.gle
+
+png: heatmap.png
 
 clean:
 	-$(RM) heatmap.eps heatmap.pdf heatmap.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: shapes-ft.eps shapes-ft.pdf shapes-ft.png
 
 shapes-ft.eps: shapes-ft.gle
-	gle -device EPS -cairo shapes-ft.gle
+	gle -device EPS -cairo  shapes-ft.gle
+
+eps: shapes-ft.eps
 
 shapes-ft.pdf: shapes-ft.gle
-	gle -device PDF -cairo shapes-ft.gle
+	gle -device PDF -cairo  shapes-ft.gle
+
+pdf: shapes-ft.pdf
 
 shapes-ft.png: shapes-ft.gle
 	gle -device PNG -cairo -DPI 150 shapes-ft.gle
+
+png: shapes-ft.png
 
 clean:
 	-$(RM) shapes-ft.eps shapes-ft.pdf shapes-ft.png

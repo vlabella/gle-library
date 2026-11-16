@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: ellipsearrow.eps ellipsearrow.pdf ellipsearrow.png
 
 ellipsearrow.eps: ellipsearrow.gle
-	gle -device EPS -cairo ellipsearrow.gle
+	gle -device EPS -cairo  ellipsearrow.gle
+
+eps: ellipsearrow.eps
 
 ellipsearrow.pdf: ellipsearrow.gle
-	gle -device PDF -cairo ellipsearrow.gle
+	gle -device PDF -cairo  ellipsearrow.gle
+
+pdf: ellipsearrow.pdf
 
 ellipsearrow.png: ellipsearrow.gle
 	gle -device PNG -cairo -DPI 150 ellipsearrow.gle
+
+png: ellipsearrow.png
 
 clean:
 	-$(RM) ellipsearrow.eps ellipsearrow.pdf ellipsearrow.png

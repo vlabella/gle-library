@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: adjust.eps adjust.pdf adjust.png
 
 adjust.eps: adjust.gle
-	gle -device EPS -cairo adjust.gle
+	gle -device EPS -cairo  adjust.gle
+
+eps: adjust.eps
 
 adjust.pdf: adjust.gle
-	gle -device PDF -cairo adjust.gle
+	gle -device PDF -cairo  adjust.gle
+
+pdf: adjust.pdf
 
 adjust.png: adjust.gle
 	gle -device PNG -cairo -DPI 150 adjust.gle
+
+png: adjust.png
 
 clean:
 	-$(RM) adjust.eps adjust.pdf adjust.png

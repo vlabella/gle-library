@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: elliptical_arcs.eps elliptical_arcs.pdf elliptical_arcs.png
 
 elliptical_arcs.eps: elliptical_arcs.gle
-	gle -device EPS -cairo elliptical_arcs.gle
+	gle -device EPS -cairo  elliptical_arcs.gle
+
+eps: elliptical_arcs.eps
 
 elliptical_arcs.pdf: elliptical_arcs.gle
-	gle -device PDF -cairo elliptical_arcs.gle
+	gle -device PDF -cairo  elliptical_arcs.gle
+
+pdf: elliptical_arcs.pdf
 
 elliptical_arcs.png: elliptical_arcs.gle
 	gle -device PNG -cairo -DPI 150 elliptical_arcs.gle
+
+png: elliptical_arcs.png
 
 clean:
 	-$(RM) elliptical_arcs.eps elliptical_arcs.pdf elliptical_arcs.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: barcode_example.eps barcode_example.pdf barcode_example.png
 
 barcode_example.eps: barcode_example.gle
-	gle -device EPS -cairo barcode_example.gle
+	gle -device EPS -cairo  barcode_example.gle
+
+eps: barcode_example.eps
 
 barcode_example.pdf: barcode_example.gle
-	gle -device PDF -cairo barcode_example.gle
+	gle -device PDF -cairo  barcode_example.gle
+
+pdf: barcode_example.pdf
 
 barcode_example.png: barcode_example.gle
 	gle -device PNG -cairo -DPI 150 barcode_example.gle
+
+png: barcode_example.png
 
 clean:
 	-$(RM) barcode_example.eps barcode_example.pdf barcode_example.png

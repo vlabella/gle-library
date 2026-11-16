@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: tgplot.eps tgplot.pdf tgplot.png
 
 tgplot.eps: tgplot.gle
-	gle -device EPS -cairo tgplot.gle
+	gle -device EPS -cairo  tgplot.gle
+
+eps: tgplot.eps
 
 tgplot.pdf: tgplot.gle
-	gle -device PDF -cairo tgplot.gle
+	gle -device PDF -cairo  tgplot.gle
+
+pdf: tgplot.pdf
 
 tgplot.png: tgplot.gle
 	gle -device PNG -cairo -DPI 150 tgplot.gle
+
+png: tgplot.png
 
 clean:
 	-$(RM) tgplot.eps tgplot.pdf tgplot.png

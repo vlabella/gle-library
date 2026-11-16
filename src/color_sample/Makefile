@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: color_sample.eps color_sample.pdf color_sample.png
 
 color_sample.eps: color_sample.gle
-	gle -device EPS -cairo color_sample.gle
+	gle -device EPS -cairo  color_sample.gle
+
+eps: color_sample.eps
 
 color_sample.pdf: color_sample.gle
-	gle -device PDF -cairo color_sample.gle
+	gle -device PDF -cairo  color_sample.gle
+
+pdf: color_sample.pdf
 
 color_sample.png: color_sample.gle
 	gle -device PNG -cairo -DPI 150 color_sample.gle
+
+png: color_sample.png
 
 clean:
 	-$(RM) color_sample.eps color_sample.pdf color_sample.png

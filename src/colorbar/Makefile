@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: colorbar.eps colorbar.pdf colorbar.png
 
 colorbar.eps: colorbar.gle
-	gle -device EPS -cairo colorbar.gle
+	gle -device EPS -cairo  colorbar.gle
+
+eps: colorbar.eps
 
 colorbar.pdf: colorbar.gle
-	gle -device PDF -cairo colorbar.gle
+	gle -device PDF -cairo  colorbar.gle
+
+pdf: colorbar.pdf
 
 colorbar.png: colorbar.gle
 	gle -device PNG -cairo -DPI 150 colorbar.gle
+
+png: colorbar.png
 
 clean:
 	-$(RM) colorbar.eps colorbar.pdf colorbar.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: rt-y-is-x.eps rt-y-is-x.pdf rt-y-is-x.png
 
 rt-y-is-x.eps: rt-y-is-x.gle
-	gle -device EPS -cairo rt-y-is-x.gle
+	gle -device EPS -cairo  rt-y-is-x.gle
+
+eps: rt-y-is-x.eps
 
 rt-y-is-x.pdf: rt-y-is-x.gle
-	gle -device PDF -cairo rt-y-is-x.gle
+	gle -device PDF -cairo  rt-y-is-x.gle
+
+pdf: rt-y-is-x.pdf
 
 rt-y-is-x.png: rt-y-is-x.gle
 	gle -device PNG -cairo -DPI 150 rt-y-is-x.gle
+
+png: rt-y-is-x.png
 
 clean:
 	-$(RM) rt-y-is-x.eps rt-y-is-x.pdf rt-y-is-x.png

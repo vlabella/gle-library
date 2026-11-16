@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: adphas.eps adphas.pdf adphas.png
 
 adphas.eps: adphas.gle
-	gle -device EPS -cairo adphas.gle
+	gle -device EPS -cairo  adphas.gle
+
+eps: adphas.eps
 
 adphas.pdf: adphas.gle
-	gle -device PDF -cairo adphas.gle
+	gle -device PDF -cairo  adphas.gle
+
+pdf: adphas.pdf
 
 adphas.png: adphas.gle
 	gle -device PNG -cairo -DPI 150 adphas.gle
+
+png: adphas.png
 
 clean:
 	-$(RM) adphas.eps adphas.pdf adphas.png

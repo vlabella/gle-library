@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: phasedemo.eps phasedemo.pdf phasedemo.png
 
 phasedemo.eps: phasedemo.gle
-	gle -device EPS -cairo phasedemo.gle
+	gle -device EPS -cairo  phasedemo.gle
+
+eps: phasedemo.eps
 
 phasedemo.pdf: phasedemo.gle
-	gle -device PDF -cairo phasedemo.gle
+	gle -device PDF -cairo  phasedemo.gle
+
+pdf: phasedemo.pdf
 
 phasedemo.png: phasedemo.gle
 	gle -device PNG -cairo -DPI 150 phasedemo.gle
+
+png: phasedemo.png
 
 clean:
 	-$(RM) phasedemo.eps phasedemo.pdf phasedemo.png

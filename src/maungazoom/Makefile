@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: maungazoom.eps maungazoom.pdf maungazoom.png
 
 maungazoom.eps: maungazoom.gle
-	gle -device EPS -cairo maungazoom.gle
+	gle -device EPS -cairo  maungazoom.gle
+
+eps: maungazoom.eps
 
 maungazoom.pdf: maungazoom.gle
-	gle -device PDF -cairo maungazoom.gle
+	gle -device PDF -cairo  maungazoom.gle
+
+pdf: maungazoom.pdf
 
 maungazoom.png: maungazoom.gle
 	gle -device PNG -cairo -DPI 150 maungazoom.gle
+
+png: maungazoom.png
 
 clean:
 	-$(RM) maungazoom.eps maungazoom.pdf maungazoom.png

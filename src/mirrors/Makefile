@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: mirrors.eps mirrors.pdf mirrors.png
 
 mirrors.eps: mirrors.gle
-	gle -device EPS -cairo mirrors.gle
+	gle -device EPS -cairo  mirrors.gle
+
+eps: mirrors.eps
 
 mirrors.pdf: mirrors.gle
-	gle -device PDF -cairo mirrors.gle
+	gle -device PDF -cairo  mirrors.gle
+
+pdf: mirrors.pdf
 
 mirrors.png: mirrors.gle
 	gle -device PNG -cairo -DPI 150 mirrors.gle
+
+png: mirrors.png
 
 clean:
 	-$(RM) mirrors.eps mirrors.pdf mirrors.png

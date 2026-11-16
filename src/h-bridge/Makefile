@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: h-bridge.eps h-bridge.pdf h-bridge.png
 
 h-bridge.eps: h-bridge.gle
-	gle -device EPS -cairo h-bridge.gle
+	gle -device EPS -cairo  h-bridge.gle
+
+eps: h-bridge.eps
 
 h-bridge.pdf: h-bridge.gle
-	gle -device PDF -cairo h-bridge.gle
+	gle -device PDF -cairo  h-bridge.gle
+
+pdf: h-bridge.pdf
 
 h-bridge.png: h-bridge.gle
 	gle -device PNG -cairo -DPI 150 h-bridge.gle
+
+png: h-bridge.png
 
 clean:
 	-$(RM) h-bridge.eps h-bridge.pdf h-bridge.png

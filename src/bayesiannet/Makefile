@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: bayesiannet.eps bayesiannet.pdf bayesiannet.png
 
 bayesiannet.eps: bayesiannet.gle
-	gle -device EPS -cairo bayesiannet.gle
+	gle -device EPS -cairo  bayesiannet.gle
+
+eps: bayesiannet.eps
 
 bayesiannet.pdf: bayesiannet.gle
-	gle -device PDF -cairo bayesiannet.gle
+	gle -device PDF -cairo  bayesiannet.gle
+
+pdf: bayesiannet.pdf
 
 bayesiannet.png: bayesiannet.gle
 	gle -device PNG -cairo -DPI 150 bayesiannet.gle
+
+png: bayesiannet.png
 
 clean:
 	-$(RM) bayesiannet.eps bayesiannet.pdf bayesiannet.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: seaborn.eps seaborn.pdf seaborn.png
 
 seaborn.eps: seaborn.gle
-	gle -device EPS -cairo seaborn.gle
+	gle -device EPS -cairo  seaborn.gle
+
+eps: seaborn.eps
 
 seaborn.pdf: seaborn.gle
-	gle -device PDF -cairo seaborn.gle
+	gle -device PDF -cairo  seaborn.gle
+
+pdf: seaborn.pdf
 
 seaborn.png: seaborn.gle
 	gle -device PNG -cairo -DPI 150 seaborn.gle
+
+png: seaborn.png
 
 clean:
 	-$(RM) seaborn.eps seaborn.pdf seaborn.png

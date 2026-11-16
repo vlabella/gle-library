@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: colormap.eps colormap.pdf colormap.png
 
 colormap.eps: colormap.gle
-	gle -device EPS -cairo colormap.gle
+	gle -device EPS -cairo  colormap.gle
+
+eps: colormap.eps
 
 colormap.pdf: colormap.gle
-	gle -device PDF -cairo colormap.gle
+	gle -device PDF -cairo  colormap.gle
+
+pdf: colormap.pdf
 
 colormap.png: colormap.gle
 	gle -device PNG -cairo -DPI 150 colormap.gle
+
+png: colormap.png
 
 clean:
 	-$(RM) colormap.eps colormap.pdf colormap.png

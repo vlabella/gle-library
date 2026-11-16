@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: polar_plot.eps polar_plot.pdf polar_plot.png
 
 polar_plot.eps: polar_plot.gle
-	gle -device EPS -cairo polar_plot.gle
+	gle -device EPS -cairo  polar_plot.gle
+
+eps: polar_plot.eps
 
 polar_plot.pdf: polar_plot.gle
-	gle -device PDF -cairo polar_plot.gle
+	gle -device PDF -cairo  polar_plot.gle
+
+pdf: polar_plot.pdf
 
 polar_plot.png: polar_plot.gle
 	gle -device PNG -cairo -DPI 150 polar_plot.gle
+
+png: polar_plot.png
 
 clean:
 	-$(RM) polar_plot.eps polar_plot.pdf polar_plot.png

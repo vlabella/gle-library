@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: ellipses.eps ellipses.pdf ellipses.png
 
 ellipses.eps: ellipses.gle
-	gle -device EPS -cairo ellipses.gle
+	gle -device EPS -cairo  ellipses.gle
+
+eps: ellipses.eps
 
 ellipses.pdf: ellipses.gle
-	gle -device PDF -cairo ellipses.gle
+	gle -device PDF -cairo  ellipses.gle
+
+pdf: ellipses.pdf
 
 ellipses.png: ellipses.gle
 	gle -device PNG -cairo -DPI 150 ellipses.gle
+
+png: ellipses.png
 
 clean:
 	-$(RM) ellipses.eps ellipses.pdf ellipses.png

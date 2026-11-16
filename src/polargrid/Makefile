@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: polargrid.eps polargrid.pdf polargrid.png
 
 polargrid.eps: polargrid.gle
-	gle -device EPS -cairo polargrid.gle
+	gle -device EPS -cairo  polargrid.gle
+
+eps: polargrid.eps
 
 polargrid.pdf: polargrid.gle
-	gle -device PDF -cairo polargrid.gle
+	gle -device PDF -cairo  polargrid.gle
+
+pdf: polargrid.pdf
 
 polargrid.png: polargrid.gle
 	gle -device PNG -cairo -DPI 150 polargrid.gle
+
+png: polargrid.png
 
 clean:
 	-$(RM) polargrid.eps polargrid.pdf polargrid.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: hello_world.eps hello_world.pdf hello_world.png
 
 hello_world.eps: hello_world.gle
-	gle -device EPS -cairo hello_world.gle
+	gle -device EPS -cairo  hello_world.gle
+
+eps: hello_world.eps
 
 hello_world.pdf: hello_world.gle
-	gle -device PDF -cairo hello_world.gle
+	gle -device PDF -cairo  hello_world.gle
+
+pdf: hello_world.pdf
 
 hello_world.png: hello_world.gle
 	gle -device PNG -cairo -DPI 150 hello_world.gle
+
+png: hello_world.png
 
 clean:
 	-$(RM) hello_world.eps hello_world.pdf hello_world.png

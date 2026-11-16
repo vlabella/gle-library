@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: texgraph.eps texgraph.pdf texgraph.png
 
 texgraph.eps: texgraph.gle
-	gle -device EPS -cairo texgraph.gle
+	gle -device EPS -cairo  texgraph.gle
+
+eps: texgraph.eps
 
 texgraph.pdf: texgraph.gle
-	gle -device PDF -cairo texgraph.gle
+	gle -device PDF -cairo  texgraph.gle
+
+pdf: texgraph.pdf
 
 texgraph.png: texgraph.gle
 	gle -device PNG -cairo -DPI 150 texgraph.gle
+
+png: texgraph.png
 
 clean:
 	-$(RM) texgraph.eps texgraph.pdf texgraph.png

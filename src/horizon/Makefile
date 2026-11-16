@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: horizon.eps horizon.pdf horizon.png
 
 horizon.eps: horizon.gle
-	gle -device EPS -cairo horizon.gle
+	gle -device EPS -cairo  horizon.gle
+
+eps: horizon.eps
 
 horizon.pdf: horizon.gle
-	gle -device PDF -cairo horizon.gle
+	gle -device PDF -cairo  horizon.gle
+
+pdf: horizon.pdf
 
 horizon.png: horizon.gle
 	gle -device PNG -cairo -DPI 150 horizon.gle
+
+png: horizon.png
 
 clean:
 	-$(RM) horizon.eps horizon.pdf horizon.png

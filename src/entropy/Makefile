@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: entropy.eps entropy.pdf entropy.png
 
 entropy.eps: entropy.gle
-	gle -device EPS -cairo entropy.gle
+	gle -device EPS -cairo  entropy.gle
+
+eps: entropy.eps
 
 entropy.pdf: entropy.gle
-	gle -device PDF -cairo entropy.gle
+	gle -device PDF -cairo  entropy.gle
+
+pdf: entropy.pdf
 
 entropy.png: entropy.gle
 	gle -device PNG -cairo -DPI 150 entropy.gle
+
+png: entropy.png
 
 clean:
 	-$(RM) entropy.eps entropy.pdf entropy.png

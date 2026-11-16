@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: informationgain.eps informationgain.pdf informationgain.png
 
 informationgain.eps: informationgain.gle
-	gle -device EPS -cairo informationgain.gle
+	gle -device EPS -cairo  informationgain.gle
+
+eps: informationgain.eps
 
 informationgain.pdf: informationgain.gle
-	gle -device PDF -cairo informationgain.gle
+	gle -device PDF -cairo  informationgain.gle
+
+pdf: informationgain.pdf
 
 informationgain.png: informationgain.gle
 	gle -device PNG -cairo -DPI 150 informationgain.gle
+
+png: informationgain.png
 
 clean:
 	-$(RM) informationgain.eps informationgain.pdf informationgain.png

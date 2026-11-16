@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: brilzone.eps brilzone.pdf brilzone.png
 
 brilzone.eps: brilzone.gle
-	gle -device EPS -cairo brilzone.gle
+	gle -device EPS -cairo  brilzone.gle
+
+eps: brilzone.eps
 
 brilzone.pdf: brilzone.gle
-	gle -device PDF -cairo brilzone.gle
+	gle -device PDF -cairo  brilzone.gle
+
+pdf: brilzone.pdf
 
 brilzone.png: brilzone.gle
 	gle -device PNG -cairo -DPI 150 brilzone.gle
+
+png: brilzone.png
 
 clean:
 	-$(RM) brilzone.eps brilzone.pdf brilzone.png

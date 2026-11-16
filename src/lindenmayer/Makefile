@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: lindenmayer.eps lindenmayer.pdf lindenmayer.png
 
 lindenmayer.eps: lindenmayer.gle
-	gle -device EPS -cairo lindenmayer.gle
+	gle -device EPS -cairo  lindenmayer.gle
+
+eps: lindenmayer.eps
 
 lindenmayer.pdf: lindenmayer.gle
-	gle -device PDF -cairo lindenmayer.gle
+	gle -device PDF -cairo  lindenmayer.gle
+
+pdf: lindenmayer.pdf
 
 lindenmayer.png: lindenmayer.gle
 	gle -device PNG -cairo -DPI 150 lindenmayer.gle
+
+png: lindenmayer.png
 
 clean:
 	-$(RM) lindenmayer.eps lindenmayer.pdf lindenmayer.png

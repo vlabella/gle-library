@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: flux_linkage_space_vector_diagram.eps flux_linkage_space_vector_diagram.pdf flux_linkage_space_vector_diagram.png
 
 flux_linkage_space_vector_diagram.eps: flux_linkage_space_vector_diagram.gle
-	gle -device EPS -cairo flux_linkage_space_vector_diagram.gle
+	gle -device EPS -cairo  flux_linkage_space_vector_diagram.gle
+
+eps: flux_linkage_space_vector_diagram.eps
 
 flux_linkage_space_vector_diagram.pdf: flux_linkage_space_vector_diagram.gle
-	gle -device PDF -cairo flux_linkage_space_vector_diagram.gle
+	gle -device PDF -cairo  flux_linkage_space_vector_diagram.gle
+
+pdf: flux_linkage_space_vector_diagram.pdf
 
 flux_linkage_space_vector_diagram.png: flux_linkage_space_vector_diagram.gle
 	gle -device PNG -cairo -DPI 150 flux_linkage_space_vector_diagram.gle
+
+png: flux_linkage_space_vector_diagram.png
 
 clean:
 	-$(RM) flux_linkage_space_vector_diagram.eps flux_linkage_space_vector_diagram.pdf flux_linkage_space_vector_diagram.png

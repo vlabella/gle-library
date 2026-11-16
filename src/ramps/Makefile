@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: ramps.eps ramps.pdf ramps.png
 
 ramps.eps: ramps.gle
-	gle -device EPS -cairo ramps.gle
+	gle -device EPS -cairo  ramps.gle
+
+eps: ramps.eps
 
 ramps.pdf: ramps.gle
-	gle -device PDF -cairo ramps.gle
+	gle -device PDF -cairo  ramps.gle
+
+pdf: ramps.pdf
 
 ramps.png: ramps.gle
 	gle -device PNG -cairo -DPI 150 ramps.gle
+
+png: ramps.png
 
 clean:
 	-$(RM) ramps.eps ramps.pdf ramps.png

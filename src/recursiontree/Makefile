@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: recursiontree.eps recursiontree.pdf recursiontree.png
 
 recursiontree.eps: recursiontree.gle
-	gle -device EPS -cairo recursiontree.gle
+	gle -device EPS -cairo  recursiontree.gle
+
+eps: recursiontree.eps
 
 recursiontree.pdf: recursiontree.gle
-	gle -device PDF -cairo recursiontree.gle
+	gle -device PDF -cairo  recursiontree.gle
+
+pdf: recursiontree.pdf
 
 recursiontree.png: recursiontree.gle
 	gle -device PNG -cairo -DPI 150 recursiontree.gle
+
+png: recursiontree.png
 
 clean:
 	-$(RM) recursiontree.eps recursiontree.pdf recursiontree.png

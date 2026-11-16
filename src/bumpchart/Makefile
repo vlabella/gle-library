@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: bumpchart.eps bumpchart.pdf bumpchart.png
 
 bumpchart.eps: bumpchart.gle
-	gle -device EPS -cairo bumpchart.gle
+	gle -device EPS -cairo  bumpchart.gle
+
+eps: bumpchart.eps
 
 bumpchart.pdf: bumpchart.gle
-	gle -device PDF -cairo bumpchart.gle
+	gle -device PDF -cairo  bumpchart.gle
+
+pdf: bumpchart.pdf
 
 bumpchart.png: bumpchart.gle
 	gle -device PNG -cairo -DPI 150 bumpchart.gle
+
+png: bumpchart.png
 
 clean:
 	-$(RM) bumpchart.eps bumpchart.pdf bumpchart.png

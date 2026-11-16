@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: polenja.eps polenja.pdf polenja.png
 
 polenja.eps: polenja.gle
-	gle -device EPS -cairo polenja.gle
+	gle -device EPS -cairo  polenja.gle
+
+eps: polenja.eps
 
 polenja.pdf: polenja.gle
-	gle -device PDF -cairo polenja.gle
+	gle -device PDF -cairo  polenja.gle
+
+pdf: polenja.pdf
 
 polenja.png: polenja.gle
 	gle -device PNG -cairo -DPI 150 polenja.gle
+
+png: polenja.png
 
 clean:
 	-$(RM) polenja.eps polenja.pdf polenja.png

@@ -1,6 +1,6 @@
 author: ''
 author_email: ''
-cairo: true
+cairo: false
 category: diagram
 description: ''
 filename: perceptron.gle

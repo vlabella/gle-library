@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: feynman_17.eps feynman_17.pdf feynman_17.png
 
 feynman_17.eps: feynman_17.gle
-	gle -device EPS -cairo feynman_17.gle
+	gle -device EPS -cairo  feynman_17.gle
+
+eps: feynman_17.eps
 
 feynman_17.pdf: feynman_17.gle
-	gle -device PDF -cairo feynman_17.gle
+	gle -device PDF -cairo  feynman_17.gle
+
+pdf: feynman_17.pdf
 
 feynman_17.png: feynman_17.gle
 	gle -device PNG -cairo -DPI 150 feynman_17.gle
+
+png: feynman_17.png
 
 clean:
 	-$(RM) feynman_17.eps feynman_17.pdf feynman_17.png

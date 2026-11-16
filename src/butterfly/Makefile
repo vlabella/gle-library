@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: butterfly.eps butterfly.pdf butterfly.png
 
 butterfly.eps: butterfly.gle
-	gle -device EPS -cairo butterfly.gle
+	gle -device EPS -cairo  butterfly.gle
+
+eps: butterfly.eps
 
 butterfly.pdf: butterfly.gle
-	gle -device PDF -cairo butterfly.gle
+	gle -device PDF -cairo  butterfly.gle
+
+pdf: butterfly.pdf
 
 butterfly.png: butterfly.gle
 	gle -device PNG -cairo -DPI 150 butterfly.gle
+
+png: butterfly.png
 
 clean:
 	-$(RM) butterfly.eps butterfly.pdf butterfly.png

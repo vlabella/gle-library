@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: margins.eps margins.pdf margins.png
 
 margins.eps: margins.gle
-	gle -device EPS -cairo margins.gle
+	gle -device EPS -cairo  margins.gle
+
+eps: margins.eps
 
 margins.pdf: margins.gle
-	gle -device PDF -cairo margins.gle
+	gle -device PDF -cairo  margins.gle
+
+pdf: margins.pdf
 
 margins.png: margins.gle
 	gle -device PNG -cairo -DPI 150 margins.gle
+
+png: margins.png
 
 clean:
 	-$(RM) margins.eps margins.pdf margins.png

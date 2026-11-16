@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: wulfnet.eps wulfnet.pdf wulfnet.png
 
 wulfnet.eps: wulfnet.gle
-	gle -device EPS -cairo wulfnet.gle
+	gle -device EPS -cairo  wulfnet.gle
+
+eps: wulfnet.eps
 
 wulfnet.pdf: wulfnet.gle
-	gle -device PDF -cairo wulfnet.gle
+	gle -device PDF -cairo  wulfnet.gle
+
+pdf: wulfnet.pdf
 
 wulfnet.png: wulfnet.gle
 	gle -device PNG -cairo -DPI 150 wulfnet.gle
+
+png: wulfnet.png
 
 clean:
 	-$(RM) wulfnet.eps wulfnet.pdf wulfnet.png

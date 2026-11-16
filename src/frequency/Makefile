@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: frequency.eps frequency.pdf frequency.png
 
 frequency.eps: frequency.gle
-	gle -device EPS -cairo frequency.gle
+	gle -device EPS -cairo  frequency.gle
+
+eps: frequency.eps
 
 frequency.pdf: frequency.gle
-	gle -device PDF -cairo frequency.gle
+	gle -device PDF -cairo  frequency.gle
+
+pdf: frequency.pdf
 
 frequency.png: frequency.gle
 	gle -device PNG -cairo -DPI 150 frequency.gle
+
+png: frequency.png
 
 clean:
 	-$(RM) frequency.eps frequency.pdf frequency.png

@@ -29,13 +29,19 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: RGB_gaph.eps RGB_gaph.pdf RGB_gaph.png
 
 RGB_gaph.eps: RGB_gaph.gle
-	gle -device EPS -cairo RGB_gaph.gle
+	gle -device EPS  RGB_gaph.gle
+
+eps: RGB_gaph.eps
 
 RGB_gaph.pdf: RGB_gaph.gle
-	gle -device PDF -cairo RGB_gaph.gle
+	gle -device PDF  RGB_gaph.gle
+
+pdf: RGB_gaph.pdf
 
 RGB_gaph.png: RGB_gaph.gle
-	gle -device PNG -cairo -DPI 150 RGB_gaph.gle
+	gle -device PNG -DPI 150 RGB_gaph.gle
+
+png: RGB_gaph.png
 
 clean:
 	-$(RM) RGB_gaph.eps RGB_gaph.pdf RGB_gaph.png
