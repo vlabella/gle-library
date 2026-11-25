@@ -6,7 +6,7 @@
 # NMAKE code here \
 !ifndef 0 # \
 MV=move # \
-RM=del # \
+RM=del /Q # \
 RMDIR=rmdir /S /Q # \
 CP=copy # \
 MAKE=nmake /nologo # \
@@ -29,17 +29,17 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: wallx.eps wallx.pdf wallx.png
 
 wallx.eps: wallx.gle
-	gle -device EPS -cairo  wallx.gle
+	gle -device EPS  wallx.gle
 
 eps: wallx.eps
 
 wallx.pdf: wallx.gle
-	gle -device PDF -cairo  wallx.gle
+	gle -device PDF  wallx.gle
 
 pdf: wallx.pdf
 
 wallx.png: wallx.gle
-	gle -device PNG -cairo -DPI 150 wallx.gle
+	gle -device PNG -DPI 150 wallx.gle
 
 png: wallx.png
 

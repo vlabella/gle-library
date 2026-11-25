@@ -190,7 +190,7 @@ sub graph_print_inv x y
 end sub
 
 sub dmaxx ds$
-   ! Function to compute the maximum x-value of a dataset
+   ! returns the maximum x-value of a dataset
    local i
    local nd = ndata(ds$)
    if nd = 0 then
@@ -209,7 +209,7 @@ end sub
 
 
 sub dmaxy ds$
-   ! Function to compute the maximum y-value of a dataset
+   ! returns the maximum y-value of a dataset
    local i
    local nd = ndata(ds$)
    if nd = 0 then
@@ -226,27 +226,36 @@ sub dmaxy ds$
    return crmax
 end sub
 
-sub dmaxy_original ds$
-   ! Function to compute the maximum y-value of a dataset
+sub dmaxy_x ds$
+   ! returns the corresponding x-value of the maximum y-value of a dataset
    local i
-   local nd = ndata(ds$)
-   if nd = 0 then
-      print "Error: data set " ds$ "has zero elements"
-      return 0
-   end if
    local crmax = datayvalue(ds$,1)
-   if nd = 1 then
-      return crmax
-   end if
-   for i = 2 to nd
-      crmax = max(crmax, datayvalue(ds$,i))
+   local _xmax = dataxvalue(ds$,1)
+   for i = 2 to ndata(ds$)
+      if crmax < datayvalue(ds$,i) then
+            crmax = datayvalue(ds$,i)
+           _xmax = dataxvalue(ds$,i)
+      end if
    next i
-   return crmax
+   return _xmax
 end sub
 
+sub dminy_x ds$
+   ! returns the corresponding x-value of the minimum y-value of a dataset
+   local i
+   local crmin = datayvalue(ds$,1)
+   local _xmin = dataxvalue(ds$,1)
+   for i = 2 to ndata(ds$)
+      if crmin > datayvalue(ds$,i) then
+            crmin = datayvalue(ds$,i)
+           _xmin = dataxvalue(ds$,i)
+      end if
+   next i
+   return _xmin
+end sub
 
 sub dminx ds$
-   ! Function to compute the minimum x-value of a dataset
+   ! returns the minimum x-value of a dataset
    local i
    local nd = ndata(ds$)
    if nd = 0 then
@@ -264,7 +273,7 @@ sub dminx ds$
 end sub
 
 sub dminy ds$
-   ! Function to compute the minimum y-value of a dataset
+   ! returns the minimum y-value of a dataset
    local i
    local nd = ndata(ds$)
    if nd = 0 then
@@ -282,7 +291,7 @@ sub dminy ds$
 end sub
 
 sub dmeany ds$
-   ! Function to compute the mean y-value of a dataset
+   ! returns the mean y-value of a dataset
    local i
    local nd = ndata(ds$)
    if nd = 0 then
@@ -297,7 +306,7 @@ sub dmeany ds$
 end sub
 
 sub dmeanx ds$
-   ! Function to compute the mean x-value of a dataset
+   ! returns the mean x-value of a dataset
    local i
    local nd = ndata(ds$)
    if nd = 0 then
@@ -312,7 +321,7 @@ sub dmeanx ds$
 end sub
 
 sub dstdevy ds$ sample
-   ! Function to compute the standard deviation of the y-values
+   ! returns the standard deviation of the y-values
    ! sample = 0: population standard deviation, divide by n
    ! sample = 1: sample standard deviation, divide by n-1
    default sample 0
@@ -339,7 +348,7 @@ sub dstdevy ds$ sample
 end sub
 
 sub dstdevx ds$ sample
-   ! Function to compute the standard deviation of the x-values
+   ! returns the standard deviation of the x-values
    ! sample = 0: population standard deviation, divide by n
    ! sample = 1: sample standard deviation, divide by n-1
    default sample 0
@@ -366,7 +375,7 @@ sub dstdevx ds$ sample
 end sub
 
 sub darea ds$
-   ! Function to compute the area between a dataset and the x-axis
+   ! returns the area between a dataset and the x-axis
    local i
    local area = 0
    local nd = ndata(ds$)
@@ -386,7 +395,7 @@ sub darea ds$
 end sub
 
 sub dmeany_x ds$ x
-   ! compute average y-value for given x-value x for dataset ds$
+   ! returns the average y-value for given x-value x for dataset ds$
    local i
    local nb_y = 0
    local sum_y = 0
@@ -404,7 +413,7 @@ sub dmeany_x ds$ x
 end sub
 
 sub derry_up_x ds$ x
-   ! compute maximum upward deviation from the mean y-value
+   ! returns the maximum upward deviation from the mean y-value
    local i
    local max_err = -1e300
    if nd = 0 then
@@ -421,7 +430,7 @@ sub derry_up_x ds$ x
 end sub
 
 sub derry_down_x ds$ x
-   ! compute maximum downward deviation from the mean y-value
+   ! returns the maximum downward deviation from the mean y-value
    local i
    if nd = 0 then
       print "Error: data set " ds$ "has zero elements"

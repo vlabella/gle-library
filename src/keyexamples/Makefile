@@ -6,7 +6,7 @@
 # NMAKE code here \
 !ifndef 0 # \
 MV=move # \
-RM=del # \
+RM=del /Q # \
 RMDIR=rmdir /S /Q # \
 CP=copy # \
 MAKE=nmake /nologo # \
@@ -29,17 +29,17 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: keyexamples.eps keyexamples.pdf keyexamples.png
 
 keyexamples.eps: keyexamples.gle
-	gle -device EPS -cairo  keyexamples.gle
+	gle -device EPS  keyexamples.gle
 
 eps: keyexamples.eps
 
 keyexamples.pdf: keyexamples.gle
-	gle -device PDF -cairo  keyexamples.gle
+	gle -device PDF  keyexamples.gle
 
 pdf: keyexamples.pdf
 
 keyexamples.png: keyexamples.gle
-	gle -device PNG -cairo -DPI 150 keyexamples.gle
+	gle -device PNG -DPI 150 keyexamples.gle
 
 png: keyexamples.png
 

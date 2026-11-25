@@ -1,6 +1,6 @@
 author: ''
 author_email: ''
-cairo: true
+cairo: false
 category: line
 description: ''
 filename: super-ellipse.gle

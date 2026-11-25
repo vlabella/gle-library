@@ -1,8 +1,8 @@
-author: 'Francois Tonneau'
+author:       'Francois Tonneau'
 author_email: 'francois.tonneau@gmail.com'
-cairo: true
-category: polar
-description: ''
-filename: windrose.gle
-name: windrose
-notes: ''
+cairo:        false
+category:     polar
+description:  ''
+filename:     windrose.gle
+name:         windrose
+notes:        ''

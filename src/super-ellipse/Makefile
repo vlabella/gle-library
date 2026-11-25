@@ -6,7 +6,7 @@
 # NMAKE code here \
 !ifndef 0 # \
 MV=move # \
-RM=del # \
+RM=del /Q # \
 RMDIR=rmdir /S /Q # \
 CP=copy # \
 MAKE=nmake /nologo # \
@@ -29,17 +29,17 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: super-ellipse.eps super-ellipse.pdf super-ellipse.png
 
 super-ellipse.eps: super-ellipse.gle
-	gle -device EPS -cairo  super-ellipse.gle
+	gle -device EPS  super-ellipse.gle
 
 eps: super-ellipse.eps
 
 super-ellipse.pdf: super-ellipse.gle
-	gle -device PDF -cairo  super-ellipse.gle
+	gle -device PDF  super-ellipse.gle
 
 pdf: super-ellipse.pdf
 
 super-ellipse.png: super-ellipse.gle
-	gle -device PNG -cairo -DPI 150 super-ellipse.gle
+	gle -device PNG -DPI 150 super-ellipse.gle
 
 png: super-ellipse.png
 

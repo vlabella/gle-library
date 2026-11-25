@@ -6,7 +6,7 @@
 # NMAKE code here \
 !ifndef 0 # \
 MV=move # \
-RM=del # \
+RM=del /Q # \
 RMDIR=rmdir /S /Q # \
 CP=copy # \
 MAKE=nmake /nologo # \
