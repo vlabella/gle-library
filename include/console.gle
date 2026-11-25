@@ -1,0 +1,156 @@
+!==============================================================================
+! console.gle
+!
+! Console helpers for debugging and regression testing.
+!
+! Requires:
+!   PRINT_COLOR - colored console output
+!   EXIT        - terminate execution with an optional status code
+!
+! Convention:
+!   console_* routines provide formatted console messages.
+!   test_* routines print PASS/FAIL messages.
+!   assert_* routines terminate immediately with EXIT 1 on failure.
+!==============================================================================
+
+
+!------------------------------------------------------------------------------
+! Console messages
+!------------------------------------------------------------------------------
+
+sub console_info message$
+    print_color cyan message$
+end sub
+
+
+sub console_status message$
+    print_color bright_cyan "STATUS: " + message$
+end sub
+
+
+sub console_success message$
+    print_color green message$
+end sub
+
+
+sub console_warning message$
+    print_color yellow "WARNING: " + message$
+end sub
+
+
+sub console_error message$
+    print_color red "ERROR: " + message$
+end sub
+
+
+sub console_debug message$
+    print_color gray50 "DEBUG: " + message$
+end sub
+
+
+!------------------------------------------------------------------------------
+! Test result messages
+!------------------------------------------------------------------------------
+
+sub test_pass message$
+    print_color green "PASS: " + message$
+end sub
+
+
+sub test_fail message$
+    print_color red "FAIL: " + message$
+end sub
+
+
+sub fail message$
+    test_fail message$
+    exit 1
+end sub
+
+
+!------------------------------------------------------------------------------
+! Boolean assertions
+!------------------------------------------------------------------------------
+
+sub assert condition message$
+    if condition then
+        test_pass message$
+    else
+        fail message$
+    end if
+end sub
+
+
+sub assert_true condition message$
+    assert condition message$
+end sub
+
+
+sub assert_false condition message$
+    assert not condition message$
+end sub
+
+
+!------------------------------------------------------------------------------
+! Numeric assertions
+!------------------------------------------------------------------------------
+
+sub assert_equal actual expected message$
+    if actual = expected then
+        test_pass message$
+    else
+        test_fail message$
+
+        print "  expected: "; expected
+        print "  actual:   "; actual
+
+        exit 1
+    end if
+end sub
+
+
+sub assert_close actual expected tolerance message$
+    if is_close(actual, expected, tolerance) then
+        test_pass message$
+    else
+        test_fail message$
+
+        print "  expected:  "; expected
+        print "  actual:    "; actual
+        print "  tolerance: "; tolerance
+
+        exit 1
+    end if
+end sub
+
+
+!------------------------------------------------------------------------------
+! String assertions
+!------------------------------------------------------------------------------
+
+sub assert_string_equal actual$ expected$ message$
+    if actual$ = expected$ then
+        test_pass message$
+    else
+        test_fail message$
+
+        print "  expected: "; expected$
+        print "  actual:   "; actual$
+
+        exit 1
+    end if
+end sub
+
+
+!------------------------------------------------------------------------------
+! Test organization
+!------------------------------------------------------------------------------
+
+sub test_section message$
+    print_color bright_cyan "=== " + message$ + " ==="
+end sub
+
+
+sub test_complete
+    print_color bright_green "ALL TESTS PASSED"
+end sub
