@@ -29,17 +29,17 @@ INSTALL_INCLUDES=sudo cp ../include/*.gle /usr/share/gle-graphics/gleinc
 all: windrose.eps windrose.pdf windrose.png
 
 windrose.eps: windrose.gle
-	gle -device EPS -cairo  windrose.gle
+	gle -device EPS  windrose.gle
 
 eps: windrose.eps
 
 windrose.pdf: windrose.gle
-	gle -device PDF -cairo  windrose.gle
+	gle -device PDF  windrose.gle
 
 pdf: windrose.pdf
 
 windrose.png: windrose.gle
-	gle -device PNG -cairo -DPI 150 windrose.gle
+	gle -device PNG -DPI 150 windrose.gle
 
 png: windrose.png
 
